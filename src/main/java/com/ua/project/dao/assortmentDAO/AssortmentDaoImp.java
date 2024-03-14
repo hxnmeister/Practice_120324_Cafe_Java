@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AssortmentDaoImp implements AssortmentDao{
     private static final String INSERT_ASSORTMENT = """
-        INSERT INTO assortment(title, quantity, price, assortmentTypeId)
+        INSERT INTO assortment(title, quantity, price, assortment_type_id)
         VALUES (?, ?, ?, ?)
     """;
     private static final String UPDATE_ASSORTMENT = """

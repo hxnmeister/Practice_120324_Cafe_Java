@@ -10,4 +10,5 @@ import java.util.List;
 public interface PositionDao extends CRUDInterface<Position> {
 
     boolean isPositionAvailable(String title) throws SQLException, ConnectionDBException;
+    Position getPositionByTitle(String title) throws ConnectionDBException, SQLException;
 }

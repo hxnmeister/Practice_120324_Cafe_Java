@@ -30,6 +30,11 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
         SELECT *
         FROM personal_email_addresses
     """;
+    private static final String GET_PERSONAL_EMAIL_ADDRESS_BY_PERSONAL_ID = """
+        SELECT *
+        FROM personal_email_addresses
+        WHERE personal_id=?
+    """;
 
     @Override
     public void save(PersonalEmailAddress item) throws SQLException, ConnectionDBException {
@@ -107,6 +112,28 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_PERSONAL_EMAIL_ADDRESS);
+        }
+    }
+
+    @Override
+    public List<PersonalEmailAddress> findByPersonalId(long personalId) throws ConnectionDBException, SQLException {
+        List<PersonalEmailAddress> personalEmailAddressList = new ArrayList<PersonalEmailAddress>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_PERSONAL_EMAIL_ADDRESS_BY_PERSONAL_ID)) {
+
+            statement.setLong(1, personalId);
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    personalEmailAddressList.add(PersonalEmailAddress.builder()
+                            .id(queryResult.getLong("id"))
+                            .emailAddress(queryResult.getString("email_address"))
+                            .personalId(queryResult.getLong("personal_id"))
+                            .build());
+                }
+
+                return personalEmailAddressList;
+            }
         }
     }
 }

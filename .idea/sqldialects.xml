@@ -2,15 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/init.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/assortmentDAO/AssortmentDaoImp.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/assortment_typeDAO/AssortmentTypeDaoImpl.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDaoImp.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImp.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/ordersDAO/OrderDaoImp.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDaoImp.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/personal_email_addressDAO/PersonalEmailAddressDaoImp.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/personal_phone_numberDAO/PersonalPhoneNumberDaoImp.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/positionDAO/PositionDaoImp.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDaoImp.java" dialect="GenericSQL" />
   </component>
 </project>

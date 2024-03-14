@@ -30,6 +30,11 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
         SELECT *
         FROM personal_phone_numbers
     """;
+    private static final String GET_PERSONAL_PHONE_NUMBER_BY_PERSONAL_ID = """
+        SELECT *
+        FROM personal_phone_numbers
+        WHERE personal_id=?
+    """;
 
     @Override
     public void save(PersonalPhoneNumber item) throws SQLException, ConnectionDBException {
@@ -107,6 +112,28 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_PERSONAL_PHONE_NUMBER);
+        }
+    }
+
+    @Override
+    public List<PersonalPhoneNumber> findByPersonalId(long personalId) throws ConnectionDBException, SQLException {
+        List<PersonalPhoneNumber> personalPhoneNumberList = new ArrayList<PersonalPhoneNumber>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_PERSONAL_PHONE_NUMBER_BY_PERSONAL_ID)) {
+
+            statement.setLong(1, personalId);
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    personalPhoneNumberList.add(PersonalPhoneNumber.builder()
+                            .id(queryResult.getLong("id"))
+                            .phoneNumber(queryResult.getString("phone_number"))
+                            .personalId(queryResult.getLong("personal_id"))
+                            .build());
+                }
+
+                return personalPhoneNumberList;
+            }
         }
     }
 }

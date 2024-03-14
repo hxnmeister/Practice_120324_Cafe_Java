@@ -36,6 +36,11 @@ public class AssortmentTypeDaoImpl implements AssortmentTypeDao{
             WHERE title=?
         )
     """;
+    private static final String GET_ASSORTMENT_TYPE_BY_TITLE = """
+        SELECT *
+        FROM assortment_types
+        WHERE title=?
+    """;
 
     @Override
     public void save(AssortmentType item) throws SQLException, ConnectionDBException {
@@ -125,6 +130,25 @@ public class AssortmentTypeDaoImpl implements AssortmentTypeDao{
                 }
 
                 return false;
+            }
+        }
+    }
+
+    @Override
+    public AssortmentType getAssortmentTypeByTitle(String title) throws ConnectionDBException, SQLException {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_ASSORTMENT_TYPE_BY_TITLE)) {
+
+            statement.setString(1, title);
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    return AssortmentType.builder()
+                            .id(queryResult.getLong("id"))
+                            .title(queryResult.getString("title"))
+                            .build();
+                }
+
+                return AssortmentType.builder().build();
             }
         }
     }

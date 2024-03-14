@@ -1,21 +1,30 @@
 package com.ua.project;
 
+import com.ua.project.exception.ConnectionDBException;
+import com.ua.project.menu.MenuExecutor;
+import com.ua.project.service.CafeInitializer;
+
+import java.sql.SQLException;
+
 /**
  * Hello world!
  *
  */
 public class App {
     public static void main( String[] args ) {
-        StringBuilder builder = new StringBuilder();
-        String[] strings = {"quantity", "amount", "price"};
+        System.setProperty("test", "false");
 
-        builder.append("UPDATE assortment SET ");
-        for (String string : strings) {
-            builder.append(string).append("=?, ");
+//        CafeInitializer cafe = new CafeInitializer();
+//        cafe.cafeInit();
+
+        try {
+            MenuExecutor.menuItem6Execute();
         }
-        builder.deleteCharAt(builder.length() - 1);
-        builder.append(" WHERE id=?");
-
-        System.out.println(builder.toString());
+        catch (ConnectionDBException e) {
+            System.out.println(" Failed connection to DB!");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

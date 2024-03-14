@@ -37,6 +37,11 @@ public class PositionDaoImp implements PositionDao {
             WHERE title=?
         )
     """;
+    private static final String GET_POSITION_BY_TITLE = """
+        SELECT *
+        FROM positions
+        WHERE title=?
+    """;
 
     @Override
     public void save(Position item) throws SQLException, ConnectionDBException {
@@ -126,6 +131,25 @@ public class PositionDaoImp implements PositionDao {
                 }
 
                 return false;
+            }
+        }
+    }
+
+    @Override
+    public Position getPositionByTitle(String title) throws ConnectionDBException, SQLException {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_POSITION_BY_TITLE)) {
+
+            statement.setString(1, title);
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    return Position.builder()
+                            .id(queryResult.getLong("id"))
+                            .title(queryResult.getString("title"))
+                            .build();
+                }
+
+                return Position.builder().build();
             }
         }
     }

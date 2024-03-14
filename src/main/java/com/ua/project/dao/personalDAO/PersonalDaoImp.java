@@ -38,7 +38,7 @@ public class PersonalDaoImp implements PersonalDao {
             FROM personal p
             JOIN positions pos ON p.position_id=pos.id
             WHERE pos.title=? AND p.first_name=? AND p.last_name=?
-        )
+        ) AND pea.email_address=?
     """;
     private static final String UPDATE_PHONE_NUMBER_BY_POSITION_AND_NAME = """
         UPDATE personal_phone_numbers ppn
@@ -48,7 +48,7 @@ public class PersonalDaoImp implements PersonalDao {
             FROM personal p
             JOIN positions pos ON p.position_id=pos.id
             WHERE pos.title=? AND p.first_name=? AND p.last_name=?
-        )
+        ) AND ppn.phone_number=?
     """;
     private static final String DELETE_PERSONAL_BY_POSITION_AND_NAME = """
         DELETE FROM personal
@@ -59,7 +59,7 @@ public class PersonalDaoImp implements PersonalDao {
         )
     """;
     private static final String GET_PERSONAL_BY_POSITION = """
-        SELECT per.id, per.first_nam, per.last_name, per.patronymic, per.position_id
+        SELECT per.id, per.first_name, per.last_name, per.patronymic, per.position_id
         FROM personal per
         JOIN positions pos ON per.position_id = pos.id
         WHERE pos.title=?
@@ -153,7 +153,7 @@ public class PersonalDaoImp implements PersonalDao {
     }
 
     @Override
-    public void changeEmailAddressByPositionAndName(String newEmailAddress, String position, Personal personal) throws ConnectionDBException, SQLException {
+    public void changeEmailAddressByPositionAndName(String newEmailAddress, String oldEmailAddress, String position, Personal personal) throws ConnectionDBException, SQLException {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_EMAIL_ADDRESS_BY_POSITION_AND_NAME)) {
 
@@ -161,13 +161,14 @@ public class PersonalDaoImp implements PersonalDao {
             statement.setString(2, position);
             statement.setString(3, personal.getFirstName());
             statement.setString(4, personal.getLastName());
+            statement.setString(5, oldEmailAddress);
 
             statement.execute();
         }
     }
 
     @Override
-    public void changePhoneNumberByPositionAndName(String newPhoneNumber, String position, Personal personal) throws ConnectionDBException, SQLException {
+    public void changePhoneNumberByPositionAndName(String newPhoneNumber, String oldPhoneNumber, String position, Personal personal) throws ConnectionDBException, SQLException {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_PHONE_NUMBER_BY_POSITION_AND_NAME)) {
 
@@ -175,6 +176,7 @@ public class PersonalDaoImp implements PersonalDao {
             statement.setString(2, position);
             statement.setString(3, personal.getFirstName());
             statement.setString(4, personal.getLastName());
+            statement.setString(5, oldPhoneNumber);
 
             statement.execute();
         }
