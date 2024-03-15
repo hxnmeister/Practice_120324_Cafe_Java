@@ -41,7 +41,7 @@ public class AssortmentDaoImp implements AssortmentDao{
         )
     """;
     private static final String DELETE_ASSORTMENT_BY_TYPE_AND_TITLE = """
-        DELETE assortment
+        DELETE FROM assortment
         WHERE id=(
             SELECT a.id
             FROM assortment a

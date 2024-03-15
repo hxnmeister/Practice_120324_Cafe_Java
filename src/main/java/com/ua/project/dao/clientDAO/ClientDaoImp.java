@@ -160,6 +160,8 @@ public class ClientDaoImp implements ClientDao {
 
             statement.setString(1, client.getFirstName());
             statement.setString(2, client.getLastName());
+
+            statement.execute();
         }
     }
 }

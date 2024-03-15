@@ -14,11 +14,11 @@ public class App {
     public static void main( String[] args ) {
         System.setProperty("test", "false");
 
-//        CafeInitializer cafe = new CafeInitializer();
-//        cafe.cafeInit();
+        CafeInitializer cafe = new CafeInitializer();
+        cafe.cafeInit();
 
         try {
-            MenuExecutor.menuItem6Execute();
+            MenuExecutor.startMenu();
         }
         catch (ConnectionDBException e) {
             System.out.println(" Failed connection to DB!");

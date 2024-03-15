@@ -48,37 +48,37 @@ public class MenuExecutor {
             menuItem5Execute();
         }
         else if(choice == 6) {
-
+            menuItem6Execute();
         }
         else if(choice == 7) {
-
+            menuItem7Execute();
         }
         else if(choice == 8) {
-
+            menuItem8Execute();
         }
         else if(choice == 9) {
-
+            menuItem9Execute();
         }
         else if(choice == 10) {
-
+            menuItem10Execute();
         }
         else if(choice == 11) {
-
+            menuItem11Execute();
         }
         else if(choice == 12) {
-
+            menuItem12Execute();
         }
         else if(choice == 13) {
-
+            menuItem13Execute();
         }
         else if(choice == 14) {
-
+            menuItem14Execute();
         }
         else if(choice == 15) {
-
+            menuItem15Execute();
         }
         else {
-
+            System.out.println(" Incorrect number, allowed range from 1 to 15!\n Try again!");
         }
     }
 
@@ -201,10 +201,11 @@ public class MenuExecutor {
     public static void menuItem5Execute() throws ConnectionDBException, SQLException {
         Scanner scanner = new Scanner(System.in);
         String coffeeName;
+        String assortmentType = "drink";
         BigDecimal newPrice;
         AssortmentDao assortmentDao = new AssortmentDaoImp();
 
-        showAllDrinks();
+        showAllAssortmentByType(assortmentType);
         System.out.println();
 
         System.out.print(" Enter coffee name: ");
@@ -231,22 +232,171 @@ public class MenuExecutor {
         Scanner scanner = new Scanner(System.in);
         Personal personal = new Personal();
         String newEmailAddress;
+        String oldEmailAddress;
+        final String position = "confectioner";
         PersonalDao personalDao = new PersonalDaoImp();
-        PersonalEmailAddressDao personalDao = new PersonalEmailAddressDaoImp();
-        List<PersonalEmailAddress> personalEmailAddressList = personalDao.findByPersonalId();
 
-        showPersonalByPosition("confectioner");
+        showPersonalByPosition(position);
 
+        System.out.println("\n In fields below enter data about " + position + " to change email\n");
         System.out.print(" Enter first name: ");
         personal.setFirstName(scanner.nextLine());
 
         System.out.print(" Enter last name: ");
         personal.setLastName(scanner.nextLine());
 
-        System.out.print(" Enter new email address: ");
+        System.out.print(" Enter old email: ");
+        oldEmailAddress = scanner.nextLine();
+
+        System.out.print(" Enter new email: ");
         newEmailAddress = scanner.nextLine();
 
-        personalDao.changeEmailAddressByPositionAndName(newEmailAddress, );
+        personalDao.changeEmailAddressByPositionAndName(newEmailAddress, oldEmailAddress, position, personal);
+    }
+
+    public static void menuItem7Execute() throws ConnectionDBException, SQLException {
+        Scanner scanner = new Scanner(System.in);
+        Personal personal = new Personal();
+        String newPhoneNumber;
+        String oldPhoneNumber;
+        final String position = "barista";
+        PersonalDao personalDao = new PersonalDaoImp();
+
+        showPersonalByPosition(position);
+
+        System.out.println("\n In fields below enter data about " + position + " to change email\n");
+        System.out.print(" Enter first name: ");
+        personal.setFirstName(scanner.nextLine());
+
+        System.out.print(" Enter last name: ");
+        personal.setLastName(scanner.nextLine());
+
+        System.out.print(" Enter old phone number: ");
+        oldPhoneNumber = scanner.nextLine();
+
+        System.out.print(" Enter new phone number: ");
+        newPhoneNumber = scanner.nextLine();
+
+        personalDao.changePhoneNumberByPositionAndName(newPhoneNumber, oldPhoneNumber, position, personal);
+    }
+
+    public static void  menuItem8Execute() throws ConnectionDBException, SQLException {
+        Scanner scanner = new Scanner(System.in);
+        ClientDao clientDao = new ClientDaoImp();
+        Client client = new Client();
+
+        showAllClients();
+
+        System.out.println("\n In fields below enter data about client to change discount:\n");
+
+        System.out.print("  Enter first name: ");
+        client.setFirstName(scanner.nextLine());
+
+        System.out.print("  Enter last name: ");
+        client.setLastName(scanner.nextLine());
+
+        while (true) {
+            try {
+                int newDiscount;
+
+                System.out.print("  Enter new discount value: ");
+                newDiscount = scanner.nextInt();
+
+                if(newDiscount < 0 || newDiscount > 99) {
+                    throw new IllegalArgumentException("\n Incorrect range for discount " + newDiscount + "!\n Please enter number between 0 and 99\n");
+                }
+
+                client.setDiscount(newDiscount);
+                break;
+            }
+            catch (InputMismatchException e) {
+                System.out.println("\n Please enter correct number!");
+                scanner.nextLine();
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                scanner.nextLine();
+            }
+        }
+
+        clientDao.changeDiscountValueByName(client);
+    }
+
+    public static void menuItem9Execute() throws ConnectionDBException, SQLException {
+        String assortmentType = "drink";
+
+        showAllAssortmentByType(assortmentType);
+    }
+
+    public static void menuItem10Execute() throws ConnectionDBException, SQLException {
+        String assortmentType = "desert";
+
+        showAllAssortmentByType(assortmentType);
+    }
+
+    public static void menuItem11Execute() throws ConnectionDBException, SQLException {
+        String position = "barista";
+
+        showPersonalByPosition(position);
+    }
+
+    public static void menuItem12Execute() throws ConnectionDBException, SQLException {
+        String position = "waiter";
+
+        showPersonalByPosition(position);
+    }
+
+    public static void menuItem13Execute() throws ConnectionDBException, SQLException {
+        Scanner scanner = new Scanner(System.in);
+        AssortmentDao assortmentDao = new AssortmentDaoImp();
+        final String assortmentType = "desert";
+        String desertTitle;
+
+        showAllAssortmentByType(assortmentType);
+
+        System.out.print(" Enter name of desert to delete it: ");
+        desertTitle = scanner.nextLine();
+
+        assortmentDao.deleteAssortmentByTypeAndTitle(assortmentType, desertTitle);
+    }
+
+    public static void menuItem14Execute() throws ConnectionDBException, SQLException {
+        Scanner scanner = new Scanner(System.in);
+        Personal personal = new Personal();
+        PersonalDao personalDao = new PersonalDaoImp();
+        String dismissalReason;
+        final String position = "waiter";
+
+        showPersonalByPosition(position);
+        System.out.println("\n To delete " + position + " enter first, last names and dismissal reason:");
+
+        System.out.print("\n Enter first name: ");
+        personal.setFirstName(scanner.nextLine());
+
+        System.out.print(" Enter last name: ");
+        personal.setLastName(scanner.nextLine());
+
+        System.out.print(" Enter dismissal reason: ");
+        dismissalReason = scanner.nextLine();
+
+        personalDao.deletePersonalByPositionAndName(dismissalReason, position, personal);
+    }
+
+    public static void menuItem15Execute() throws ConnectionDBException, SQLException {
+        Scanner scanner = new Scanner(System.in);
+        ClientDao clientDao = new ClientDaoImp();
+        Client client = new Client();
+
+        showAllClients();
+        System.out.println("\n  To delete client in fields below enter first and last names:");
+
+        System.out.print("\n Enter first name: ");
+        client.setFirstName(scanner.nextLine());
+
+        System.out.print(" Enter last name: ");
+        client.setLastName(scanner.nextLine());
+
+        clientDao.deleteClientByName(client);
     }
 
     private static void addPersonal(String position) throws ConnectionDBException, SQLException {
@@ -276,11 +426,12 @@ public class MenuExecutor {
                 .build());
     }
 
-    private static void showAllDrinks() throws ConnectionDBException, SQLException {
+    private static void showAllAssortmentByType(String type) throws ConnectionDBException, SQLException {
         AssortmentDao assortmentDao = new AssortmentDaoImp();
-        List<Assortment> assortmentList = assortmentDao.getAssortmentByType("drink");
+        List<Assortment> assortmentList = assortmentDao.getAssortmentByType(type);
 
-        assortmentList.forEach((item) -> System.out.println(item.getTitle() + " | " + item.getQuantity() + " | " + item.getPrice() + "$"));
+        System.out.println("\n All " + type + "`s in menu:\n");
+        assortmentList.forEach((item) -> System.out.println(" " + item.getTitle() + " | " + item.getQuantity() + " | " + item.getPrice() + "$"));
     }
 
     private static void showPersonalByPosition(String position) throws ConnectionDBException, SQLException {
@@ -289,7 +440,7 @@ public class MenuExecutor {
         PersonalEmailAddressDao personalEmailAddressDao = new PersonalEmailAddressDaoImp();
         List<Personal> personalList = personalDao.getPersonalByPosition(position.toLowerCase());
 
-        System.out.println(" All personal by position " + position.toLowerCase() + ":");
+        System.out.println("\n All personal by position " + position.toLowerCase() + ":\n");
         for (Personal personal : personalList) {
             System.out.println(personal.getFirstName() + " " + personal.getLastName() + " " + personal.getPatronymic() + "\n  Phone numbers and emails: ");
 
@@ -302,6 +453,23 @@ public class MenuExecutor {
             }
 
             System.out.println();
+            System.out.println("-".repeat(25));
         }
+    }
+
+    private static void showAllClients() throws ConnectionDBException, SQLException {
+        ClientDao clientDao = new ClientDaoImp();
+        List<Client> clients = clientDao.findAll();
+
+        System.out.println("\n All clients:");
+        clients.forEach((client) -> System.out.println(
+                "  " + client.getFirstName()
+                + " " + client.getLastName()
+                + " " + client.getPatronymic()
+                + "\n  Birthday: " + client.getBirthDate()
+                + "\n  Contact phone: " + client.getContactPhone()
+                + "\n  Contact email: " + client.getContactEmail()
+                + "\n " + "-".repeat(40)
+        ));
     }
 }
