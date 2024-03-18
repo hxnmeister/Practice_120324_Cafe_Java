@@ -38,21 +38,16 @@ public class AssortmentTypeDaoImpTest {
         int actualSize;
         int expectedSize;
         List<AssortmentType> actualList;
-        List<AssortmentType> expectedList = new ArrayList<AssortmentType>(List.of(
-                AssortmentType.builder().id(1L).title("desert").build(),
-                AssortmentType.builder().id(2L).title("drink").build(),
-                AssortmentType.builder().id(3L).title("type1").build()
-        ));
-        AssortmentType insertData = AssortmentType.builder()
-                .id(3L)
-                .title("type1")
-                .build();
+        List<AssortmentType> expectedList = getExpectedAssortmentTypeList();
+        AssortmentType insertData = AssortmentType.builder().id(3L).title("type1").build();
+
+        expectedList.add(insertData);
 
         assortmentTypeDao.save(insertData);
         actualList = assortmentTypeDao.findAll();
 
         actualSize = actualList.size();
-        expectedSize = 3;
+        expectedSize = expectedList.size();
 
         assertEquals(expectedSize, actualSize);
         assertEquals(expectedList, actualList);
