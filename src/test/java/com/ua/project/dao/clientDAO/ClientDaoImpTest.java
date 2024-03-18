@@ -1,8 +1,5 @@
 package com.ua.project.dao.clientDAO;
 
-import com.ua.project.dao.assortmentDAO.AssortmentDao;
-import com.ua.project.dao.assortmentDAO.AssortmentDaoImp;
-import com.ua.project.model.Assortment;
 import com.ua.project.model.Client;
 import com.ua.project.service.CafeDbInitializer;
 import com.ua.project.utils.DBTestData;
@@ -11,7 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;

@@ -39,3 +39,11 @@ VALUES ('ClientFirstName1', 'ClientLastName1', 'ClientPatron1', '2000-01-02', '+
        ('ClientFirstName2', 'ClientLastName2', 'ClientPatron2', '2000-02-12', '+380901877766', 'clientmail2@temp.org.ua', 0),
        ('ClientFirstName3', 'ClientLastName3', 'ClientPatron3', '2000-03-22', '+380998341766', 'clientmail3@temp.com.ua', 5),
        ('ClientFirstName4', 'ClientLastName4', 'ClientPatron4', '2000-04-15', '+380998107766', 'clientmail4@temp.ua', 7);
+
+INSERT INTO orders(price, price_with_discount, timestamp, personal_id, client_id)
+VALUES (123.3, 123.3, '2024-02-12 12:30', 2, 1),
+       (267.3, 260.8, '2024-02-10 11:42', 5, 4),
+       (542.9, 500.5, '2024-03-16 16:21', 3, 2);
+
+INSERT INTO orders_and_assortment(order_id, assortment_id)
+VALUES (1, 3), (1, 2), (2, 5), (2, 4), (3, 1)

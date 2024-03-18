@@ -1,4 +1,4 @@
-package com.ua.project.dao.ordersDAO;
+package com.ua.project.dao.orderDAO;
 
 import com.ua.project.dao.ConnectionFactory;
 import com.ua.project.exception.ConnectionDBException;
