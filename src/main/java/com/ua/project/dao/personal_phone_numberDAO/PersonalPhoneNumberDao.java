@@ -8,5 +8,5 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface PersonalPhoneNumberDao extends CRUDInterface<PersonalPhoneNumber> {
-    List<PersonalPhoneNumber> findByPersonalId(long personalId) throws ConnectionDBException, SQLException;
+    List<PersonalPhoneNumber> findByPersonalId(long personalId);
 }

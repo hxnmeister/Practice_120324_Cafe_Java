@@ -8,5 +8,5 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface PersonalEmailAddressDao extends CRUDInterface<PersonalEmailAddress> {
-    List<PersonalEmailAddress> findByPersonalId(long personalId) throws ConnectionDBException, SQLException;
+    List<PersonalEmailAddress> findByPersonalId(long personalId);
 }

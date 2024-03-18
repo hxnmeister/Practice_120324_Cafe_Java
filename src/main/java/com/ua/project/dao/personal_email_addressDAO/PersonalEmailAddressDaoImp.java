@@ -37,7 +37,7 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
     """;
 
     @Override
-    public void save(PersonalEmailAddress item) throws SQLException, ConnectionDBException {
+    public void save(PersonalEmailAddress item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_PERSONAL_EMAIL_ADDRESS)) {
 
@@ -46,10 +46,13 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void saveMany(List<PersonalEmailAddress> items) throws SQLException, ConnectionDBException {
+    public void saveMany(List<PersonalEmailAddress> items) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_PERSONAL_EMAIL_ADDRESS)) {
 
@@ -62,10 +65,13 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
 
             statement.executeBatch();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void update(PersonalEmailAddress item) throws SQLException, ConnectionDBException {
+    public void update(PersonalEmailAddress item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_PERSONAL_EMAIL_ADDRESS)) {
 
@@ -74,20 +80,26 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void delete(PersonalEmailAddress item) throws SQLException, ConnectionDBException {
+    public void delete(PersonalEmailAddress item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_PERSONAL_EMAIL_ADDRESS)) {
 
             statement.setLong(1, item.getId());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<PersonalEmailAddress> findAll() throws SQLException, ConnectionDBException {
+    public List<PersonalEmailAddress> findAll() {
         List<PersonalEmailAddress> assortment = new ArrayList<PersonalEmailAddress>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -103,20 +115,27 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
                 }
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return assortment;
     }
 
     @Override
-    public void deleteAll() throws SQLException, ConnectionDBException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_PERSONAL_EMAIL_ADDRESS);
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<PersonalEmailAddress> findByPersonalId(long personalId) throws ConnectionDBException, SQLException {
+    public List<PersonalEmailAddress> findByPersonalId(long personalId) {
         List<PersonalEmailAddress> personalEmailAddressList = new ArrayList<PersonalEmailAddress>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -131,9 +150,12 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
                             .personalId(queryResult.getLong("personal_id"))
                             .build());
                 }
-
-                return personalEmailAddressList;
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return personalEmailAddressList;
     }
 }

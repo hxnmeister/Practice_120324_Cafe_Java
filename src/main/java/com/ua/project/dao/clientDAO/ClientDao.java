@@ -8,6 +8,6 @@ import java.sql.SQLException;
 
 public interface ClientDao extends CRUDInterface<Client> {
 
-    void changeDiscountValueByName(Client client) throws ConnectionDBException, SQLException;
-    void deleteClientByName(Client client) throws ConnectionDBException, SQLException;
+    void changeDiscountValueByName(Client client);
+    void deleteClientByName(Client client);
 }

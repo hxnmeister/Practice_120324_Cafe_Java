@@ -32,7 +32,7 @@ public class ScheduleDaoImp implements ScheduleDao {
     """;
 
     @Override
-    public void save(Schedule item) throws SQLException, ConnectionDBException {
+    public void save(Schedule item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_SCHEDULE)) {
 
@@ -43,10 +43,13 @@ public class ScheduleDaoImp implements ScheduleDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void saveMany(List<Schedule> items) throws SQLException, ConnectionDBException {
+    public void saveMany(List<Schedule> items) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_SCHEDULE)) {
 
@@ -61,10 +64,13 @@ public class ScheduleDaoImp implements ScheduleDao {
 
             statement.executeBatch();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void update(Schedule item) throws SQLException, ConnectionDBException {
+    public void update(Schedule item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_SCHEDULE)) {
 
@@ -75,20 +81,26 @@ public class ScheduleDaoImp implements ScheduleDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void delete(Schedule item) throws SQLException, ConnectionDBException {
+    public void delete(Schedule item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_SCHEDULE)) {
 
             statement.setLong(1, item.getId());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<Schedule> findAll() throws SQLException, ConnectionDBException {
+    public List<Schedule> findAll() {
         List<Schedule> assortmentTypes = new ArrayList<Schedule>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -106,16 +118,22 @@ public class ScheduleDaoImp implements ScheduleDao {
                 }
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
         return assortmentTypes;
     }
 
     @Override
-    public void deleteAll() throws SQLException, ConnectionDBException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_EVERY_SCHEDULE);
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

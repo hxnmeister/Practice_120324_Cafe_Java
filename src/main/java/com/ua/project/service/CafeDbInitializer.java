@@ -1,5 +1,6 @@
 package com.ua.project.service;
 
+import com.ua.project.dao.ConnectionFactory;
 import com.ua.project.dao.assortmentDAO.AssortmentDao;
 import com.ua.project.dao.assortmentDAO.AssortmentDaoImp;
 import com.ua.project.dao.assortment_typeDAO.AssortmentTypeDao;
@@ -24,18 +25,59 @@ import com.ua.project.exception.ConnectionDBException;
 import com.ua.project.exception.FileException;
 import com.ua.project.model.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.SQLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CafeDbInitializer {
     private static final Random RANDOM = new Random();
+    private static final List<String> TABLES_NAME_ARRAY;
+    private static final String SQL_CREATE_TABLES;
 
-    public static void deleteAllRowsInDB() throws ConnectionDBException, SQLException {
+    static {
+        final String TABLES_NAMES = PropertyFactory.getInstance().getProperty().getProperty("db.tablesNames");
+
+        SQL_CREATE_TABLES = PropertyFactory.getInstance().getProperty().getProperty("db.sqlCreateTables");
+        TABLES_NAME_ARRAY = Arrays.stream(TABLES_NAMES.split(",")).collect(Collectors.toList());
+    }
+
+    public static void createTables() {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection()) {
+            for (String tableName : TABLES_NAME_ARRAY) {
+                try (Stream<String> stringStream = Files.lines(Paths.get(SQL_CREATE_TABLES))) {
+                    StringBuilder createTablesQuery = new StringBuilder();
+
+                    for (String currentString : stringStream.collect(Collectors.toList())) {
+                        createTablesQuery.append(currentString).append(" ");
+                    }
+
+                    try (Statement statement = connection.createStatement()) {
+                        statement.execute(createTablesQuery.toString());
+                    }
+                }
+            }
+        }
+        catch (ConnectionDBException e) {
+            System.out.println(" Unable connect to DB!");
+        }
+        catch (IOException e) {
+            System.out.println(" Error with creating table script!");
+        }
+        catch (SQLException e) {
+            System.out.println(" During connection to DB an error occurred!");
+        }
+    }
+
+    public static void deleteAllRowsInDB() {
         OrderDao orderDao = new OrderDaoImp();
         ClientDao clientDao = new ClientDaoImp();
         PersonalDao personalDao = new PersonalDaoImp();
@@ -59,7 +101,7 @@ public class CafeDbInitializer {
         personalEmailAddressDao.deleteAll();
     }
 
-    public static void createPositions() throws ConnectionDBException, SQLException {
+    public static void createPositions() {
         PositionDao positionDao = new PositionDaoImp();
         List<Position> positions = new ArrayList<Position>();
 
@@ -77,7 +119,7 @@ public class CafeDbInitializer {
         }
     }
 
-    public static void createAssortmentTypes() throws ConnectionDBException, SQLException {
+    public static void createAssortmentTypes() {
         AssortmentTypeDao assortmentTypeDao = new AssortmentTypeDaoImpl();
         List<AssortmentType> assortmentTypeList = new ArrayList<AssortmentType>();
 
@@ -92,7 +134,7 @@ public class CafeDbInitializer {
         }
     }
 
-    public static void createRandomAssortment() throws ConnectionDBException, SQLException {
+    public static void createRandomAssortment() {
         final int COUNT_OF_RECORDS = 5;
         AssortmentDao assortmentDao = new AssortmentDaoImp();
         AssortmentTypeDao assortmentTypeDao = new AssortmentTypeDaoImpl();
@@ -116,81 +158,91 @@ public class CafeDbInitializer {
         assortmentDao.saveMany(assortmentList);
     }
 
-    public static void createRandomClients() throws FileException, ConnectionDBException, SQLException {
-        final int COUNT_OF_RECORDS = 7;
-        TxtFileReader firstNamesFileReader = new TxtFileReader("data.first_names");
-        TxtFileReader lastNamesFileReader = new TxtFileReader("data.last_names");
-        TxtFileReader patronymicsFileReader = new TxtFileReader("data.patronymics");
-        List<String> firstNames = firstNamesFileReader.readFile();
-        List<String> lastNames = lastNamesFileReader.readFile();
-        List<String> patronymics = patronymicsFileReader.readFile();
-        List<Client> clients = new ArrayList<Client>();
-        ClientDao clientDao = new ClientDaoImp();
+    public static void createRandomClients() {
+        try {
+            final int COUNT_OF_RECORDS = 7;
+            TxtFileReader firstNamesFileReader = new TxtFileReader("data.first_names");
+            TxtFileReader lastNamesFileReader = new TxtFileReader("data.last_names");
+            TxtFileReader patronymicsFileReader = new TxtFileReader("data.patronymics");
+            List<String> firstNames = firstNamesFileReader.readFile();
+            List<String> lastNames = lastNamesFileReader.readFile();
+            List<String> patronymics = patronymicsFileReader.readFile();
+            List<Client> clients = new ArrayList<Client>();
+            ClientDao clientDao = new ClientDaoImp();
 
-        for (int i = 0; i < COUNT_OF_RECORDS; i++) {
-            int discount = RANDOM.nextInt(100);
-            String contactPhone = String.valueOf(
-                    RANDOM.nextInt(10) +
-                    RANDOM.nextInt(10) +
-                    "-" +
-                    RANDOM.nextInt(10) +
-                    RANDOM.nextInt(10));
-            String contactEmail = "simplemail@mail.com " + RANDOM.nextInt(100);
+            for (int i = 0; i < COUNT_OF_RECORDS; i++) {
+                int discount = RANDOM.nextInt(100);
+                String contactPhone = String.valueOf(
+                        RANDOM.nextInt(10) +
+                                RANDOM.nextInt(10) +
+                                "-" +
+                                RANDOM.nextInt(10) +
+                                RANDOM.nextInt(10));
+                String contactEmail = "simplemail@mail.com " + RANDOM.nextInt(100);
 
-            clients.add(Client.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
-                    .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
-                    .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
-                    .birthDate(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())))
-                    .contactPhone(contactPhone)
-                    .contactEmail(contactEmail)
-                    .discount(discount)
-                    .build());
+                clients.add(Client.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                        .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                        .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                        .birthDate(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())))
+                        .contactPhone(contactPhone)
+                        .contactEmail(contactEmail)
+                        .discount(discount)
+                        .build());
+            }
+
+            clientDao.saveMany(clients);
         }
-
-        clientDao.saveMany(clients);
+        catch (FileException | RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static void createRandomPersonal() throws FileException, ConnectionDBException, SQLException {
-        final int COUNT_OF_RECORDS = 5;
-        TxtFileReader firstNamesFileReader = new TxtFileReader("data.first_names");
-        TxtFileReader lastNamesFileReader = new TxtFileReader("data.last_names");
-        TxtFileReader patronymicsFileReader = new TxtFileReader("data.patronymics");
-        PersonalDao personalDao = new PersonalDaoImp();
-        PositionDao positionDao = new PositionDaoImp();
-        List<String> firstNames = firstNamesFileReader.readFile();
-        List<String> lastNames = lastNamesFileReader.readFile();
-        List<String> patronymics = patronymicsFileReader.readFile();
-        List<Personal> personalList = new ArrayList<Personal>();
-        List<Position> positions = positionDao.findAll();
+    public static void createRandomPersonal() {
+        try {
+            final int COUNT_OF_RECORDS = 5;
+            TxtFileReader firstNamesFileReader = new TxtFileReader("data.first_names");
+            TxtFileReader lastNamesFileReader = new TxtFileReader("data.last_names");
+            TxtFileReader patronymicsFileReader = new TxtFileReader("data.patronymics");
+            PersonalDao personalDao = new PersonalDaoImp();
+            PositionDao positionDao = new PositionDaoImp();
+            List<String> firstNames = firstNamesFileReader.readFile();
+            List<String> lastNames = lastNamesFileReader.readFile();
+            List<String> patronymics = patronymicsFileReader.readFile();
+            List<Personal> personalList = new ArrayList<Personal>();
+            List<Position> positions = positionDao.findAll();
 
-        for (int i = 0; i < COUNT_OF_RECORDS; i++) {
+            for (int i = 0; i < COUNT_OF_RECORDS; i++) {
 
-            personalList.add(Personal.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
-                    .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
-                    .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
-                    .positionId(positions.get(RANDOM.nextInt(positions.size())).getId())
-                    .build());
+                personalList.add(Personal.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                        .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                        .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                        .positionId(positions.get(RANDOM.nextInt(positions.size())).getId())
+                        .build());
+            }
+
+            personalDao.saveMany(personalList);
         }
-
-        personalDao.saveMany(personalList);
+        catch (FileException | RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static void createRandomPersonalEmailAddresses() throws ConnectionDBException, SQLException {
+    public static void createRandomPersonalEmailAddresses() {
         PersonalDao personalDao = new PersonalDaoImp();
         PersonalEmailAddressDao personalEmailAddressDao = new PersonalEmailAddressDaoImp();
         List<Personal> personalList = personalDao.findAll();
         List<PersonalEmailAddress> personalEmailAddressList = new ArrayList<PersonalEmailAddress>();
 
-        for (int i = 0; i < personalList.size(); i++) {
-            StringBuilder emailAddress = new StringBuilder("Email address for personal " + personalList.get(i).getId());
+        for (Personal personal : personalList) {
+            StringBuilder emailAddress = new StringBuilder("Email address for personal " + personal.getId());
             int randomCount = RANDOM.nextInt(2) + 1;
 
-            for(int j = 0; j < randomCount; j++) {
+            for (int j = 0; j < randomCount; j++) {
                 emailAddress.append(j);
 
                 personalEmailAddressList.add(PersonalEmailAddress.builder()
                         .emailAddress(emailAddress.toString())
-                        .personalId(personalList.get(i).getId())
+                        .personalId(personal.getId())
                         .build());
             }
         }
@@ -198,22 +250,22 @@ public class CafeDbInitializer {
         personalEmailAddressDao.saveMany(personalEmailAddressList);
     }
 
-    public static void createRandomPersonalPhoneNumber() throws ConnectionDBException, SQLException {
+    public static void createRandomPersonalPhoneNumber() {
         PersonalDao personalDao = new PersonalDaoImp();
         PersonalPhoneNumberDao personalPhoneNumberDao = new PersonalPhoneNumberDaoImp();
         List<Personal> personalList = personalDao.findAll();
         List<PersonalPhoneNumber> personalPhoneNumberList = new ArrayList<PersonalPhoneNumber>();
 
-        for (int i = 0; i < personalList.size(); i++) {
-            StringBuilder phoneNumber = new StringBuilder("Phone " + personalList.get(i).getId());
+        for (Personal personal : personalList) {
+            StringBuilder phoneNumber = new StringBuilder("Phone " + personal.getId());
             int randomCount = RANDOM.nextInt(2) + 1;
 
-            for(int j = 0; j < randomCount; j++) {
+            for (int j = 0; j < randomCount; j++) {
                 phoneNumber.append(j);
 
                 personalPhoneNumberList.add(PersonalPhoneNumber.builder()
                         .phoneNumber(phoneNumber.toString())
-                        .personalId(personalList.get(i).getId())
+                        .personalId(personal.getId())
                         .build());
             }
         }

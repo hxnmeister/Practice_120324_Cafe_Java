@@ -7,16 +7,16 @@ import java.util.List;
 
 public interface CRUDInterface<T> {
 
-    void save(T item) throws SQLException, ConnectionDBException;
+    void save(T item);
 
-    void saveMany(List<T> items) throws SQLException, ConnectionDBException;
+    void saveMany(List<T> items);
 
-    void update(T item) throws SQLException, ConnectionDBException;
+    void update(T item);
 
-    void delete(T item) throws SQLException, ConnectionDBException;
+    void delete(T item);
 
-    List<T> findAll() throws SQLException, ConnectionDBException;
+    List<T> findAll();
 
-    void deleteAll() throws SQLException, ConnectionDBException;
+    void deleteAll();
 
 }

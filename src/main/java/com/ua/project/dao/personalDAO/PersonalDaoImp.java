@@ -66,7 +66,7 @@ public class PersonalDaoImp implements PersonalDao {
     """;
 
     @Override
-    public void save(Personal item) throws SQLException, ConnectionDBException {
+    public void save(Personal item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_PERSONAL)) {
 
@@ -77,10 +77,13 @@ public class PersonalDaoImp implements PersonalDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void saveMany(List<Personal> items) throws SQLException, ConnectionDBException {
+    public void saveMany(List<Personal> items) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_PERSONAL)) {
 
@@ -95,10 +98,13 @@ public class PersonalDaoImp implements PersonalDao {
 
             statement.executeBatch();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void update(Personal item) throws SQLException, ConnectionDBException {
+    public void update(Personal item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_PERSONAL)) {
 
@@ -109,20 +115,26 @@ public class PersonalDaoImp implements PersonalDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void delete(Personal item) throws SQLException, ConnectionDBException {
+    public void delete(Personal item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_PERSONAL)) {
 
             statement.setLong(1, item.getId());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<Personal> findAll() throws SQLException, ConnectionDBException {
+    public List<Personal> findAll() {
         List<Personal> assortment = new ArrayList<Personal>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -140,20 +152,27 @@ public class PersonalDaoImp implements PersonalDao {
                 }
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return assortment;
     }
 
     @Override
-    public void deleteAll() throws SQLException, ConnectionDBException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_PERSONAL);
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void changeEmailAddressByPositionAndName(String newEmailAddress, String oldEmailAddress, String position, Personal personal) throws ConnectionDBException, SQLException {
+    public void changeEmailAddressByPositionAndName(String newEmailAddress, String oldEmailAddress, String position, Personal personal) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_EMAIL_ADDRESS_BY_POSITION_AND_NAME)) {
 
@@ -165,10 +184,13 @@ public class PersonalDaoImp implements PersonalDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void changePhoneNumberByPositionAndName(String newPhoneNumber, String oldPhoneNumber, String position, Personal personal) throws ConnectionDBException, SQLException {
+    public void changePhoneNumberByPositionAndName(String newPhoneNumber, String oldPhoneNumber, String position, Personal personal) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_PHONE_NUMBER_BY_POSITION_AND_NAME)) {
 
@@ -180,10 +202,13 @@ public class PersonalDaoImp implements PersonalDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void deletePersonalByPositionAndName(String dismissalReason, String position, Personal personal) throws ConnectionDBException, SQLException {
+    public void deletePersonalByPositionAndName(String dismissalReason, String position, Personal personal) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_PERSONAL_BY_POSITION_AND_NAME)) {
 
@@ -193,10 +218,13 @@ public class PersonalDaoImp implements PersonalDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<Personal> getPersonalByPosition(String position) throws ConnectionDBException, SQLException {
+    public List<Personal> getPersonalByPosition(String position) {
         List<Personal> personal = new ArrayList<Personal>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -215,6 +243,9 @@ public class PersonalDaoImp implements PersonalDao {
                             .build());
                 }
             }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
         }
 
         return personal;

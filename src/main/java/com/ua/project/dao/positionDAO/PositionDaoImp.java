@@ -44,17 +44,20 @@ public class PositionDaoImp implements PositionDao {
     """;
 
     @Override
-    public void save(Position item) throws SQLException, ConnectionDBException {
+    public void save(Position item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_POSITION)) {
 
             statement.setString(1, item.getTitle());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void saveMany(List<Position> items) throws SQLException, ConnectionDBException {
+    public void saveMany(List<Position> items) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_POSITION)) {
 
@@ -65,10 +68,13 @@ public class PositionDaoImp implements PositionDao {
 
             statement.executeBatch();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void update(Position item) throws SQLException, ConnectionDBException {
+    public void update(Position item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_POSITION)) {
 
@@ -77,20 +83,26 @@ public class PositionDaoImp implements PositionDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void delete(Position item) throws SQLException, ConnectionDBException {
+    public void delete(Position item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_POSITION)) {
 
             statement.setLong(1, item.getId());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<Position> findAll() throws SQLException, ConnectionDBException {
+    public List<Position> findAll() {
         List<Position> assortmentTypes = new ArrayList<Position>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -105,21 +117,27 @@ public class PositionDaoImp implements PositionDao {
                 }
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
         return assortmentTypes;
     }
 
     @Override
-    public void deleteAll() throws SQLException, ConnectionDBException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_POSITIONS);
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public boolean isPositionAvailable(String title) throws SQLException, ConnectionDBException {
+    public boolean isPositionAvailable(String title) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(CHECK_POSITION_AVAILABILITY)) {
 
@@ -129,14 +147,17 @@ public class PositionDaoImp implements PositionDao {
                 if (queryResult.next()) {
                     return queryResult.getBoolean(1);
                 }
-
-                return false;
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
     }
 
     @Override
-    public Position getPositionByTitle(String title) throws ConnectionDBException, SQLException {
+    public Position getPositionByTitle(String title) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(GET_POSITION_BY_TITLE)) {
 
@@ -148,9 +169,12 @@ public class PositionDaoImp implements PositionDao {
                             .title(queryResult.getString("title"))
                             .build();
                 }
-
-                return Position.builder().build();
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return Position.builder().build();
     }
 }

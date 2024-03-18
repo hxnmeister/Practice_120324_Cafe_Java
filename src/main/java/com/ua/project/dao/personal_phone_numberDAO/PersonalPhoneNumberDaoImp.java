@@ -37,7 +37,7 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
     """;
 
     @Override
-    public void save(PersonalPhoneNumber item) throws SQLException, ConnectionDBException {
+    public void save(PersonalPhoneNumber item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_PERSONAL_PHONE_NUMBER)) {
 
@@ -46,10 +46,13 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void saveMany(List<PersonalPhoneNumber> items) throws SQLException, ConnectionDBException {
+    public void saveMany(List<PersonalPhoneNumber> items) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_PERSONAL_PHONE_NUMBER)) {
 
@@ -62,10 +65,13 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
 
             statement.executeBatch();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void update(PersonalPhoneNumber item) throws SQLException, ConnectionDBException {
+    public void update(PersonalPhoneNumber item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_PERSONAL_PHONE_NUMBER)) {
 
@@ -74,20 +80,26 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void delete(PersonalPhoneNumber item) throws SQLException, ConnectionDBException {
+    public void delete(PersonalPhoneNumber item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_PERSONAL_PHONE_NUMBER)) {
 
             statement.setLong(1, item.getId());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<PersonalPhoneNumber> findAll() throws SQLException, ConnectionDBException {
+    public List<PersonalPhoneNumber> findAll() {
         List<PersonalPhoneNumber> assortment = new ArrayList<PersonalPhoneNumber>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -103,20 +115,27 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
                 }
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return assortment;
     }
 
     @Override
-    public void deleteAll() throws SQLException, ConnectionDBException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_PERSONAL_PHONE_NUMBER);
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<PersonalPhoneNumber> findByPersonalId(long personalId) throws ConnectionDBException, SQLException {
+    public List<PersonalPhoneNumber> findByPersonalId(long personalId) {
         List<PersonalPhoneNumber> personalPhoneNumberList = new ArrayList<PersonalPhoneNumber>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -131,9 +150,12 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
                             .personalId(queryResult.getLong("personal_id"))
                             .build());
                 }
-
-                return personalPhoneNumberList;
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return personalPhoneNumberList;
     }
 }

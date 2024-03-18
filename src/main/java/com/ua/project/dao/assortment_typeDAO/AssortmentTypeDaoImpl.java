@@ -43,17 +43,20 @@ public class AssortmentTypeDaoImpl implements AssortmentTypeDao{
     """;
 
     @Override
-    public void save(AssortmentType item) throws SQLException, ConnectionDBException {
+    public void save(AssortmentType item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_ASSORTMENT_TYPE)) {
 
             statement.setString(1, item.getTitle());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void saveMany(List<AssortmentType> items) throws SQLException, ConnectionDBException {
+    public void saveMany(List<AssortmentType> items) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_ASSORTMENT_TYPE)) {
 
@@ -64,10 +67,13 @@ public class AssortmentTypeDaoImpl implements AssortmentTypeDao{
 
             statement.executeBatch();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void update(AssortmentType item) throws SQLException, ConnectionDBException {
+    public void update(AssortmentType item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ASSORTMENT_TYPE)) {
 
@@ -76,20 +82,26 @@ public class AssortmentTypeDaoImpl implements AssortmentTypeDao{
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void delete(AssortmentType item) throws SQLException, ConnectionDBException {
+    public void delete(AssortmentType item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ASSORTMENT_TYPES)) {
 
             statement.setLong(1, item.getId());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<AssortmentType> findAll() throws SQLException, ConnectionDBException {
+    public List<AssortmentType> findAll() {
         List<AssortmentType> assortmentTypes = new ArrayList<AssortmentType>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -104,21 +116,27 @@ public class AssortmentTypeDaoImpl implements AssortmentTypeDao{
                 }
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
         return assortmentTypes;
     }
 
     @Override
-    public void deleteAll() throws SQLException, ConnectionDBException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_ASSORTMENT_TYPES);
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public boolean isAssortmentTypeAvailable(String title) throws SQLException, ConnectionDBException {
+    public boolean isAssortmentTypeAvailable(String title) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(CHECK_ASSORTMENT_TYPE_AVAILABILITY)) {
 
@@ -128,14 +146,17 @@ public class AssortmentTypeDaoImpl implements AssortmentTypeDao{
                 if (queryResult.next()) {
                     return queryResult.getBoolean(1);
                 }
-
-                return false;
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
     }
 
     @Override
-    public AssortmentType getAssortmentTypeByTitle(String title) throws ConnectionDBException, SQLException {
+    public AssortmentType getAssortmentTypeByTitle(String title) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
             PreparedStatement statement = connection.prepareStatement(GET_ASSORTMENT_TYPE_BY_TITLE)) {
 
@@ -147,9 +168,12 @@ public class AssortmentTypeDaoImpl implements AssortmentTypeDao{
                             .title(queryResult.getString("title"))
                             .build();
                 }
-
-                return AssortmentType.builder().build();
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return AssortmentType.builder().build();
     }
 }

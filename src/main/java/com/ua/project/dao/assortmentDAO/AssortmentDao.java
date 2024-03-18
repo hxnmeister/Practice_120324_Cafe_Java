@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface AssortmentDao extends CRUDInterface<Assortment> {
 
-    void changePriceByTypeAndTitle(String type, String title, BigDecimal newPrice) throws ConnectionDBException, SQLException;
-    void deleteAssortmentByTypeAndTitle(String type, String title) throws ConnectionDBException, SQLException;
-    List<Assortment> getAssortmentByType(String type) throws ConnectionDBException, SQLException;
+    void changePriceByTypeAndTitle(String type, String title, BigDecimal newPrice);
+    void deleteAssortmentByTypeAndTitle(String type, String title);
+    List<Assortment> getAssortmentByType(String type);
 }

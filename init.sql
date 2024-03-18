@@ -10,7 +10,7 @@ CREATE TABLE assortment (
     price MONEY,
     assortment_type_id INTEGER,
 
-    FOREIGN KEY (assortment_type_id) REFERENCES assortment_types(id)
+    FOREIGN KEY (assortment_type_id) REFERENCES assortment_types(id) ON DELETE CASCADE
 );
 
 CREATE TABLE positions (
@@ -25,7 +25,7 @@ CREATE TABLE personal (
     patronymic VARCHAR(50),
     position_id INTEGER,
 
-    FOREIGN KEY (position_id) REFERENCES positions(id)
+    FOREIGN KEY (position_id) REFERENCES positions(id) ON DELETE CASCADE
 );
 
 CREATE TABLE personal_phone_numbers (
@@ -33,7 +33,7 @@ CREATE TABLE personal_phone_numbers (
     phone_number VARCHAR(20),
     personal_id INTEGER,
 
-    FOREIGN KEY(personal_id) REFERENCES personal(id)
+    FOREIGN KEY(personal_id) REFERENCES personal(id) ON DELETE CASCADE
 );
 
 CREATE TABLE personal_email_addresses (
@@ -41,7 +41,7 @@ CREATE TABLE personal_email_addresses (
     email_address VARCHAR(100),
     personal_id INTEGER,
 
-    FOREIGN KEY(personal_id) REFERENCES personal(id)
+    FOREIGN KEY(personal_id) REFERENCES personal(id) ON DELETE CASCADE
 );
 
 CREATE TABLE clients (
@@ -62,7 +62,7 @@ CREATE TABLE schedule (
     work_hours_end TIME,
     personal_id INTEGER,
 
-    FOREIGN KEY(personal_id) REFERENCES personal(id)
+    FOREIGN KEY(personal_id) REFERENCES personal(id) ON DELETE CASCADE
 );
 
 CREATE TABLE orders (
@@ -73,8 +73,8 @@ CREATE TABLE orders (
     personal_id INTEGER,
     client_id INTEGER,
 
-    FOREIGN KEY (personal_id) REFERENCES personal(id),
-    FOREIGN KEY (client_id) REFERENCES clients(id)
+    FOREIGN KEY (personal_id) REFERENCES personal(id) ON DELETE CASCADE,
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
 );
 
 CREATE TABLE orders_and_assortment(
@@ -82,6 +82,6 @@ CREATE TABLE orders_and_assortment(
     order_id INTEGER,
     assortment_id INTEGER,
 
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (assortment_id) REFERENCES assortment(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (assortment_id) REFERENCES assortment(id) ON DELETE CASCADE
 );

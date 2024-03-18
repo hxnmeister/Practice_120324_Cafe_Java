@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface PersonalDao extends CRUDInterface<Personal> {
 
-    void changeEmailAddressByPositionAndName(String newEmailAddress, String oldEmailAddress, String position, Personal personal) throws ConnectionDBException, SQLException;
-    void changePhoneNumberByPositionAndName(String newPhoneNumber, String oldPhoneNumber, String position, Personal personal) throws ConnectionDBException, SQLException;
-    void deletePersonalByPositionAndName(String dismissalReason, String position, Personal personal) throws ConnectionDBException, SQLException;
-    List<Personal> getPersonalByPosition(String position) throws ConnectionDBException, SQLException;
+    void changeEmailAddressByPositionAndName(String newEmailAddress, String oldEmailAddress, String position, Personal personal);
+    void changePhoneNumberByPositionAndName(String newPhoneNumber, String oldPhoneNumber, String position, Personal personal);
+    void deletePersonalByPositionAndName(String dismissalReason, String position, Personal personal);
+    List<Personal> getPersonalByPosition(String position);
 }

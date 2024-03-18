@@ -82,7 +82,7 @@ public class MenuExecutor {
         }
     }
 
-    public static void menuItem1Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem1Execute() {
         Scanner scanner = new Scanner(System.in);
         int quantity;
         String type;
@@ -137,15 +137,15 @@ public class MenuExecutor {
                 .build());
     }
 
-    public static void menuItem2Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem2Execute() {
         addPersonal("barista");
     }
 
-    public static void menuItem3Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem3Execute() {
         addPersonal("confectioner");
     }
 
-    public static void menuItem4Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem4Execute() {
         Scanner scanner = new Scanner(System.in);
         int discount = new Random().nextInt(99);
         Date birthDate;
@@ -198,7 +198,7 @@ public class MenuExecutor {
                 .build());
     }
 
-    public static void menuItem5Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem5Execute() {
         Scanner scanner = new Scanner(System.in);
         String coffeeName;
         String assortmentType = "drink";
@@ -228,7 +228,7 @@ public class MenuExecutor {
         assortmentDao.changePriceByTypeAndTitle("drink", coffeeName, newPrice);
     }
 
-    public static void menuItem6Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem6Execute() {
         Scanner scanner = new Scanner(System.in);
         Personal personal = new Personal();
         String newEmailAddress;
@@ -254,7 +254,7 @@ public class MenuExecutor {
         personalDao.changeEmailAddressByPositionAndName(newEmailAddress, oldEmailAddress, position, personal);
     }
 
-    public static void menuItem7Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem7Execute() {
         Scanner scanner = new Scanner(System.in);
         Personal personal = new Personal();
         String newPhoneNumber;
@@ -280,7 +280,7 @@ public class MenuExecutor {
         personalDao.changePhoneNumberByPositionAndName(newPhoneNumber, oldPhoneNumber, position, personal);
     }
 
-    public static void  menuItem8Execute() throws ConnectionDBException, SQLException {
+    public static void  menuItem8Execute() {
         Scanner scanner = new Scanner(System.in);
         ClientDao clientDao = new ClientDaoImp();
         Client client = new Client();
@@ -322,31 +322,31 @@ public class MenuExecutor {
         clientDao.changeDiscountValueByName(client);
     }
 
-    public static void menuItem9Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem9Execute() {
         String assortmentType = "drink";
 
         showAllAssortmentByType(assortmentType);
     }
 
-    public static void menuItem10Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem10Execute() {
         String assortmentType = "desert";
 
         showAllAssortmentByType(assortmentType);
     }
 
-    public static void menuItem11Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem11Execute() {
         String position = "barista";
 
         showPersonalByPosition(position);
     }
 
-    public static void menuItem12Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem12Execute() {
         String position = "waiter";
 
         showPersonalByPosition(position);
     }
 
-    public static void menuItem13Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem13Execute() {
         Scanner scanner = new Scanner(System.in);
         AssortmentDao assortmentDao = new AssortmentDaoImp();
         final String assortmentType = "desert";
@@ -360,7 +360,7 @@ public class MenuExecutor {
         assortmentDao.deleteAssortmentByTypeAndTitle(assortmentType, desertTitle);
     }
 
-    public static void menuItem14Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem14Execute() {
         Scanner scanner = new Scanner(System.in);
         Personal personal = new Personal();
         PersonalDao personalDao = new PersonalDaoImp();
@@ -382,7 +382,7 @@ public class MenuExecutor {
         personalDao.deletePersonalByPositionAndName(dismissalReason, position, personal);
     }
 
-    public static void menuItem15Execute() throws ConnectionDBException, SQLException {
+    public static void menuItem15Execute() {
         Scanner scanner = new Scanner(System.in);
         ClientDao clientDao = new ClientDaoImp();
         Client client = new Client();
@@ -399,7 +399,7 @@ public class MenuExecutor {
         clientDao.deleteClientByName(client);
     }
 
-    private static void addPersonal(String position) throws ConnectionDBException, SQLException {
+    private static void addPersonal(String position) {
         Scanner scanner = new Scanner(System.in);
         String firstName;
         String lastName;
@@ -426,7 +426,7 @@ public class MenuExecutor {
                 .build());
     }
 
-    private static void showAllAssortmentByType(String type) throws ConnectionDBException, SQLException {
+    private static void showAllAssortmentByType(String type) {
         AssortmentDao assortmentDao = new AssortmentDaoImp();
         List<Assortment> assortmentList = assortmentDao.getAssortmentByType(type);
 
@@ -434,7 +434,7 @@ public class MenuExecutor {
         assortmentList.forEach((item) -> System.out.println(" " + item.getTitle() + " | " + item.getQuantity() + " | " + item.getPrice() + "$"));
     }
 
-    private static void showPersonalByPosition(String position) throws ConnectionDBException, SQLException {
+    private static void showPersonalByPosition(String position) {
         PersonalDao personalDao = new PersonalDaoImp();
         PersonalPhoneNumberDao personalPhoneNumberDao = new PersonalPhoneNumberDaoImp();
         PersonalEmailAddressDao personalEmailAddressDao = new PersonalEmailAddressDaoImp();
@@ -457,7 +457,7 @@ public class MenuExecutor {
         }
     }
 
-    private static void showAllClients() throws ConnectionDBException, SQLException {
+    private static void showAllClients() {
         ClientDao clientDao = new ClientDaoImp();
         List<Client> clients = clientDao.findAll();
 

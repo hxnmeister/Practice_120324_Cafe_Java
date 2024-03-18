@@ -31,7 +31,7 @@ public class OrderDaoImp implements OrderDao {
     """;
 
     @Override
-    public void save(Order item) throws SQLException, ConnectionDBException {
+    public void save(Order item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_ORDER)) {
 
@@ -43,10 +43,13 @@ public class OrderDaoImp implements OrderDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void saveMany(List<Order> items) throws SQLException, ConnectionDBException {
+    public void saveMany(List<Order> items) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_ORDER)) {
 
@@ -62,10 +65,13 @@ public class OrderDaoImp implements OrderDao {
 
             statement.executeBatch();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void update(Order item) throws SQLException, ConnectionDBException {
+    public void update(Order item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ORDERS)) {
 
@@ -76,20 +82,26 @@ public class OrderDaoImp implements OrderDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void delete(Order item) throws SQLException, ConnectionDBException {
+    public void delete(Order item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ORDER)) {
 
             statement.setLong(1, item.getId());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<Order> findAll() throws SQLException, ConnectionDBException {
+    public List<Order> findAll() {
         List<Order> orders = new ArrayList<Order>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -108,16 +120,22 @@ public class OrderDaoImp implements OrderDao {
                 }
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
         return orders;
     }
 
     @Override
-    public void deleteAll() throws SQLException, ConnectionDBException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_ORDERS);
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

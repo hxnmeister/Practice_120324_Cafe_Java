@@ -35,7 +35,7 @@ public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
     """;
 
     @Override
-    public void save(OrderAndAssortment orderAndAssortment) throws ConnectionDBException, SQLException {
+    public void save(OrderAndAssortment orderAndAssortment) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_ORDER_AND_ASSORTMENT)) {
 
@@ -44,20 +44,26 @@ public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void assignAssortmentToOrder(long orderId, String assortmentTitle) throws ConnectionDBException, SQLException {
+    public void assignAssortmentToOrder(long orderId, String assortmentTitle) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(ASSIGN_ASSORTMENT_TO_ORDER)) {
 
             statement.setLong(1, orderId);
             statement.setString(2, assortmentTitle);
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void deleteAssortmentFromOrder(long orderId, String assortmentTitle) throws ConnectionDBException, SQLException {
+    public void deleteAssortmentFromOrder(long orderId, String assortmentTitle) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ASSORTMENT_FROM_ORDER)) {
 
@@ -66,14 +72,20 @@ public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void deleteAll() throws ConnectionDBException, SQLException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_ORDER_AND_ASSORTMENT);
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

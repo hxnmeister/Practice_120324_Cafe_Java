@@ -7,8 +7,8 @@ import com.ua.project.model.OrderAndAssortment;
 import java.sql.SQLException;
 
 public interface OrderAndAssortmentDao {
-    void save(OrderAndAssortment orderAndAssortment) throws ConnectionDBException, SQLException;
-    void assignAssortmentToOrder(long orderId, String assortmentTitle) throws ConnectionDBException, SQLException;
-    void deleteAssortmentFromOrder(long orderId, String assortmentTitle) throws ConnectionDBException, SQLException;
-    void deleteAll() throws ConnectionDBException, SQLException;
+    void save(OrderAndAssortment orderAndAssortment);
+    void assignAssortmentToOrder(long orderId, String assortmentTitle);
+    void deleteAssortmentFromOrder(long orderId, String assortmentTitle);
+    void deleteAll();
 }

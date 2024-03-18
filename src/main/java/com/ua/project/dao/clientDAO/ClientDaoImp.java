@@ -40,7 +40,7 @@ public class ClientDaoImp implements ClientDao {
     """;
 
     @Override
-    public void save(Client item) throws SQLException, ConnectionDBException {
+    public void save(Client item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_CLIENT)) {
 
@@ -54,10 +54,13 @@ public class ClientDaoImp implements ClientDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void saveMany(List<Client> items) throws SQLException, ConnectionDBException {
+    public void saveMany(List<Client> items) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_CLIENT)) {
 
@@ -75,10 +78,13 @@ public class ClientDaoImp implements ClientDao {
 
             statement.executeBatch();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void update(Client item) throws SQLException, ConnectionDBException {
+    public void update(Client item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_CLIENTS)) {
 
@@ -93,20 +99,26 @@ public class ClientDaoImp implements ClientDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void delete(Client item) throws SQLException, ConnectionDBException {
+    public void delete(Client item) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_CLIENT)) {
 
             statement.setLong(1, item.getId());
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public List<Client> findAll() throws SQLException, ConnectionDBException {
+    public List<Client> findAll() {
         List<Client> clients = new ArrayList<Client>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
@@ -127,21 +139,27 @@ public class ClientDaoImp implements ClientDao {
                 }
             }
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
         return clients;
     }
 
     @Override
-    public void deleteAll() throws SQLException, ConnectionDBException {
+    public void deleteAll() {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_ALL_CLIENTS);
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void changeDiscountValueByName(Client client) throws ConnectionDBException, SQLException {
+    public void changeDiscountValueByName(Client client) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_DISCOUNT_VALUE_BY_NAME)) {
 
@@ -151,10 +169,13 @@ public class ClientDaoImp implements ClientDao {
 
             statement.execute();
         }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void deleteClientByName(Client client) throws ConnectionDBException, SQLException {
+    public void deleteClientByName(Client client) {
         try(Connection connection = ConnectionFactory.getInstance().makeConnection();
             PreparedStatement statement = connection.prepareStatement(DELETE_CLIENT_BY_NAME)) {
 
@@ -162,6 +183,9 @@ public class ClientDaoImp implements ClientDao {
             statement.setString(2, client.getLastName());
 
             statement.execute();
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

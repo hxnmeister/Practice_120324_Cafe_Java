@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS orders_and_assortment;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS schedule;
+DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS personal_email_addresses;
+DROP TABLE IF EXISTS personal_phone_numbers;
+DROP TABLE IF EXISTS personal;
+DROP TABLE IF EXISTS assortment;
+DROP TABLE IF EXISTS assortment_types;
+DROP TABLE IF EXISTS positions;
