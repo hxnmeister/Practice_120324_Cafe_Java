@@ -100,14 +100,14 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
 
     @Override
     public List<PersonalEmailAddress> findAll() {
-        List<PersonalEmailAddress> assortment = new ArrayList<PersonalEmailAddress>();
+        List<PersonalEmailAddress> personalEmailAddresses = new ArrayList<PersonalEmailAddress>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             try (ResultSet queryResult = statement.executeQuery(GET_ALL_PERSONAL_EMAIL_ADDRESS)) {
                 while (queryResult.next()) {
-                    assortment.add(PersonalEmailAddress.builder()
+                    personalEmailAddresses.add(PersonalEmailAddress.builder()
                             .id(queryResult.getLong("id"))
                             .emailAddress(queryResult.getString("email_address"))
                             .personalId(queryResult.getLong("personal_id"))
@@ -119,7 +119,7 @@ public class PersonalEmailAddressDaoImp implements PersonalEmailAddressDao {
             System.out.println(e.getMessage());
         }
 
-        return assortment;
+        return personalEmailAddresses;
     }
 
     @Override

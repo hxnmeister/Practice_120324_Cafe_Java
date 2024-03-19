@@ -111,7 +111,7 @@ public class PersonalDaoImp implements PersonalDao {
             statement.setString(1, item.getFirstName());
             statement.setString(2, item.getLastName());
             statement.setString(3, item.getPatronymic());
-            statement.setLong(2, item.getId());
+            statement.setLong(4, item.getId());
 
             statement.execute();
         }

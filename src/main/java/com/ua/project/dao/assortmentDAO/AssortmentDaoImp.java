@@ -16,7 +16,7 @@ public class AssortmentDaoImp implements AssortmentDao{
     """;
     private static final String UPDATE_ASSORTMENT = """
         UPDATE assortment
-        SET title=?, quantity=?, price=?, assortment_type_id=?
+        SET title=?, quantity=?, price=?
         WHERE id=?
     """;
     private static final String DELETE_ASSORTMENT = """
@@ -102,8 +102,7 @@ public class AssortmentDaoImp implements AssortmentDao{
             statement.setString(1, item.getTitle());
             statement.setInt(2, item.getQuantity());
             statement.setBigDecimal(3, item.getPrice());
-            statement.setLong(4, item.getAssortmentTypeId());
-            statement.setLong(5, item.getId());
+            statement.setLong(4, item.getId());
 
             statement.execute();
         }

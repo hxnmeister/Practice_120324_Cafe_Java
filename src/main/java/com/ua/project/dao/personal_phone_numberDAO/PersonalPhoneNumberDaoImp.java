@@ -100,16 +100,16 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
 
     @Override
     public List<PersonalPhoneNumber> findAll() {
-        List<PersonalPhoneNumber> assortment = new ArrayList<PersonalPhoneNumber>();
+        List<PersonalPhoneNumber> personalPhoneNumbers = new ArrayList<PersonalPhoneNumber>();
 
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              Statement statement = connection.createStatement()) {
 
             try (ResultSet queryResult = statement.executeQuery(GET_ALL_PERSONAL_PHONE_NUMBER)) {
                 while (queryResult.next()) {
-                    assortment.add(PersonalPhoneNumber.builder()
+                    personalPhoneNumbers.add(PersonalPhoneNumber.builder()
                             .id(queryResult.getLong("id"))
-                            .phoneNumber(queryResult.getString("phone_address"))
+                            .phoneNumber(queryResult.getString("phone_number"))
                             .personalId(queryResult.getLong("personal_id"))
                             .build());
                 }
@@ -119,7 +119,7 @@ public class PersonalPhoneNumberDaoImp implements PersonalPhoneNumberDao{
             System.out.println(e.getMessage());
         }
 
-        return assortment;
+        return personalPhoneNumbers;
     }
 
     @Override

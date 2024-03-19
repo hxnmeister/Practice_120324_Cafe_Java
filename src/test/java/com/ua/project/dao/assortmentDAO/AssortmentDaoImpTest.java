@@ -90,7 +90,7 @@ public class AssortmentDaoImpTest {
 
     @Test
     void update_ShouldUpdateAssortmentIntoTable_WhenCalled() {
-        Assortment updateData = Assortment.builder().id(3L).title("drink3").quantity(7).price(new BigDecimal("27.40")).assortmentTypeId(2).build();
+        Assortment updateData = Assortment.builder().id(3L).title("desert47").quantity(7).price(new BigDecimal("27.40")).assortmentTypeId(1).build();
         List<Assortment> actualList = assortmentDao.findAll();
         List<Assortment> expectedList = getExpectedAssortmentList();
 
