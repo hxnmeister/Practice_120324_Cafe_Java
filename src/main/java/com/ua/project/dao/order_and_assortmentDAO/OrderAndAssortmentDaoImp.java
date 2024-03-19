@@ -18,7 +18,7 @@ public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
         INSERT INTO orders_and_assortment(order_id, assortment_id)
         VALUES (?, (
             SELECT a.id 
-            FROM assortments a
+            FROM assortment a
             WHERE a.title=?
         )
     """;
@@ -26,7 +26,7 @@ public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
         DELETE FROM orders_and_assortment
         WHERE order_id=? AND assortment_id=(
             SELECT a.id
-            FROM assortments a
+            FROM assortment a
             WHERE a.title=?
         )
     """;

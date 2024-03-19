@@ -18,6 +18,7 @@
     <mockito.version>5.8.0</mockito.version>
     <postgresql.version>42.7.2</postgresql.version>
     <jacoco.version>0.8.10</jacoco.version>
+    <guava.version>33.0.0-jre</guava.version>
     <maven.compiler.source>15</maven.compiler.source>
     <maven.compiler.target>15</maven.compiler.target>
   </properties>
@@ -76,6 +77,13 @@
       <artifactId>jacoco-maven-plugin</artifactId>
       <version>${jacoco.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
+
   </dependencies>
     <build>
         <plugins>

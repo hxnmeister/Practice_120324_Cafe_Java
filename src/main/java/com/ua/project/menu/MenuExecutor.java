@@ -16,6 +16,12 @@ import com.ua.project.dao.positionDAO.PositionDao;
 import com.ua.project.dao.positionDAO.PositionDaoImp;
 import com.ua.project.exception.ConnectionDBException;
 import com.ua.project.model.*;
+import com.ua.project.service.business.assortment.AssortmentService;
+import com.ua.project.service.business.assortment.AssortmentServiceImp;
+import com.ua.project.service.business.client.ClientService;
+import com.ua.project.service.business.client.ClientServiceImp;
+import com.ua.project.service.business.personal.PersonalService;
+import com.ua.project.service.business.personal.PersonalServiceImp;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -24,6 +30,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MenuExecutor {
+    private static final AssortmentService assortmentService = new AssortmentServiceImp();
+    private static final PersonalService personalService = new PersonalServiceImp();
+    private static final ClientService clientService = new ClientServiceImp();
+
     public static void startMenu() throws ConnectionDBException, SQLException {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -88,8 +98,6 @@ public class MenuExecutor {
         String type;
         String title;
         BigDecimal price;
-        AssortmentDao assortmentDao = new AssortmentDaoImp();
-        AssortmentTypeDao assortmentTypeDao = new AssortmentTypeDaoImpl();
 
         System.out.println(" To add item to menu, please follow the fields below:\n");
 
@@ -121,28 +129,21 @@ public class MenuExecutor {
             }
         }
 
-        type = type.toLowerCase();
-
-        if (!assortmentTypeDao.isAssortmentTypeAvailable(type)) {
-            assortmentTypeDao.save(AssortmentType.builder()
-                    .title(type)
-                    .build());
-        }
-
-        assortmentDao.save(Assortment.builder()
-                .title(title)
-                .quantity(quantity)
-                .price(price)
-                .assortmentTypeId(assortmentTypeDao.getAssortmentTypeByTitle(type).getId())
-                .build());
+        assortmentService.addAssortment(Assortment.builder().title(title).quantity(quantity).price(price).build(), type.toLowerCase());
     }
 
     public static void menuItem2Execute() {
-        addPersonal("barista");
+        final String POSITION = "barista";
+        Personal personal = getPersonalBio(POSITION);
+
+        personalService.addPersonal(personal, POSITION);
     }
 
     public static void menuItem3Execute() {
-        addPersonal("confectioner");
+        final String POSITION = "confectioner";
+        Personal personal = getPersonalBio(POSITION);
+
+        personalService.addPersonal(personal, POSITION);
     }
 
     public static void menuItem4Execute() {
@@ -205,7 +206,7 @@ public class MenuExecutor {
         BigDecimal newPrice;
         AssortmentDao assortmentDao = new AssortmentDaoImp();
 
-        showAllAssortmentByType(assortmentType);
+        System.out.println(assortmentService.getAllAssortmentByType(assortmentType));
         System.out.println();
 
         System.out.print(" Enter coffee name: ");
@@ -233,12 +234,12 @@ public class MenuExecutor {
         Personal personal = new Personal();
         String newEmailAddress;
         String oldEmailAddress;
-        final String position = "confectioner";
+        final String POSITION = "confectioner";
         PersonalDao personalDao = new PersonalDaoImp();
 
-        showPersonalByPosition(position);
+        System.out.println(personalService.getPersonalByPosition(POSITION));
 
-        System.out.println("\n In fields below enter data about " + position + " to change email\n");
+        System.out.println("\n In fields below enter data about " + POSITION + " to change email\n");
         System.out.print(" Enter first name: ");
         personal.setFirstName(scanner.nextLine());
 
@@ -251,7 +252,7 @@ public class MenuExecutor {
         System.out.print(" Enter new email: ");
         newEmailAddress = scanner.nextLine();
 
-        personalDao.changeEmailAddressByPositionAndName(newEmailAddress, oldEmailAddress, position, personal);
+        personalDao.changeEmailAddressByPositionAndName(newEmailAddress, oldEmailAddress, POSITION, personal);
     }
 
     public static void menuItem7Execute() {
@@ -259,12 +260,12 @@ public class MenuExecutor {
         Personal personal = new Personal();
         String newPhoneNumber;
         String oldPhoneNumber;
-        final String position = "barista";
+        final String POSITION = "barista";
         PersonalDao personalDao = new PersonalDaoImp();
 
-        showPersonalByPosition(position);
+        System.out.println(personalService.getPersonalByPosition(POSITION));
 
-        System.out.println("\n In fields below enter data about " + position + " to change email\n");
+        System.out.println("\n In fields below enter data about " + POSITION + " to change email\n");
         System.out.print(" Enter first name: ");
         personal.setFirstName(scanner.nextLine());
 
@@ -277,7 +278,7 @@ public class MenuExecutor {
         System.out.print(" Enter new phone number: ");
         newPhoneNumber = scanner.nextLine();
 
-        personalDao.changePhoneNumberByPositionAndName(newPhoneNumber, oldPhoneNumber, position, personal);
+        personalDao.changePhoneNumberByPositionAndName(newPhoneNumber, oldPhoneNumber, POSITION, personal);
     }
 
     public static void  menuItem8Execute() {
@@ -285,7 +286,7 @@ public class MenuExecutor {
         ClientDao clientDao = new ClientDaoImp();
         Client client = new Client();
 
-        showAllClients();
+        System.out.println(clientService.getAllClients());
 
         System.out.println("\n In fields below enter data about client to change discount:\n");
 
@@ -325,25 +326,25 @@ public class MenuExecutor {
     public static void menuItem9Execute() {
         String assortmentType = "drink";
 
-        showAllAssortmentByType(assortmentType);
+        System.out.println(assortmentService.getAllAssortmentByType(assortmentType));
     }
 
     public static void menuItem10Execute() {
         String assortmentType = "desert";
 
-        showAllAssortmentByType(assortmentType);
+        System.out.println(assortmentService.getAllAssortmentByType(assortmentType));
     }
 
     public static void menuItem11Execute() {
         String position = "barista";
 
-        showPersonalByPosition(position);
+        System.out.println(personalService.getPersonalByPosition(position));
     }
 
     public static void menuItem12Execute() {
         String position = "waiter";
 
-        showPersonalByPosition(position);
+        System.out.println(personalService.getPersonalByPosition(position));
     }
 
     public static void menuItem13Execute() {
@@ -352,7 +353,7 @@ public class MenuExecutor {
         final String assortmentType = "desert";
         String desertTitle;
 
-        showAllAssortmentByType(assortmentType);
+        System.out.println(assortmentService.getAllAssortmentByType(assortmentType));
 
         System.out.print(" Enter name of desert to delete it: ");
         desertTitle = scanner.nextLine();
@@ -365,10 +366,10 @@ public class MenuExecutor {
         Personal personal = new Personal();
         PersonalDao personalDao = new PersonalDaoImp();
         String dismissalReason;
-        final String position = "waiter";
+        final String POSITION = "waiter";
 
-        showPersonalByPosition(position);
-        System.out.println("\n To delete " + position + " enter first, last names and dismissal reason:");
+        System.out.println(personalService.getPersonalByPosition(POSITION));
+        System.out.println("\n To delete " + POSITION + " enter first, last names and dismissal reason:");
 
         System.out.print("\n Enter first name: ");
         personal.setFirstName(scanner.nextLine());
@@ -379,7 +380,7 @@ public class MenuExecutor {
         System.out.print(" Enter dismissal reason: ");
         dismissalReason = scanner.nextLine();
 
-        personalDao.deletePersonalByPositionAndName(dismissalReason, position, personal);
+        personalDao.deletePersonalByPositionAndName(dismissalReason, POSITION, personal);
     }
 
     public static void menuItem15Execute() {
@@ -387,7 +388,7 @@ public class MenuExecutor {
         ClientDao clientDao = new ClientDaoImp();
         Client client = new Client();
 
-        showAllClients();
+        System.out.println(clientService.getAllClients());
         System.out.println("\n  To delete client in fields below enter first and last names:");
 
         System.out.print("\n Enter first name: ");
@@ -399,13 +400,11 @@ public class MenuExecutor {
         clientDao.deleteClientByName(client);
     }
 
-    private static void addPersonal(String position) {
+    private static Personal getPersonalBio(String position) {
         Scanner scanner = new Scanner(System.in);
         String firstName;
         String lastName;
         String patronymic;
-        PositionDao positionDao = new PositionDaoImp();
-        PersonalDao personalDao = new PersonalDaoImp();
 
         System.out.println(" To add " + position + ", please follow the fields below:\n");
 
@@ -418,58 +417,6 @@ public class MenuExecutor {
         System.out.print("  Enter patronymic: ");
         patronymic = scanner.nextLine();
 
-        personalDao.save(Personal.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .patronymic(patronymic)
-                .positionId(positionDao.getPositionByTitle(position).getId())
-                .build());
-    }
-
-    private static void showAllAssortmentByType(String type) {
-        AssortmentDao assortmentDao = new AssortmentDaoImp();
-        List<Assortment> assortmentList = assortmentDao.getAssortmentByType(type);
-
-        System.out.println("\n All " + type + "`s in menu:\n");
-        assortmentList.forEach((item) -> System.out.println(" " + item.getTitle() + " | " + item.getQuantity() + " | " + item.getPrice() + "$"));
-    }
-
-    private static void showPersonalByPosition(String position) {
-        PersonalDao personalDao = new PersonalDaoImp();
-        PersonalPhoneNumberDao personalPhoneNumberDao = new PersonalPhoneNumberDaoImp();
-        PersonalEmailAddressDao personalEmailAddressDao = new PersonalEmailAddressDaoImp();
-        List<Personal> personalList = personalDao.getPersonalByPosition(position.toLowerCase());
-
-        System.out.println("\n All personal by position " + position.toLowerCase() + ":\n");
-        for (Personal personal : personalList) {
-            System.out.println(personal.getFirstName() + " " + personal.getLastName() + " " + personal.getPatronymic() + "\n  Phone numbers and emails: ");
-
-            for (PersonalPhoneNumber personalPhoneNumber : personalPhoneNumberDao.findByPersonalId(personal.getId())) {
-                System.out.print(personalPhoneNumber.getPhoneNumber() + " ");
-            }
-
-            for (PersonalEmailAddress personalEmailAddress : personalEmailAddressDao.findByPersonalId(personal.getId())) {
-                System.out.print(personalEmailAddress.getEmailAddress() + " ");
-            }
-
-            System.out.println();
-            System.out.println("-".repeat(25));
-        }
-    }
-
-    private static void showAllClients() {
-        ClientDao clientDao = new ClientDaoImp();
-        List<Client> clients = clientDao.findAll();
-
-        System.out.println("\n All clients:");
-        clients.forEach((client) -> System.out.println(
-                "  " + client.getFirstName()
-                + " " + client.getLastName()
-                + " " + client.getPatronymic()
-                + "\n  Birthday: " + client.getBirthDate()
-                + "\n  Contact phone: " + client.getContactPhone()
-                + "\n  Contact email: " + client.getContactEmail()
-                + "\n " + "-".repeat(40)
-        ));
+        return Personal.builder().firstName(firstName).lastName(lastName).patronymic(patronymic).build();
     }
 }

@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1da9b183-2b2d-4295-a26d-8987e8e0b8f3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/assortmentDAO/AssortmentDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/assortmentDAO/AssortmentDaoImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDaoImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personal_email_addressDAO/PersonalEmailAddressDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personal_email_addressDAO/PersonalEmailAddressDaoImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personal_phone_numberDAO/PersonalPhoneNumberDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personal_phone_numberDAO/PersonalPhoneNumberDaoImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/assortmentDAO/AssortmentDaoImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/assortmentDAO/AssortmentDaoImpTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/insertTables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/insertTables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImpTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +20,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -51,6 +50,7 @@
     "JUnit.AssortmentDaoImpTest.executor": "Run",
     "JUnit.AssortmentDaoImpTest.getAssortmentByType_ShouldReturnAssortmentList_WhenTypeIsInTheTable.executor": "Run",
     "JUnit.AssortmentDaoImpTest.update_ShouldUpdateAssortmentIntoTable_WhenCalled.executor": "Run",
+    "JUnit.AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
     "JUnit.AssortmentTypeDaoImpTest.executor": "Run",
     "JUnit.AssortmentTypeDaoImpTest.getAssortmentTypeByTitle_ShouldReturnAssortmentType_WhenRequiredTitleInTheTable.executor": "Run",
     "JUnit.AssortmentTypeDaoImpTest.getAssortmentTypeByTitle_ShouldReturnAssortmentType_WhenRequiredTitleIsInTheTable.executor": "Run",
@@ -65,6 +65,7 @@
     "JUnit.ClientDaoImpTest.deleteClientByName_ShouldDeleteClientByNameFromTable_WhenCalled.executor": "Run",
     "JUnit.ClientDaoImpTest.executor": "Run",
     "JUnit.ClientDaoImpTest.save_ShouldInsertClientIntoTable_WhenCalled.executor": "Run",
+    "JUnit.ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
     "JUnit.OrderDaoImpTest.executor": "Run",
     "JUnit.OrderDaoImpTest.saveMany_ShouldInsertListOfOrdersIntoTable_WhenCalled.executor": "Run",
     "JUnit.OrderDaoImpTest.save_ShouldInsertOrderIntoTable_WhenCalled.executor": "Run",
@@ -78,8 +79,10 @@
     "JUnit.PersonalEmailAddressDaoImpTest.update_ShouldUpdatePersonalEmailAddressesIntoTable_WhenCalled.executor": "Run",
     "JUnit.PersonalPhoneNumberDaoImpTest.executor": "Run",
     "JUnit.PersonalPhoneNumberDaoImpTest.save_ShouldInsertPersonalPhoneNumberIntoTable_WhenCalled.executor": "Run",
+    "JUnit.PersonalServiceImpTest.getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
     "JUnit.PositionDaoImpTest.executor": "Run",
     "JUnit.ScheduleDaoImpTest.executor": "Run",
+    "JUnit.TxtFileReaderTest.readFile_ShouldReturnListOfStringsFromFile_WenCalled.executor": "Run",
     "Maven.Practice_120324 [clean].executor": "Run",
     "Maven.Practice_120324 [compile].executor": "Run",
     "Maven.Practice_120324 [install].executor": "Run",
@@ -104,80 +107,80 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.ScheduleDaoImpTest">
-    <configuration name="PersonalDaoImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.PersonalServiceImpTest.getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.App" />
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.dao.personalDAO.*" />
+          <option name="PATTERN" value="com.ua.project.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.dao.personalDAO" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.personalDAO.PersonalDaoImpTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonalDaoImpTest.getPersonalByPosition_ShouldReturnListOfPersonal_WhenPositionIsInTheTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.dao.personalDAO.*" />
+          <option name="PATTERN" value="com.ua.project.service.business.assortment.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.dao.personalDAO" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.personalDAO.PersonalDaoImpTest" />
-      <option name="METHOD_NAME" value="getPersonalByPosition_ShouldReturnListOfPersonal_WhenPositionIsInTheTable" />
+      <option name="PACKAGE_NAME" value="com.ua.project.service.business.assortment" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.business.assortment.AssortmentServiceImpTest" />
+      <option name="METHOD_NAME" value="getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonalDaoImpTest.update_ShouldUpdatePersonalIntoTable_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.dao.personalDAO.*" />
+          <option name="PATTERN" value="com.ua.project.service.business.client.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.dao.personalDAO" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.personalDAO.PersonalDaoImpTest" />
-      <option name="METHOD_NAME" value="update_ShouldUpdatePersonalIntoTable_WhenCalled" />
+      <option name="PACKAGE_NAME" value="com.ua.project.service.business.client" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.business.client.ClientServiceImpTest" />
+      <option name="METHOD_NAME" value="getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PositionDaoImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonalServiceImpTest.getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.dao.positionDAO.*" />
+          <option name="PATTERN" value="com.ua.project.service.business.personal.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.dao.positionDAO" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.positionDAO.PositionDaoImpTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.ua.project.service.business.personal" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.business.personal.PersonalServiceImpTest" />
+      <option name="METHOD_NAME" value="getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ScheduleDaoImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TxtFileReaderTest.readFile_ShouldReturnListOfStringsFromFile_WenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.dao.scheduleDAO.*" />
+          <option name="PATTERN" value="com.ua.project.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.dao.scheduleDAO" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.scheduleDAO.ScheduleDaoImpTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.ua.project.service" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.TxtFileReaderTest" />
+      <option name="METHOD_NAME" value="readFile_ShouldReturnListOfStringsFromFile_WenCalled" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -190,11 +193,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ScheduleDaoImpTest" />
-        <item itemvalue="JUnit.PositionDaoImpTest" />
-        <item itemvalue="JUnit.PersonalDaoImpTest.update_ShouldUpdatePersonalIntoTable_WhenCalled" />
-        <item itemvalue="JUnit.PersonalDaoImpTest" />
-        <item itemvalue="JUnit.PersonalDaoImpTest.getPersonalByPosition_ShouldReturnListOfPersonal_WhenPositionIsInTheTable" />
+        <item itemvalue="JUnit.PersonalServiceImpTest.getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+        <item itemvalue="JUnit.ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+        <item itemvalue="JUnit.AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+        <item itemvalue="JUnit.TxtFileReaderTest.readFile_ShouldReturnListOfStringsFromFile_WenCalled" />
+        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
@@ -216,7 +219,7 @@
       <workItem from="1710404223800" duration="17536000" />
       <workItem from="1710489886394" duration="3387000" />
       <workItem from="1710749817459" duration="20997000" />
-      <workItem from="1710834431241" duration="7989000" />
+      <workItem from="1710834431241" duration="14359000" />
     </task>
     <servers />
   </component>
