@@ -42,11 +42,13 @@ public class CafeDbInitializer {
     private static final Random RANDOM = new Random();
     private static final List<String> TABLES_NAME_ARRAY;
     private static final String SQL_CREATE_TABLES;
+    private static final String SQL_DROP_TABLES;
 
     static {
         final String TABLES_NAMES = PropertyFactory.getInstance().getProperty().getProperty("db.tablesNames");
 
         SQL_CREATE_TABLES = PropertyFactory.getInstance().getProperty().getProperty("db.sqlCreateTables");
+        SQL_DROP_TABLES = PropertyFactory.getInstance().getProperty().getProperty("db.sqlDropTables");
         TABLES_NAME_ARRAY = Arrays.stream(TABLES_NAMES.split(",")).collect(Collectors.toList());
     }
 
@@ -99,6 +101,31 @@ public class CafeDbInitializer {
         orderAndAssortmentDao.deleteAll();
         personalPhoneNumberDao.deleteAll();
         personalEmailAddressDao.deleteAll();
+    }
+
+    public static void dropAllTablesInDB() {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Stream<String> stringStream = Files.lines(Paths.get(SQL_DROP_TABLES))) {
+
+            StringBuilder dropTablesQuery = new StringBuilder();
+
+            for (String currentString : stringStream.collect(Collectors.toList())) {
+                dropTablesQuery.append(currentString).append(" ");
+            }
+
+            try (Statement statement = connection.createStatement()) {
+                statement.execute(dropTablesQuery.toString());
+            }
+        }
+        catch (ConnectionDBException e) {
+            System.out.println(" Unable connect to DB!");
+        }
+        catch (IOException e) {
+            System.out.println(" Error with creating table script!");
+        }
+        catch (SQLException e) {
+            System.out.println(" During connection to DB an error occurred!");
+        }
     }
 
     public static void createPositions() {

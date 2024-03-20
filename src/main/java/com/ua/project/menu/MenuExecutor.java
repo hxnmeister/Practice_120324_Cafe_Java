@@ -87,6 +87,9 @@ public class MenuExecutor {
         else if(choice == 15) {
             menuItem15Execute();
         }
+        else if (choice == 0) {
+            System.exit(0);
+        }
         else {
             System.out.println(" Incorrect number, allowed range from 1 to 15!\n Try again!");
         }

@@ -23,6 +23,7 @@ public class MenuPublisher {
         System.out.println("  13. Delete desert from menu;");
         System.out.println("  14. Delete waiter with dismissal reason;");
         System.out.println("  15. Delete client from Database;");
+        System.out.println("  0. Exit program;");
         System.out.println(SEPARATOR);
         System.out.print("\n Enter number: ");
     }

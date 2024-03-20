@@ -12,7 +12,8 @@ public class CafeInitializer {
     public void cafeInit() {
         setProperty("test", "false");
 
-        CafeDbInitializer.deleteAllRowsInDB();
+        CafeDbInitializer.dropAllTablesInDB();
+        CafeDbInitializer.createTables();
         CafeDbInitializer.createAssortmentTypes();
         CafeDbInitializer.createPositions();
         CafeDbInitializer.createRandomAssortment();

@@ -4,10 +4,9 @@ import com.ua.project.dao.ConnectionFactory;
 import com.ua.project.exception.ConnectionDBException;
 import com.ua.project.model.OrderAndAssortment;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
     private static final String INSERT_ORDER_AND_ASSORTMENT = """
@@ -20,7 +19,7 @@ public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
             SELECT a.id 
             FROM assortment a
             WHERE a.title=?
-        )
+            LIMIT 1))
     """;
     private static final String DELETE_ASSORTMENT_FROM_ORDER = """
         DELETE FROM orders_and_assortment
@@ -32,6 +31,10 @@ public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
     """;
     private static final String DELETE_ALL_ORDER_AND_ASSORTMENT = """
         DELETE FROM orders_and_assortment
+    """;
+    private static final String GET_ALL_ORDERS_AND_ASSORTMENT = """
+        SELECT *
+        FROM orders_and_assortment
     """;
 
     @Override
@@ -50,12 +53,37 @@ public class OrderAndAssortmentDaoImp implements OrderAndAssortmentDao {
     }
 
     @Override
+    public List<OrderAndAssortment> findAll() {
+        List<OrderAndAssortment> orderAndAssortmentList = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement();
+             ResultSet queryResult = statement.executeQuery(GET_ALL_ORDERS_AND_ASSORTMENT)) {
+
+            while (queryResult.next()) {
+                orderAndAssortmentList.add(OrderAndAssortment.builder()
+                        .id(queryResult.getLong("id"))
+                        .assortmentId(queryResult.getLong("assortment_id"))
+                        .orderId(queryResult.getLong("order_id"))
+                        .build());
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return orderAndAssortmentList;
+    }
+
+    @Override
     public void assignAssortmentToOrder(long orderId, String assortmentTitle) {
         try (Connection connection = ConnectionFactory.getInstance().makeConnection();
              PreparedStatement statement = connection.prepareStatement(ASSIGN_ASSORTMENT_TO_ORDER)) {
 
             statement.setLong(1, orderId);
             statement.setString(2, assortmentTitle);
+
+            statement.execute();
         }
         catch (ConnectionDBException | SQLException e) {
             System.out.println(e.getMessage());

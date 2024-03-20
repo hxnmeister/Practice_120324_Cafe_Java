@@ -1,7 +1,12 @@
 package com.ua.project.dao.orderDAO;
 
 import com.ua.project.dao.ConnectionFactory;
+import com.ua.project.dao.assortmentDAO.AssortmentDao;
+import com.ua.project.dao.assortmentDAO.AssortmentDaoImp;
+import com.ua.project.dao.order_and_assortmentDAO.OrderAndAssortmentDao;
+import com.ua.project.dao.order_and_assortmentDAO.OrderAndAssortmentDaoImp;
 import com.ua.project.exception.ConnectionDBException;
+import com.ua.project.model.Assortment;
 import com.ua.project.model.Order;
 
 import java.sql.*;
@@ -12,6 +17,11 @@ public class OrderDaoImp implements OrderDao {
     private static final String INSERT_ORDER = """
         INSERT INTO orders(price, price_with_discount, timestamp, personal_id, client_id)
         VALUES (?, ?, ?, ?, ?)
+    """;
+    private static final String INSERT_ORDER_AND_RETURN_ID = """
+        INSERT INTO orders(price, price_with_discount, timestamp, personal_id, client_id)
+        VALUES (?, ?, ?, ?, ?)
+        RETURNING id
     """;
     private static final String UPDATE_ORDERS = """
         UPDATE orders
@@ -46,6 +56,32 @@ public class OrderDaoImp implements OrderDao {
         catch (ConnectionDBException | SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public long saveWithReturningId(Order item) {
+        long newOrderId = 0;
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(INSERT_ORDER_AND_RETURN_ID)) {
+
+            statement.setBigDecimal(1, item.getPrice());
+            statement.setBigDecimal(2, item.getPriceWithDiscount());
+            statement.setTimestamp(3, item.getTimestamp());
+            statement.setLong(4, item.getPersonalId());
+            statement.setLong(5, item.getClientId());
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    newOrderId = queryResult.getLong("id");
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return newOrderId;
     }
 
     @Override
@@ -137,5 +173,13 @@ public class OrderDaoImp implements OrderDao {
         catch (ConnectionDBException | SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void addNewOrder(List<Assortment> assortment, Order order) {
+        long orderId = this.saveWithReturningId(order);
+        OrderAndAssortmentDao orderAndAssortmentDao = new OrderAndAssortmentDaoImp();
+
+        assortment.forEach((item) -> orderAndAssortmentDao.assignAssortmentToOrder(orderId, item.getTitle()));
     }
 }

@@ -18,7 +18,9 @@ public class App {
         cafe.cafeInit();
 
         try {
-            MenuExecutor.startMenu();
+            while (true) {
+                MenuExecutor.startMenu();
+            }
         }
         catch (ConnectionDBException e) {
             System.out.println(" Failed connection to DB!");

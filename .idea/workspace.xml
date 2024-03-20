@@ -4,26 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1da9b183-2b2d-4295-a26d-8987e8e0b8f3" name="Changes" comment="">
+    <list default="true" id="2e17df6f-457b-423f-a2c1-ca03cf71303d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/test-cafe-db.c3CpiQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/test-cafe-db.c3CpiQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/test-cafe-db.c3CpiQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/test-cafe-db.c3CpiQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDaoImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImpTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/assortment/AssortmentServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/assortment/AssortmentServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/orderDAO/OrderDaoImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/orderDAO/OrderDaoImpTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,9 +50,10 @@
   &quot;isMigrated&quot;: true
 }</component>
   <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="2dffncw39BBwZbMu9zgGjEfswph" />
+  <component name="ProjectId" id="2dwbFKzfY9prYRFyVot0AeN9Yho" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="false" />
@@ -44,56 +63,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.App.executor": "Run",
-    "Docker.docker-compose.yml.test-cafe-postgres: Compose Deployment.executor": "Run",
-    "JUnit.AssortmentDaoImpTest.changePriceByTypeAndTitle_ShouldUpdatePriceByTypeAndTitleOfAssortment_WhenCalled.executor": "Run",
-    "JUnit.AssortmentDaoImpTest.deleteAssortmentByTypeAndTitle_ShouldDeleteAssortmentByTypeAndTitleOfAssortment_WhenCalled.executor": "Run",
-    "JUnit.AssortmentDaoImpTest.executor": "Run",
-    "JUnit.AssortmentDaoImpTest.getAssortmentByType_ShouldReturnAssortmentList_WhenTypeIsInTheTable.executor": "Run",
-    "JUnit.AssortmentDaoImpTest.update_ShouldUpdateAssortmentIntoTable_WhenCalled.executor": "Run",
-    "JUnit.AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.getAssortmentTypeByTitle_ShouldReturnAssortmentType_WhenRequiredTitleInTheTable.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.getAssortmentTypeByTitle_ShouldReturnAssortmentType_WhenRequiredTitleIsInTheTable.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.getAssortmentTypeByTitle_ShouldReturnEmptyAssortmentType_WhenRequiredTitleIsNotInTheTable.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.isAssortmentTypeAvailable_ShouldReturnFalse_WhenAssortmentTypeIsNotInTheTable.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.isAssortmentTypeAvailable_ShouldReturnTrue_WhenAssortmentTypeIsInTable.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.saveMany_ShouldInsertListOfAssortmentTypeIntoTable_WhenCalled.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.save_ShouldInsertAssortmentTypeIntoTable_WhenCalled.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.save_ShouldThrow_WhenNoTablesInDB.executor": "Run",
-    "JUnit.AssortmentTypeDaoImpTest.update_ShouldUpdateAssortmentTypeTable_WhenCalled.executor": "Run",
-    "JUnit.ClientDaoImpTest.changeDiscountValueByName_ShouldUpdateClientDiscountInTheTable_WhenCalled.executor": "Run",
-    "JUnit.ClientDaoImpTest.deleteClientByName_ShouldDeleteClientByNameFromTable_WhenCalled.executor": "Run",
-    "JUnit.ClientDaoImpTest.executor": "Run",
-    "JUnit.ClientDaoImpTest.save_ShouldInsertClientIntoTable_WhenCalled.executor": "Run",
-    "JUnit.ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
-    "JUnit.OrderDaoImpTest.executor": "Run",
-    "JUnit.OrderDaoImpTest.saveMany_ShouldInsertListOfOrdersIntoTable_WhenCalled.executor": "Run",
-    "JUnit.OrderDaoImpTest.save_ShouldInsertOrderIntoTable_WhenCalled.executor": "Run",
-    "JUnit.PersonalDaoImpTest.changeEmailAddressByPositionAndName_ShouldChangePersonalEmailAddressByPositionAndName_WhenCalled.executor": "Run",
-    "JUnit.PersonalDaoImpTest.changePhoneNumberByPositionAndName_ShouldChangePersonalPhoneNumberByPositionAndName_WhenCalled.executor": "Run",
-    "JUnit.PersonalDaoImpTest.deletePersonalByPositionAndName_ShouldDeletePersonalByPositionAndName_WhenCalled.executor": "Run",
-    "JUnit.PersonalDaoImpTest.executor": "Run",
-    "JUnit.PersonalDaoImpTest.getPersonalByPosition_ShouldReturnListOfPersonal_WhenPositionIsInTheTable.executor": "Run",
-    "JUnit.PersonalDaoImpTest.update_ShouldUpdatePersonalIntoTable_WhenCalled.executor": "Run",
-    "JUnit.PersonalEmailAddressDaoImpTest.executor": "Run",
-    "JUnit.PersonalEmailAddressDaoImpTest.update_ShouldUpdatePersonalEmailAddressesIntoTable_WhenCalled.executor": "Run",
-    "JUnit.PersonalPhoneNumberDaoImpTest.executor": "Run",
-    "JUnit.PersonalPhoneNumberDaoImpTest.save_ShouldInsertPersonalPhoneNumberIntoTable_WhenCalled.executor": "Run",
-    "JUnit.PersonalServiceImpTest.getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
-    "JUnit.PositionDaoImpTest.executor": "Run",
-    "JUnit.ScheduleDaoImpTest.executor": "Run",
-    "JUnit.TxtFileReaderTest.readFile_ShouldReturnListOfStringsFromFile_WenCalled.executor": "Run",
-    "Maven.Practice_120324 [clean].executor": "Run",
-    "Maven.Practice_120324 [compile].executor": "Run",
-    "Maven.Practice_120324 [install].executor": "Run",
-    "Maven.Practice_120324 [org.jacoco:jacoco-maven-plugin:0.8.10:check].executor": "Run",
-    "Maven.Practice_120324 [org.jacoco:jacoco-maven-plugin:0.8.10:help].executor": "Run",
+    "JUnit.OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled.executor": "Run",
+    "JUnit.OrderDaoImpTest.saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled.executor": "Run",
+    "JUnit.OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "G:/Browser Downloads/withUnitTests",
+    "last_opened_file_path": "C:/Users/Chaklun/Documents/GitHub/Practice_120324_Cafe_Java/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -107,7 +84,12 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.PersonalServiceImpTest.getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Chaklun\Documents\GitHub\Practice_120324_Cafe_Java\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ua.project.App" />
       <module name="Practice_120324" />
@@ -121,82 +103,59 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.service.business.assortment.*" />
+          <option name="PATTERN" value="com.ua.project.dao.orderDAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.service.business.assortment" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.business.assortment.AssortmentServiceImpTest" />
-      <option name="METHOD_NAME" value="getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+      <option name="PACKAGE_NAME" value="com.ua.project.dao.orderDAO" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.orderDAO.OrderDaoImpTest" />
+      <option name="METHOD_NAME" value="addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderDaoImpTest.saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.service.business.client.*" />
+          <option name="PATTERN" value="com.ua.project.dao.orderDAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.service.business.client" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.business.client.ClientServiceImpTest" />
-      <option name="METHOD_NAME" value="getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+      <option name="PACKAGE_NAME" value="com.ua.project.dao.orderDAO" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.orderDAO.OrderDaoImpTest" />
+      <option name="METHOD_NAME" value="saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonalServiceImpTest.getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.service.business.personal.*" />
+          <option name="PATTERN" value="com.ua.project.dao.orderDAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.service.business.personal" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.business.personal.PersonalServiceImpTest" />
-      <option name="METHOD_NAME" value="getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+      <option name="PACKAGE_NAME" value="com.ua.project.dao.orderDAO" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.orderDAO.OrderDaoImpTest" />
+      <option name="METHOD_NAME" value="saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="TxtFileReaderTest.readFile_ShouldReturnListOfStringsFromFile_WenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Practice_120324" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ua.project.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.service" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.TxtFileReaderTest" />
-      <option name="METHOD_NAME" value="readFile_ShouldReturnListOfStringsFromFile_WenCalled" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml">
-        <settings />
-      </deployment>
-      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PersonalServiceImpTest.getPersonalByPosition_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
-        <item itemvalue="JUnit.ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
-        <item itemvalue="JUnit.AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
-        <item itemvalue="JUnit.TxtFileReaderTest.readFile_ShouldReturnListOfStringsFromFile_WenCalled" />
+        <item itemvalue="JUnit.OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled" />
+        <item itemvalue="JUnit.OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd" />
+        <item itemvalue="JUnit.OrderDaoImpTest.saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled" />
         <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
@@ -211,29 +170,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1da9b183-2b2d-4295-a26d-8987e8e0b8f3" name="Changes" comment="" />
-      <created>1710404222724</created>
+      <changelist id="2e17df6f-457b-423f-a2c1-ca03cf71303d" name="Changes" comment="" />
+      <created>1710921983902</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1710404222724</updated>
-      <workItem from="1710404223800" duration="17536000" />
-      <workItem from="1710489886394" duration="3387000" />
-      <workItem from="1710749817459" duration="20997000" />
-      <workItem from="1710834431241" duration="14359000" />
+      <updated>1710921983902</updated>
+      <workItem from="1710921985315" duration="2578000" />
+      <workItem from="1710925878940" duration="3340000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="com.ua.project.exception.ConnectionDBException" package="com.ua.project.exception" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
