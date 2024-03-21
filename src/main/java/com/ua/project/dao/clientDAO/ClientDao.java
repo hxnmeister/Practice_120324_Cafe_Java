@@ -10,4 +10,5 @@ public interface ClientDao extends CRUDInterface<Client> {
 
     void changeDiscountValueByName(Client client);
     void deleteClientByName(Client client);
+    long getIdByName(Client client);
 }

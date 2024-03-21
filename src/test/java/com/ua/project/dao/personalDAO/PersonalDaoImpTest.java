@@ -216,6 +216,24 @@ public class PersonalDaoImpTest {
         assertEquals(expectedList, actualList);
     }
 
+    @Test
+    void getIdByName_ShouldReturnIdOfPersonal_WhenFirstNameAndLastNameIsInTheTable() {
+        Personal personal = Personal.builder().firstName("FirstName4").lastName("LastName4").build();
+        long actualId = personalDao.getIdByName(personal);
+        long expectedId = getExpectedPersonalList().get(3).getId();
+
+        assertEquals(expectedId, actualId);
+    }
+
+    @Test
+    void getIdByName_ShouldReturnZero_WhenFirstNameAndLastNameIsNotInTheTable() {
+        Personal personal = Personal.builder().firstName("Sergei").lastName("Ivanov").build();
+        long actualId = personalDao.getIdByName(personal);
+        long expectedId = 0;
+
+        assertEquals(expectedId, actualId);
+    }
+
     private static List<Personal> getExpectedPersonalList() {
         return new ArrayList<Personal>(List.of(
                 Personal.builder().id(1L).firstName("FirstName1").lastName("LastName1").patronymic("Patronymic1").positionId(2).build(),

@@ -15,7 +15,7 @@ public class ClientServiceImp implements ClientService {
 
         System.out.println("\n All clients:\n");
         clients.forEach((client) -> clientsBuilder
-                .append("  ")
+                .append("\n  ")
                 .append(client.getFirstName())
                 .append(" ")
                 .append(client.getLastName())

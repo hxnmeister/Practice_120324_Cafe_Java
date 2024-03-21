@@ -3,6 +3,7 @@ package com.ua.project.dao.clientDAO;
 import com.ua.project.dao.ConnectionFactory;
 import com.ua.project.exception.ConnectionDBException;
 import com.ua.project.model.Client;
+import com.ua.project.model.Personal;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,6 +38,12 @@ public class ClientDaoImp implements ClientDao {
     private static final String DELETE_CLIENT_BY_NAME = """
         DELETE FROM clients
         WHERE first_name=? AND last_name=?
+    """;
+    private static final String GET_CLIENT_ID_BY_NAME = """
+        SELECT id
+        FROM clients
+        WHERE first_name=? AND last_name=?
+        LIMIT 1
     """;
 
     @Override
@@ -187,5 +194,26 @@ public class ClientDaoImp implements ClientDao {
         catch (ConnectionDBException | SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public long getIdByName(Client client) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_ID_BY_NAME)) {
+
+            statement.setString(1, client.getFirstName());
+            statement.setString(2, client.getLastName());
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                queryResult.next();
+
+                return queryResult.getLong("id");
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
     }
 }

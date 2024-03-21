@@ -5,43 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e17df6f-457b-423f-a2c1-ca03cf71303d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1719d060-38c2-41fe-b4bd-da78724e7e68/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/test-cafe-db.c3CpiQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/test-cafe-db.c3CpiQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/test-cafe-db.c3CpiQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6f728c68-402f-41ae-865f-dc3c9bda0d0b/storage_v2/_src_/database/test-cafe-db.c3CpiQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDaoImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/order_and_assortmentDAO/OrderAndAssortmentDaoImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDaoImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDaoImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/assortment/AssortmentServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/assortment/AssortmentServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/orderDAO/OrderDaoImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/orderDAO/OrderDaoImpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/client/ClientServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/client/ClientServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/personalDAO/PersonalDaoImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/personalDAO/PersonalDaoImpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/assortment/AssortmentServiceImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/assortment/AssortmentServiceImpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/client/ClientServiceImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/client/ClientServiceImpTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,9 +54,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.App.executor": "Run",
+    "JUnit.AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
+    "JUnit.ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
     "JUnit.OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled.executor": "Run",
     "JUnit.OrderDaoImpTest.saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled.executor": "Run",
     "JUnit.OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd.executor": "Run",
+    "JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnIdOfPersonal_WhenFirstNameAndLastNameIsInTheTable.executor": "Run",
+    "JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnZero_WhenFirstNameAndLastNameIsNotInTheTable.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -89,7 +84,7 @@
       <recent name="C:\Users\Chaklun\Documents\GitHub\Practice_120324_Cafe_Java\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ua.project.App" />
       <module name="Practice_120324" />
@@ -103,49 +98,65 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.dao.orderDAO.*" />
+          <option name="PATTERN" value="com.ua.project.service.business.assortment.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.dao.orderDAO" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.orderDAO.OrderDaoImpTest" />
-      <option name="METHOD_NAME" value="addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled" />
+      <option name="PACKAGE_NAME" value="com.ua.project.service.business.assortment" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.business.assortment.AssortmentServiceImpTest" />
+      <option name="METHOD_NAME" value="getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderDaoImpTest.saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.dao.orderDAO.*" />
+          <option name="PATTERN" value="com.ua.project.service.business.client.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.dao.orderDAO" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.orderDAO.OrderDaoImpTest" />
-      <option name="METHOD_NAME" value="saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled" />
+      <option name="PACKAGE_NAME" value="com.ua.project.service.business.client" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.service.business.client.ClientServiceImpTest" />
+      <option name="METHOD_NAME" value="getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonalDaoImpTest.getIdByName_ShouldReturnIdOfPersonal_WhenFirstNameAndLastNameIsInTheTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice_120324" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ua.project.dao.orderDAO.*" />
+          <option name="PATTERN" value="com.ua.project.dao.personalDAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ua.project.dao.orderDAO" />
-      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.orderDAO.OrderDaoImpTest" />
-      <option name="METHOD_NAME" value="saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd" />
+      <option name="PACKAGE_NAME" value="com.ua.project.dao.personalDAO" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.personalDAO.PersonalDaoImpTest" />
+      <option name="METHOD_NAME" value="getIdByName_ShouldReturnIdOfPersonal_WhenFirstNameAndLastNameIsInTheTable" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonalDaoImpTest.getIdByName_ShouldReturnZero_WhenFirstNameAndLastNameIsNotInTheTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice_120324" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ua.project.dao.personalDAO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ua.project.dao.personalDAO" />
+      <option name="MAIN_CLASS_NAME" value="com.ua.project.dao.personalDAO.PersonalDaoImpTest" />
+      <option name="METHOD_NAME" value="getIdByName_ShouldReturnZero_WhenFirstNameAndLastNameIsNotInTheTable" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -153,10 +164,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled" />
-        <item itemvalue="JUnit.OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd" />
-        <item itemvalue="JUnit.OrderDaoImpTest.saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled" />
         <item itemvalue="Application.App" />
+        <item itemvalue="JUnit.ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+        <item itemvalue="JUnit.AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled" />
+        <item itemvalue="JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnZero_WhenFirstNameAndLastNameIsNotInTheTable" />
+        <item itemvalue="JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnIdOfPersonal_WhenFirstNameAndLastNameIsInTheTable" />
       </list>
     </recent_temporary>
   </component>
@@ -177,6 +189,7 @@
       <updated>1710921983902</updated>
       <workItem from="1710921985315" duration="2578000" />
       <workItem from="1710925878940" duration="3340000" />
+      <workItem from="1711008210042" duration="14644000" />
     </task>
     <servers />
   </component>

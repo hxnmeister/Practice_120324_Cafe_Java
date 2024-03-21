@@ -64,6 +64,12 @@ public class PersonalDaoImp implements PersonalDao {
         JOIN positions pos ON per.position_id = pos.id
         WHERE pos.title=?
     """;
+    private static final String GET_PERSONAL_ID_BY_NAME = """
+        SELECT id
+        FROM personal
+        WHERE first_name=? AND last_name=?
+        LIMIT 1
+    """;
 
     @Override
     public void save(Personal item) {
@@ -249,5 +255,26 @@ public class PersonalDaoImp implements PersonalDao {
         }
 
         return personal;
+    }
+
+    @Override
+    public long getIdByName(Personal personal) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_PERSONAL_ID_BY_NAME)) {
+
+            statement.setString(1, personal.getFirstName());
+            statement.setString(2, personal.getLastName());
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                queryResult.next();
+
+                return queryResult.getLong("id");
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
     }
 }

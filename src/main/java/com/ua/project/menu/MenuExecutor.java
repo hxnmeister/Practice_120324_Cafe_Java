@@ -6,6 +6,8 @@ import com.ua.project.dao.assortment_typeDAO.AssortmentTypeDao;
 import com.ua.project.dao.assortment_typeDAO.AssortmentTypeDaoImpl;
 import com.ua.project.dao.clientDAO.ClientDao;
 import com.ua.project.dao.clientDAO.ClientDaoImp;
+import com.ua.project.dao.orderDAO.OrderDao;
+import com.ua.project.dao.orderDAO.OrderDaoImp;
 import com.ua.project.dao.personalDAO.PersonalDao;
 import com.ua.project.dao.personalDAO.PersonalDaoImp;
 import com.ua.project.dao.personal_email_addressDAO.PersonalEmailAddressDao;
@@ -14,6 +16,8 @@ import com.ua.project.dao.personal_phone_numberDAO.PersonalPhoneNumberDao;
 import com.ua.project.dao.personal_phone_numberDAO.PersonalPhoneNumberDaoImp;
 import com.ua.project.dao.positionDAO.PositionDao;
 import com.ua.project.dao.positionDAO.PositionDaoImp;
+import com.ua.project.dao.scheduleDAO.ScheduleDao;
+import com.ua.project.dao.scheduleDAO.ScheduleDaoImp;
 import com.ua.project.exception.ConnectionDBException;
 import com.ua.project.model.*;
 import com.ua.project.service.business.assortment.AssortmentService;
@@ -22,80 +26,155 @@ import com.ua.project.service.business.client.ClientService;
 import com.ua.project.service.business.client.ClientServiceImp;
 import com.ua.project.service.business.personal.PersonalService;
 import com.ua.project.service.business.personal.PersonalServiceImp;
+import com.ua.project.service.business.schedule.ScheduleService;
+import com.ua.project.service.business.schedule.ScheduleServiceImp;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class MenuExecutor {
     private static final AssortmentService assortmentService = new AssortmentServiceImp();
     private static final PersonalService personalService = new PersonalServiceImp();
+    private static final ScheduleService scheduleService = new ScheduleServiceImp();
     private static final ClientService clientService = new ClientServiceImp();
 
     public static void startMenu() throws ConnectionDBException, SQLException {
         Scanner scanner = new Scanner(System.in);
-        int choice;
+        int mainMenuChoice;
+        int subMenuChoice;
 
-        MenuPublisher.showMenu();
+        MenuPublisher.showMainMenu();
+        mainMenuChoice = scanner.nextInt();
 
-        choice = scanner.nextInt();
+        if(mainMenuChoice == 1) {
+            while (true) {
+                MenuPublisher.showAddMenu();
+                subMenuChoice = scanner.nextInt();
 
-        if(choice == 1) {
-            menuItem1Execute();
+                if(subMenuChoice == 1) {
+                    addingMenuItem1Execute();
+                }
+                else if(subMenuChoice == 2) {
+                    addingMenuItem2Execute();
+                }
+                else if(subMenuChoice == 3) {
+                    addingMenuItem3Execute();
+                }
+                else if(subMenuChoice == 4) {
+                    addingMenuItem4Execute();
+                }
+                else if(subMenuChoice == 5) {
+                    addingMenuItem5Execute();
+                }
+                else if(subMenuChoice == 6) {
+                    addingMenuItem6Execute();
+                }
+                else if(subMenuChoice == 7) {
+                    addingMenuItem7Execute();
+                }
+                else if(subMenuChoice == 0) {
+                    System.out.println(" Returning to main menu...");
+                    break;
+                }
+                else {
+                    System.out.println(" Incorrect number, allowed range from 1 to 4!\n Try again!");
+                }
+            }
         }
-        else if(choice == 2) {
-            menuItem2Execute();
+        else if(mainMenuChoice == 2) {
+            while (true) {
+                MenuPublisher.showChangeMenu();
+                subMenuChoice = scanner.nextInt();
+
+                if(subMenuChoice == 1) {
+                    changingMenuItem1Execute();
+                }
+                else if(subMenuChoice == 2) {
+                    changingMenuItem2Execute();
+                }
+                else if(subMenuChoice == 3) {
+                    changingMenuItem3Execute();
+                }
+                else if(subMenuChoice == 4) {
+                    changingMenuItem4Execute();
+                }
+                else if(subMenuChoice == 5) {
+                    changingMenuItem5Execute();
+                }
+                else if(subMenuChoice == 0) {
+                    System.out.println(" Returning to main menu...");
+                    break;
+                }
+                else {
+                    System.out.println(" Incorrect number, allowed range from 1 to 4!\n Try again!");
+                }
+            }
         }
-        else if(choice == 3) {
-            menuItem3Execute();
+        else if(mainMenuChoice == 3) {
+            while (true) {
+                MenuPublisher.showDeleteMenu();
+                subMenuChoice = scanner.nextInt();
+
+                if(subMenuChoice == 1) {
+                    deleteMenuItem1Execute();
+                }
+                else if(subMenuChoice == 2) {
+                    deleteMenuItem2Execute();
+                }
+                else if(subMenuChoice == 3) {
+                    deleteMenuItem3Execute();
+                }
+                else if(subMenuChoice == 0) {
+                    System.out.println(" Returning to main menu...");
+                    break;
+                }
+                else {
+                    System.out.println(" Incorrect number, allowed range from 1 to 3!\n Try again!");
+                }
+            }
         }
-        else if(choice == 4) {
-            menuItem4Execute();
+        else if(mainMenuChoice == 4) {
+            while (true) {
+                MenuPublisher.showDisplayMenu();
+                subMenuChoice = scanner.nextInt();
+
+                if(subMenuChoice == 1) {
+                    displayMenuItem1Execute();
+                }
+                else if(subMenuChoice == 2) {
+                    displayMenuItem2Execute();
+                }
+                else if(subMenuChoice == 3) {
+                    displayMenuItem3Execute();
+                }
+                else if(subMenuChoice == 4) {
+                    displayMenuItem4Execute();
+                }
+                else if(subMenuChoice == 0) {
+                    System.out.println(" Returning to main menu...");
+                    break;
+                }
+                else {
+                    System.out.println(" Incorrect number, allowed range from 1 to 4!\n Try again!");
+                }
+            }
         }
-        else if(choice == 5) {
-            menuItem5Execute();
-        }
-        else if(choice == 6) {
-            menuItem6Execute();
-        }
-        else if(choice == 7) {
-            menuItem7Execute();
-        }
-        else if(choice == 8) {
-            menuItem8Execute();
-        }
-        else if(choice == 9) {
-            menuItem9Execute();
-        }
-        else if(choice == 10) {
-            menuItem10Execute();
-        }
-        else if(choice == 11) {
-            menuItem11Execute();
-        }
-        else if(choice == 12) {
-            menuItem12Execute();
-        }
-        else if(choice == 13) {
-            menuItem13Execute();
-        }
-        else if(choice == 14) {
-            menuItem14Execute();
-        }
-        else if(choice == 15) {
-            menuItem15Execute();
-        }
-        else if (choice == 0) {
+        else if(mainMenuChoice == 0) {
+            System.out.println(" Shutting down the program...");
             System.exit(0);
         }
         else {
-            System.out.println(" Incorrect number, allowed range from 1 to 15!\n Try again!");
+            System.out.println(" Incorrect number, allowed range from 1 to 4!\n Try again!");
         }
     }
 
-    public static void menuItem1Execute() {
+    public static void addingMenuItem1Execute() {
         Scanner scanner = new Scanner(System.in);
         int quantity;
         String type;
@@ -135,21 +214,21 @@ public class MenuExecutor {
         assortmentService.addAssortment(Assortment.builder().title(title).quantity(quantity).price(price).build(), type.toLowerCase());
     }
 
-    public static void menuItem2Execute() {
+    public static void addingMenuItem2Execute() {
         final String POSITION = "barista";
         Personal personal = getPersonalBio(POSITION);
 
         personalService.addPersonal(personal, POSITION);
     }
 
-    public static void menuItem3Execute() {
+    public static void addingMenuItem3Execute() {
         final String POSITION = "confectioner";
         Personal personal = getPersonalBio(POSITION);
 
         personalService.addPersonal(personal, POSITION);
     }
 
-    public static void menuItem4Execute() {
+    public static void addingMenuItem4Execute() {
         Scanner scanner = new Scanner(System.in);
         int discount = new Random().nextInt(99);
         Date birthDate;
@@ -202,7 +281,29 @@ public class MenuExecutor {
                 .build());
     }
 
-    public static void menuItem5Execute() {
+    public static void addingMenuItem5Execute() {
+        addingNewOrder("drink");
+    }
+
+    public static void addingMenuItem6Execute() {
+        addingNewOrder("desert");
+    }
+
+    public static void addingMenuItem7Execute() {
+        Calendar nextMonday = getCountOfDaysToSpecificDay(Calendar.MONDAY);
+        Schedule schedule;
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+        System.out.println(" Closest monday is: " + dateFormat.format(nextMonday.getTime()) + "\n");
+
+        schedule = getScheduleDataExceptDate();
+        schedule.setWorkDate(new java.sql.Date(nextMonday.getTimeInMillis()));
+
+        scheduleDao.save(schedule);
+    }
+
+    public static void changingMenuItem1Execute() {
         Scanner scanner = new Scanner(System.in);
         String coffeeName;
         String assortmentType = "drink";
@@ -232,7 +333,7 @@ public class MenuExecutor {
         assortmentDao.changePriceByTypeAndTitle("drink", coffeeName, newPrice);
     }
 
-    public static void menuItem6Execute() {
+    public static void changingMenuItem2Execute() {
         Scanner scanner = new Scanner(System.in);
         Personal personal = new Personal();
         String newEmailAddress;
@@ -258,7 +359,7 @@ public class MenuExecutor {
         personalDao.changeEmailAddressByPositionAndName(newEmailAddress, oldEmailAddress, POSITION, personal);
     }
 
-    public static void menuItem7Execute() {
+    public static void changingMenuItem3Execute() {
         Scanner scanner = new Scanner(System.in);
         Personal personal = new Personal();
         String newPhoneNumber;
@@ -284,7 +385,7 @@ public class MenuExecutor {
         personalDao.changePhoneNumberByPositionAndName(newPhoneNumber, oldPhoneNumber, POSITION, personal);
     }
 
-    public static void  menuItem8Execute() {
+    public static void  changingMenuItem4Execute() {
         Scanner scanner = new Scanner(System.in);
         ClientDao clientDao = new ClientDaoImp();
         Client client = new Client();
@@ -326,31 +427,75 @@ public class MenuExecutor {
         clientDao.changeDiscountValueByName(client);
     }
 
-    public static void menuItem9Execute() {
+    public static void  changingMenuItem5Execute() {
+        long id;
+        boolean passed = false;
+        Scanner scanner = new Scanner(System.in);
+        Schedule schedule;
+        Calendar nextTuesday = getCountOfDaysToSpecificDay(Calendar.TUESDAY);
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        List<Schedule> scheduleList = scheduleDao.findAll();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        System.out.println(scheduleService.getAllSchedules());
+
+        while (true) {
+            try {
+                System.out.print("\n Enter schedule ID to change it to closest Tuesday (" + dateFormat.format(nextTuesday.getTime()) + "): ");
+                id = scanner.nextLong();
+
+                for (Schedule item : scheduleList) {
+                    if(item.getId() == id) {
+                        passed = true;
+                        break;
+                    }
+                }
+
+                if(!passed) {
+                    throw new RuntimeException(" You entered incorrect ID!");
+                }
+
+                break;
+            }
+            catch (InputMismatchException e) {
+                System.out.println(" Please enter correct number!");
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        schedule = getScheduleDataExceptDate();
+        schedule.setId(id);
+        schedule.setWorkDate(new java.sql.Date(nextTuesday.getTimeInMillis()));
+
+        scheduleDao.update(schedule);
+    }
+
+    public static void displayMenuItem1Execute() {
         String assortmentType = "drink";
 
         System.out.println(assortmentService.getAllAssortmentByType(assortmentType));
     }
 
-    public static void menuItem10Execute() {
+    public static void displayMenuItem2Execute() {
         String assortmentType = "desert";
 
         System.out.println(assortmentService.getAllAssortmentByType(assortmentType));
     }
 
-    public static void menuItem11Execute() {
+    public static void displayMenuItem3Execute() {
         String position = "barista";
 
         System.out.println(personalService.getPersonalByPosition(position));
     }
 
-    public static void menuItem12Execute() {
+    public static void displayMenuItem4Execute() {
         String position = "waiter";
 
         System.out.println(personalService.getPersonalByPosition(position));
     }
 
-    public static void menuItem13Execute() {
+    public static void deleteMenuItem1Execute() {
         Scanner scanner = new Scanner(System.in);
         AssortmentDao assortmentDao = new AssortmentDaoImp();
         final String assortmentType = "desert";
@@ -364,7 +509,7 @@ public class MenuExecutor {
         assortmentDao.deleteAssortmentByTypeAndTitle(assortmentType, desertTitle);
     }
 
-    public static void menuItem14Execute() {
+    public static void deleteMenuItem2Execute() {
         Scanner scanner = new Scanner(System.in);
         Personal personal = new Personal();
         PersonalDao personalDao = new PersonalDaoImp();
@@ -386,7 +531,7 @@ public class MenuExecutor {
         personalDao.deletePersonalByPositionAndName(dismissalReason, POSITION, personal);
     }
 
-    public static void menuItem15Execute() {
+    public static void deleteMenuItem3Execute() {
         Scanner scanner = new Scanner(System.in);
         ClientDao clientDao = new ClientDaoImp();
         Client client = new Client();
@@ -421,5 +566,128 @@ public class MenuExecutor {
         patronymic = scanner.nextLine();
 
         return Personal.builder().firstName(firstName).lastName(lastName).patronymic(patronymic).build();
+    }
+
+    private static void addingNewOrder(String assortmentType) {
+        char confirm = ' ';
+        long id;
+        String position;
+        Personal personal;
+        Client client = new Client();
+        BigDecimal price = BigDecimal.ZERO;
+        Scanner scanner = new Scanner(System.in);
+        OrderDao orderDao = new OrderDaoImp();
+        ClientDao clientDao = new ClientDaoImp();
+        PersonalDao personalDao = new PersonalDaoImp();
+        AssortmentDao assortmentDao = new AssortmentDaoImp();
+        List<Assortment> assortmentList = assortmentDao.getAssortmentByType(assortmentType);
+        List<Assortment> orderAssortmentList = new ArrayList<>();
+
+        do {
+            boolean passed = false;
+
+            System.out.println(assortmentService.getAllAssortmentByType(assortmentType));
+
+            try {
+                System.out.print(" Enter " + assortmentType + " id for adding to order: ");
+                id = scanner.nextLong();
+                scanner.nextLine();
+
+                for (Assortment assortment : assortmentList) {
+                    if(assortment.getId() == id) {
+                        passed = true;
+                        orderAssortmentList.add(assortment);
+                        break;
+                    }
+                }
+
+                if (!passed) {
+                    throw new RuntimeException(" Entered ID is incorrect!");
+                }
+            }
+            catch (InputMismatchException e) {
+                System.out.println(" Please enter a correct number!");
+                continue;
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+
+            System.out.print(" Would you like to add another " + assortmentType + "?(Y/N): ");
+            confirm = scanner.nextLine().toLowerCase().charAt(0);
+        } while (confirm != 'n');
+
+        System.out.print("\n Enter personal position: ");
+        position = scanner.nextLine();
+
+        System.out.println(personalService.getPersonalByPosition(position));
+        personal = getPersonalBio(position);
+
+        System.out.println(clientService.getAllClients());
+        System.out.print("\n Enter client first name: ");
+        client.setFirstName(scanner.nextLine());
+        System.out.print(" Enter client last name: ");
+        client.setLastName(scanner.nextLine());
+
+        for (Assortment assortment : orderAssortmentList) {
+            price = price.add(assortment.getPrice());
+        }
+
+        orderDao.addNewOrder(orderAssortmentList, Order.builder()
+                .timestamp(Timestamp.valueOf(LocalDateTime.now()))
+                .price(price).priceWithDiscount(price)
+                .clientId(clientDao.getIdByName(client))
+                .personalId(personalDao.getIdByName(personal))
+                .build());
+    }
+
+    private static Calendar getCountOfDaysToSpecificDay(int dayOfWeek) {
+        Calendar calendar = new GregorianCalendar();
+        final int DAYS_UNTIL_SPECIFIC_DAY = (dayOfWeek - calendar.get(Calendar.DAY_OF_WEEK) + 7) % 7;
+
+        calendar.add(Calendar.DAY_OF_MONTH, DAYS_UNTIL_SPECIFIC_DAY);
+
+        return calendar;
+    }
+
+    private static Schedule getScheduleDataExceptDate() {
+        Schedule schedule = new Schedule();
+        long personalId;
+        Scanner scanner = new Scanner(System.in);
+        String position;
+        Personal personal;
+        PersonalDao personalDao = new PersonalDaoImp();
+
+        System.out.print("\n Enter personal position: ");
+        position = scanner.nextLine();
+        System.out.println(personalService.getPersonalByPosition(position));
+        personal = getPersonalBio(position);
+        personalId = personalDao.getIdByName(personal);
+
+        while (true) {
+            try {
+                System.out.print("\n Enter work shift begin (hh:mm): ");
+                schedule.setWorkHoursBegin(Time.valueOf(scanner.nextLine() + ":00"));
+
+                System.out.print("\n Enter work shift ends (hh:mm): ");
+                schedule.setWorkHoursEnd(Time.valueOf(scanner.nextLine() + ":00"));
+
+                if(schedule.getWorkHoursBegin().getTime() > schedule.getWorkHoursEnd().getTime()) {
+                    throw new RuntimeException(" Incorrect range from |" + schedule.getWorkHoursBegin() + "| to |" + schedule.getWorkHoursEnd() + "|");
+                }
+
+                break;
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(" Incorrect format for time!");
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        schedule.setPersonalId(personalId);
+
+        return schedule;
     }
 }

@@ -49,10 +49,10 @@ public class AssortmentServiceImpTest {
         when(assortmentDao.getAssortmentByType("drink")).thenReturn(assortment);
 
         expected.append("\n All ").append("drink").append("`s in menu:\n");
-        assortment.forEach((item) -> expected.append(" ").append(item.getTitle()).append(" | ").append(item.getQuantity()).append(" | ").append(item.getPrice()).append("$"));
+        assortment.forEach((item) -> expected.append(" id:").append(item.getId()).append("| ").append(item.getTitle()).append(" | ").append(item.getQuantity()).append(" | ").append(item.getPrice()).append("$"));
 
         actual.append("\n All ").append("drink").append("`s in menu:\n");
-        assortmentDao.getAssortmentByType("drink").forEach((item) -> actual.append(" ").append(item.getTitle()).append(" | ").append(item.getQuantity()).append(" | ").append(item.getPrice()).append("$"));
+        assortmentDao.getAssortmentByType("drink").forEach((item) -> actual.append(" id:").append(item.getId()).append("| ").append(item.getTitle()).append(" | ").append(item.getQuantity()).append(" | ").append(item.getPrice()).append("$"));
 
         assertEquals(expected.toString(), actual.toString());
     }

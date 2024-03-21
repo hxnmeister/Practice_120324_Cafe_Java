@@ -37,7 +37,7 @@ public class AssortmentServiceImp implements AssortmentService {
         List<Assortment> assortmentList = assortmentDao.getAssortmentByType(type);
 
         assortmentByTypeBuilder.append("\n All ").append(type).append("`s in menu:\n");
-        assortmentList.forEach((item) -> assortmentByTypeBuilder.append(" ").append(item.getTitle()).append(" | ").append(item.getQuantity()).append(" | ").append(item.getPrice()).append("$\n"));
+        assortmentList.forEach((item) -> assortmentByTypeBuilder.append(" id:").append(item.getId()).append("| ").append(item.getTitle()).append(" | ").append(item.getQuantity()).append(" | ").append(item.getPrice()).append("$\n"));
 
         return assortmentByTypeBuilder.toString();
     }

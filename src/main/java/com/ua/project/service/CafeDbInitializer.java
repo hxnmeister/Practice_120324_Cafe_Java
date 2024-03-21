@@ -30,11 +30,11 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalField;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -298,5 +298,21 @@ public class CafeDbInitializer {
         }
 
         personalPhoneNumberDao.saveMany(personalPhoneNumberList);
+    }
+
+    public static void createRandomSchedules() {
+        Random random = new Random();
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        PersonalDao personalDao = new PersonalDaoImp();
+        Calendar calendar = new GregorianCalendar();
+        List<Personal> personalList = personalDao.findAll();
+        List<Schedule> scheduleList = new ArrayList<>(List.of(
+                Schedule.builder().workDate(new Date(calendar.getTimeInMillis())).workHoursBegin(Time.valueOf("11:15:00")).workHoursEnd(Time.valueOf("19:44:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).build(),
+                Schedule.builder().workDate(new Date(calendar.getTimeInMillis())).workHoursBegin(Time.valueOf("11:15:00")).workHoursEnd(Time.valueOf("19:44:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).build(),
+                Schedule.builder().workDate(new Date(calendar.getTimeInMillis())).workHoursBegin(Time.valueOf("11:15:00")).workHoursEnd(Time.valueOf("19:44:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).build(),
+                Schedule.builder().workDate(new Date(calendar.getTimeInMillis())).workHoursBegin(Time.valueOf("11:15:00")).workHoursEnd(Time.valueOf("19:44:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).build()
+        ));
+
+        scheduleList.forEach(scheduleDao::save);
     }
 }
