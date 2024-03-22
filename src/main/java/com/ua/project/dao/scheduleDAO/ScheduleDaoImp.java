@@ -30,6 +30,10 @@ public class ScheduleDaoImp implements ScheduleDao {
         SELECT *
         FROM schedule
     """;
+    private static final String DELETE_IN_DATE_RANGE = """
+        DELETE FROM schedule
+        WHERE work_date BETWEEN ? AND ?
+    """;
 
     @Override
     public void save(Schedule item) {
@@ -131,6 +135,20 @@ public class ScheduleDaoImp implements ScheduleDao {
              Statement statement = connection.createStatement()) {
 
             statement.execute(DELETE_EVERY_SCHEDULE);
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteInDateRange(Date rangeBegin, Date rangeEnd) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_IN_DATE_RANGE)) {
+
+            statement.setDate(1, rangeBegin);
+            statement.setDate(2, rangeEnd);
+            statement.execute();
         }
         catch (ConnectionDBException | SQLException e) {
             System.out.println(e.getMessage());

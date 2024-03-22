@@ -247,6 +247,22 @@ public class CafeDbInitializer {
                         .build());
             }
 
+            personalList.add(Personal.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                    .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                    .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                    .positionId(1)
+                    .build());
+            personalList.add(Personal.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                    .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                    .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                    .positionId(2)
+                    .build());
+            personalList.add(Personal.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                    .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                    .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                    .positionId(3)
+                    .build());
+
             personalDao.saveMany(personalList);
         }
         catch (FileException | RuntimeException e) {
@@ -314,5 +330,23 @@ public class CafeDbInitializer {
         ));
 
         scheduleList.forEach(scheduleDao::save);
+    }
+
+    public static void createRandomOrders() {
+        Random random = new Random();
+        ClientDao clientDao = new ClientDaoImp();
+        PersonalDao personalDao = new PersonalDaoImp();
+        OrderDao orderDao = new OrderDaoImp();
+        List<Client> clients = clientDao.findAll();
+        List<Personal> personalList = personalDao.findAll();
+        List<Order> orders = new ArrayList<>(List.of(
+                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
+                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
+                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
+                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
+                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build()
+        ));
+
+        orderDao.saveMany(orders);
     }
 }

@@ -39,6 +39,16 @@ public class OrderDaoImp implements OrderDao {
         SELECT *
         FROM orders
     """;
+    private static final String GET_ALL_ORDERS_BY_PERSONAL_ID = """
+        SELECT *
+        FROM orders
+        WHERE personal_id=?
+    """;
+    private static final String GET_ALL_ORDERS_BY_CLIENT_ID = """
+        SELECT *
+        FROM orders
+        WHERE client_id=?
+    """;
 
     @Override
     public void save(Order item) {
@@ -181,5 +191,63 @@ public class OrderDaoImp implements OrderDao {
         OrderAndAssortmentDao orderAndAssortmentDao = new OrderAndAssortmentDaoImp();
 
         assortment.forEach((item) -> orderAndAssortmentDao.assignAssortmentToOrder(orderId, item.getTitle()));
+    }
+
+    @Override
+    public List<Order> findOrdersByPersonalId(long id) {
+        List<Order> orders = new ArrayList<Order>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_ALL_ORDERS_BY_PERSONAL_ID)) {
+
+            statement.setLong(1, id);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    orders.add(Order.builder()
+                            .id(queryResult.getLong("id"))
+                            .price(queryResult.getBigDecimal("price"))
+                            .priceWithDiscount(queryResult.getBigDecimal("price_with_discount"))
+                            .timestamp(queryResult.getTimestamp("timestamp"))
+                            .personalId(queryResult.getLong("personal_id"))
+                            .clientId(queryResult.getLong("client_id"))
+                            .build());
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> findOrdersByClientId(long id) {
+        List<Order> orders = new ArrayList<Order>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_ALL_ORDERS_BY_CLIENT_ID)) {
+
+            statement.setLong(1, id);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    orders.add(Order.builder()
+                            .id(queryResult.getLong("id"))
+                            .price(queryResult.getBigDecimal("price"))
+                            .priceWithDiscount(queryResult.getBigDecimal("price_with_discount"))
+                            .timestamp(queryResult.getTimestamp("timestamp"))
+                            .personalId(queryResult.getLong("personal_id"))
+                            .clientId(queryResult.getLong("client_id"))
+                            .build());
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return orders;
     }
 }

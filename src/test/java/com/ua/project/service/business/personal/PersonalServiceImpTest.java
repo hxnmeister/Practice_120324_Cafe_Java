@@ -82,7 +82,7 @@ public class PersonalServiceImpTest {
         builder.append("\n All personal by position ").append(position.toLowerCase()).append(":\n");
 
         for (Personal personal : personalList) {
-            builder.append("\n").append(personal.getFirstName()).append(" ").append(personal.getLastName()).append(" ").append(personal.getPatronymic()).append("\n  Phone numbers and emails:\n");
+            builder.append("\n id:").append(personal.getId()).append("| ").append(personal.getFirstName()).append(" ").append(personal.getLastName()).append(" ").append(personal.getPatronymic()).append("\n  Phone numbers and emails:\n");
 
             for (PersonalPhoneNumber personalPhoneNumber : personalPhoneNumbers) {
                 builder.append(personalPhoneNumber.getPhoneNumber()).append(" ");

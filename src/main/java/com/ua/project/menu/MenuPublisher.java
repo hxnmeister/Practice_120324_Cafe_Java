@@ -41,6 +41,10 @@ public class MenuPublisher {
         System.out.println("  2. Change email for confectioner;");
         System.out.println("  3. Change phone number for barista;");
         System.out.println("  4. Change discount for client;");
+        System.out.println("  5. Change schedule (for closest Tuesday);");
+        System.out.println("  6. Change title of existing coffee;");
+        System.out.println("  7. Change title of existing desert;");
+        System.out.println("  8. Change data of existing order;");
         System.out.println("  0. Return to main menu;");
         System.out.println(SEPARATOR);
         System.out.print("\n Enter number: ");
@@ -52,7 +56,9 @@ public class MenuPublisher {
         System.out.println(SEPARATOR);
         System.out.println("  1. Delete desert from menu;");
         System.out.println("  2. Delete waiter with dismissal reason;");
-        System.out.println("  3. Delete client from Database;");
+        System.out.println("  3. Delete client;");
+        System.out.println("  4. Delete order;");
+        System.out.println("  5. Delete schedule by date;");
         System.out.println("  0. Return to main menu;");
         System.out.println(SEPARATOR);
         System.out.print("\n Enter number: ");
@@ -66,6 +72,8 @@ public class MenuPublisher {
         System.out.println("  2. Display all deserts;");
         System.out.println("  3. Display all baristas;");
         System.out.println("  4. Display all waiters;");
+        System.out.println("  5. Display all orders for specific waiter;");
+        System.out.println("  6. Display all order for specific client;");
         System.out.println("  0. Return to main menu;");
         System.out.println(SEPARATOR);
         System.out.print("\n Enter number: ");

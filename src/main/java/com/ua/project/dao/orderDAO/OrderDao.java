@@ -10,4 +10,6 @@ import java.util.List;
 public interface OrderDao extends CRUDInterface<Order> {
     void addNewOrder(List<Assortment> assortment, Order order);
     long saveWithReturningId(Order item);
+    List<Order> findOrdersByPersonalId(long id);
+    List<Order> findOrdersByClientId(long id);
 }

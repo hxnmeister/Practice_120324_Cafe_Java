@@ -1,5 +1,6 @@
 package com.ua.project.menu;
 
+import com.ua.project.dao.CRUDInterface;
 import com.ua.project.dao.assortmentDAO.AssortmentDao;
 import com.ua.project.dao.assortmentDAO.AssortmentDaoImp;
 import com.ua.project.dao.assortment_typeDAO.AssortmentTypeDao;
@@ -24,10 +25,13 @@ import com.ua.project.service.business.assortment.AssortmentService;
 import com.ua.project.service.business.assortment.AssortmentServiceImp;
 import com.ua.project.service.business.client.ClientService;
 import com.ua.project.service.business.client.ClientServiceImp;
+import com.ua.project.service.business.order.OrderService;
+import com.ua.project.service.business.order.OrderServiceImp;
 import com.ua.project.service.business.personal.PersonalService;
 import com.ua.project.service.business.personal.PersonalServiceImp;
 import com.ua.project.service.business.schedule.ScheduleService;
 import com.ua.project.service.business.schedule.ScheduleServiceImp;
+import org.codehaus.plexus.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -37,12 +41,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MenuExecutor {
     private static final AssortmentService assortmentService = new AssortmentServiceImp();
     private static final PersonalService personalService = new PersonalServiceImp();
     private static final ScheduleService scheduleService = new ScheduleServiceImp();
     private static final ClientService clientService = new ClientServiceImp();
+    private static final OrderService orderService = new OrderServiceImp();
 
     public static void startMenu() throws ConnectionDBException, SQLException {
         Scanner scanner = new Scanner(System.in);
@@ -107,12 +113,21 @@ public class MenuExecutor {
                 else if(subMenuChoice == 5) {
                     changingMenuItem5Execute();
                 }
+                else if(subMenuChoice == 6) {
+                    changingMenuItem6Execute();
+                }
+                else if(subMenuChoice == 7) {
+                    changingMenuItem7Execute();
+                }
+                else if(subMenuChoice == 8) {
+                    changingMenuItem8Execute();
+                }
                 else if(subMenuChoice == 0) {
                     System.out.println(" Returning to main menu...");
                     break;
                 }
                 else {
-                    System.out.println(" Incorrect number, allowed range from 1 to 4!\n Try again!");
+                    System.out.println(" Incorrect number, allowed range from 1 to 8!\n Try again!");
                 }
             }
         }
@@ -130,12 +145,21 @@ public class MenuExecutor {
                 else if(subMenuChoice == 3) {
                     deleteMenuItem3Execute();
                 }
+                else if(subMenuChoice == 4) {
+                    deleteMenuItem4Execute();
+                }
+                else if(subMenuChoice == 5) {
+                    deleteMenuItem5Execute();
+                }
+                else if(subMenuChoice == 6) {
+                    deleteMenuItem6Execute();
+                }
                 else if(subMenuChoice == 0) {
                     System.out.println(" Returning to main menu...");
                     break;
                 }
                 else {
-                    System.out.println(" Incorrect number, allowed range from 1 to 3!\n Try again!");
+                    System.out.println(" Incorrect number, allowed range from 1 to 6!\n Try again!");
                 }
             }
         }
@@ -155,6 +179,12 @@ public class MenuExecutor {
                 }
                 else if(subMenuChoice == 4) {
                     displayMenuItem4Execute();
+                }
+                else if(subMenuChoice == 5) {
+                    displayMenuItem5Execute();
+                }
+                else if(subMenuChoice == 6) {
+                    displayMenuItem6Execute();
                 }
                 else if(subMenuChoice == 0) {
                     System.out.println(" Returning to main menu...");
@@ -429,46 +459,77 @@ public class MenuExecutor {
 
     public static void  changingMenuItem5Execute() {
         long id;
-        boolean passed = false;
-        Scanner scanner = new Scanner(System.in);
         Schedule schedule;
         Calendar nextTuesday = getCountOfDaysToSpecificDay(Calendar.TUESDAY);
         ScheduleDao scheduleDao = new ScheduleDaoImp();
         List<Schedule> scheduleList = scheduleDao.findAll();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
         System.out.println(scheduleService.getAllSchedules());
-
-        while (true) {
-            try {
-                System.out.print("\n Enter schedule ID to change it to closest Tuesday (" + dateFormat.format(nextTuesday.getTime()) + "): ");
-                id = scanner.nextLong();
-
-                for (Schedule item : scheduleList) {
-                    if(item.getId() == id) {
-                        passed = true;
-                        break;
-                    }
-                }
-
-                if(!passed) {
-                    throw new RuntimeException(" You entered incorrect ID!");
-                }
-
-                break;
-            }
-            catch (InputMismatchException e) {
-                System.out.println(" Please enter correct number!");
-            }
-            catch (RuntimeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        id = getValidIdFromUser(scheduleList.stream().map(Schedule::getId).collect(Collectors.toList()), "\n Enter schedule ID to change it to closest Tuesday (" + dateFormat.format(nextTuesday.getTime()) + ")");
 
         schedule = getScheduleDataExceptDate();
         schedule.setId(id);
         schedule.setWorkDate(new java.sql.Date(nextTuesday.getTimeInMillis()));
 
         scheduleDao.update(schedule);
+    }
+
+    public static void changingMenuItem6Execute() {
+        System.out.println("\n Title has been " + (changeAssortmentTitle("drink", " Enter coffee ID to change title: ") ? "" : "not") + " changed!");
+    }
+
+    public static void changingMenuItem7Execute() {
+        System.out.println("\n Title has been " + (changeAssortmentTitle("desert", " Enter desert ID to change title: ") ? "" : "not") + " changed!");
+    }
+
+    public static void changingMenuItem8Execute() {
+        Scanner scanner = new Scanner(System.in);
+        Order order;
+        String price;
+        String priceWithDiscount;
+        String timestamp;
+        OrderDao orderDao = new OrderDaoImp();
+        List<Order> orders = orderDao.findAll();
+
+        while (true) {
+            try {
+                System.out.println(orderService.getAllOrders());
+                final long id = getValidIdFromUser(orders.stream().map(Order::getId).collect(Collectors.toList()), " Enter order ID to change data in it: ");
+                order = orders.stream().filter((item) -> item.getId() == id).findFirst().orElseThrow();
+
+                System.out.println("\n To skip, press enter");
+
+                System.out.print("\n Enter price: ");
+                price = scanner.nextLine();
+
+                System.out.print("\n Enter price with discount: ");
+                priceWithDiscount = scanner.nextLine();
+
+                System.out.print("\n Enter timestamp (yyyy-MM-dd hh:mm): ");
+                timestamp = scanner.nextLine();
+
+                if(!price.isEmpty()) {
+                    order.setPrice(new BigDecimal(price));
+                }
+                if(!priceWithDiscount.isEmpty()) {
+                    order.setPriceWithDiscount(new BigDecimal(priceWithDiscount));
+                }
+                if(!timestamp.isEmpty()) {
+                    order.setTimestamp(Timestamp.valueOf(timestamp));
+                }
+
+                break;
+            }
+            catch (NoSuchElementException e) {
+                System.out.println(" There is no such element with such id!");
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        orderDao.update(order);
     }
 
     public static void displayMenuItem1Execute() {
@@ -493,6 +554,38 @@ public class MenuExecutor {
         String position = "waiter";
 
         System.out.println(personalService.getPersonalByPosition(position));
+    }
+
+    public static void displayMenuItem5Execute() {
+        long id;
+        Personal personal;
+        List<Order> orders;
+        OrderDao orderDao = new OrderDaoImp();
+        PersonalDao personalDao = new PersonalDaoImp();
+        List<Personal> personalList = personalDao.getPersonalByPosition("waiter");
+
+        System.out.println(personalService.getPersonalByPosition("waiter"));
+        id = getValidIdFromUser(personalList.stream().map(Personal::getId).collect(Collectors.toList()), " Enter personal id to display orders: ");
+        personal = personalList.stream().filter((item) -> item.getId() == id).findFirst().get();
+        orders = orderDao.findOrdersByPersonalId(id);
+
+        showOrdersByPersonId(personal.getFirstName(), personal.getLastName(), orders, id);
+    }
+
+    public static void displayMenuItem6Execute() {
+        long id;
+        Client client;
+        List<Order> orders;
+        OrderDao orderDao = new OrderDaoImp();
+        ClientDao clientDao = new ClientDaoImp();
+        List<Client> clients = clientDao.findAll();
+
+        System.out.println(clientService.getAllClients());
+        id = getValidIdFromUser(clients.stream().map(Client::getId).collect(Collectors.toList()), " Enter personal id to display orders: ");
+        client = clients.stream().filter((item) -> item.getId() == id).findFirst().get();
+        orders = orderDao.findOrdersByClientId(id);
+
+        showOrdersByPersonId(client.getFirstName(), client.getLastName(), orders, id);
     }
 
     public static void deleteMenuItem1Execute() {
@@ -547,6 +640,102 @@ public class MenuExecutor {
 
         clientDao.deleteClientByName(client);
     }
+
+    public static void deleteMenuItem4Execute() {
+        long id;
+        Order order;
+        OrderDao orderDao = new OrderDaoImp();
+        List<Order> orders = orderDao.findAll();
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.println(orderService.getAllOrders());
+            id = getValidIdFromUser(orders.stream().map(Order::getId).collect(Collectors.toList()), " Enter ID of order to delete id: ");
+            order = orders.stream().filter((item) -> item.getId() == id).findFirst().orElseThrow();
+
+            orderDao.delete(order);
+        }
+        catch (NoSuchElementException e) {
+            System.out.println(" Element with such id not exists!");
+        }
+        catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteMenuItem5Execute() {
+        Scanner scanner = new Scanner(System.in);
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        List<Schedule> deleteList = new ArrayList<>();
+        List<Schedule> scheduleList = scheduleDao.findAll();
+
+        while (true) {
+            try {
+                System.out.println(scheduleService.getAllSchedules());
+
+                System.out.print("\n Enter date to delete schedule (yyyy-MM-dd): ");
+                final java.sql.Date date = java.sql.Date.valueOf(scanner.nextLine());
+
+                for (Schedule currentSchedule : scheduleList) {
+                    if(currentSchedule.getWorkDate().equals(date)) {
+                        deleteList.addAll(scheduleList.stream().filter((item) -> item.getWorkDate().equals(date)).collect(Collectors.toList()));
+                        deleteList.forEach(scheduleDao::delete);
+                        return;
+                    }
+                }
+
+                throw new RuntimeException(" No schedule with such date!");
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(" Please enter correct data!");
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void deleteMenuItem6Execute() {
+        java.sql.Date rangeBegin;
+        java.sql.Date rangeEnd;
+        Scanner scanner = new Scanner(System.in);
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        List<Schedule> deleteList = new ArrayList<>();
+        List<Schedule> scheduleList = scheduleDao.findAll();
+
+        while (true) {
+            try {
+                System.out.println(scheduleService.getAllSchedules());
+
+                System.out.print("\n Enter date begin range (yyyy-MM-dd): ");
+                rangeBegin = java.sql.Date.valueOf(scanner.nextLine());
+
+                System.out.print("\n Enter date end range (yyyy-MM-dd): ");
+                rangeEnd = java.sql.Date.valueOf(scanner.nextLine());
+
+                if (rangeBegin.getTime() >= rangeEnd.getTime()) {
+                    throw new RuntimeException(" Incorrect range!");
+                }
+
+                for (Schedule currentSchedule : scheduleList) {
+                    if(currentSchedule.getWorkDate().getTime() < rangeBegin.getTime() || currentSchedule.getWorkDate().getTime() > rangeEnd.getTime()) {
+                        throw new RuntimeException(" This range incorrect for current schedules!");
+                    }
+                }
+
+                break;
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(" Please enter correct data!");
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        scheduleDao.deleteInDateRange(rangeBegin, rangeEnd);
+    }
+
 
     private static Personal getPersonalBio(String position) {
         Scanner scanner = new Scanner(System.in);
@@ -689,5 +878,73 @@ public class MenuExecutor {
         schedule.setPersonalId(personalId);
 
         return schedule;
+    }
+
+    private static long getValidIdFromUser(List<Long> longList, String inputMessage) {
+        long id;
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            try {
+                System.out.print(inputMessage);
+                id = scanner.nextLong();
+                scanner.nextLine();
+
+                if (longList.contains(id)) {
+                    return id;
+                }
+                else {
+                    throw new RuntimeException(" You entered incorrect ID!");
+                }
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Please enter a correct number!");
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static boolean changeAssortmentTitle(String assortmentType, String inputMessage) {
+        long id;
+        Scanner scanner = new Scanner(System.in);
+        String newTitle;
+        Assortment assortment;
+        AssortmentDao assortmentDao = new AssortmentDaoImp();
+        List<Assortment> assortmentList = assortmentDao.getAssortmentByType(assortmentType);
+
+        System.out.println(assortmentService.getAllAssortmentByType(assortmentType));
+        id = getValidIdFromUser(assortmentList.stream().map(Assortment::getId).collect(Collectors.toList()), inputMessage);
+
+        try {
+            assortment = assortmentList.stream().filter((item) -> item.getId() == id).findFirst().orElseThrow();
+
+            System.out.print(" Enter new title: ");
+            newTitle = scanner.nextLine();
+
+            if(!newTitle.equalsIgnoreCase(assortment.getTitle())) {
+                assortment.setTitle(newTitle);
+                assortmentDao.update(assortment);
+
+                return true;
+            }
+        }
+        catch (NoSuchElementException e) {
+            System.out.println(" Element with such id: " + id + " not exists!");
+        }
+        catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+    }
+
+    private static void showOrdersByPersonId(String firstName, String lastName, List<Order> orders, long id) {
+        System.out.println(" Orders for " + firstName + " " + lastName + ":\n");
+        orders.forEach((order) -> {
+            System.out.println(" Timestamp: " + order.getTimestamp());
+            System.out.println(" Price: " + order.getPrice() + "$");
+            System.out.println(" Price With Discount: " + order.getPriceWithDiscount() + "$\n");
+        });
     }
 }

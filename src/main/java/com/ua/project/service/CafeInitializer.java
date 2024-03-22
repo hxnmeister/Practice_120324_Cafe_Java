@@ -22,5 +22,6 @@ public class CafeInitializer {
         CafeDbInitializer.createRandomPersonalEmailAddresses();
         CafeDbInitializer.createRandomPersonalPhoneNumber();
         CafeDbInitializer.createRandomSchedules();
+        CafeDbInitializer.createRandomOrders();
     }
 }

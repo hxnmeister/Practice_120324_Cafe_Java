@@ -42,7 +42,7 @@ public class PersonalServiceImp implements PersonalService {
         personalByPosition.append("\n All personal by position ").append(position.toLowerCase()).append(":\n");
 
         for (Personal personal : personalList) {
-            personalByPosition.append("\n").append(personal.getFirstName()).append(" ").append(personal.getLastName()).append(" ").append(personal.getPatronymic()).append("\n  Phone numbers and emails:\n");
+            personalByPosition.append("\n id:").append(personal.getId()).append("| ").append(personal.getFirstName()).append(" ").append(personal.getLastName()).append(" ").append(personal.getPatronymic()).append("\n  Phone numbers and emails:\n");
 
             for (PersonalPhoneNumber personalPhoneNumber : personalPhoneNumberDao.findByPersonalId(personal.getId())) {
                 personalByPosition.append(personalPhoneNumber.getPhoneNumber()).append(" ");

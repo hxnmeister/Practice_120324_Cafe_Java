@@ -7,19 +7,16 @@
     <list default="true" id="2e17df6f-457b-423f-a2c1-ca03cf71303d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDaoImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/personalDAO/PersonalDaoImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDaoImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDaoImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/assortment/AssortmentServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/assortment/AssortmentServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/client/ClientServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/client/ClientServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/personalDAO/PersonalDaoImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/dao/personalDAO/PersonalDaoImpTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/assortment/AssortmentServiceImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/assortment/AssortmentServiceImpTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/client/ClientServiceImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/client/ClientServiceImpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/personal/PersonalServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/personal/PersonalServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/personal/PersonalServiceImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/personal/PersonalServiceImpTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,34 +48,34 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "JUnit.AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
-    "JUnit.ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor": "Run",
-    "JUnit.OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled.executor": "Run",
-    "JUnit.OrderDaoImpTest.saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled.executor": "Run",
-    "JUnit.OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd.executor": "Run",
-    "JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnIdOfPersonal_WhenFirstNameAndLastNameIsInTheTable.executor": "Run",
-    "JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnZero_WhenFirstNameAndLastNameIsNotInTheTable.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Chaklun/Documents/GitHub/Practice_120324_Cafe_Java/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AssortmentServiceImpTest.getAllAssortmentByType_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ClientServiceImpTest.getAllClients_ShouldReturnStringWithFormattedTextToShow_WhenCalled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderDaoImpTest.addNewOrder_ShouldInsertOrderAndAssignAssortmentToInsertedOrder_WhenCalled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderDaoImpTest.saveWithReturningId_ShouldInsertOrderIntoTableAndReturnItsId_WhenCalled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnIdOfPersonal_WhenFirstNameAndLastNameIsInTheTable.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnZero_WhenFirstNameAndLastNameIsNotInTheTable.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Chaklun/Documents/GitHub/Practice_120324_Cafe_Java/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Chaklun\Documents\GitHub\Practice_120324_Cafe_Java\src\main\resources" />
@@ -189,7 +186,8 @@
       <updated>1710921983902</updated>
       <workItem from="1710921985315" duration="2578000" />
       <workItem from="1710925878940" duration="3340000" />
-      <workItem from="1711008210042" duration="14644000" />
+      <workItem from="1711008210042" duration="14896000" />
+      <workItem from="1711102616222" duration="9468000" />
     </task>
     <servers />
   </component>
