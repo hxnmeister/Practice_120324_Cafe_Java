@@ -9,6 +9,8 @@ import com.ua.project.dao.clientDAO.ClientDao;
 import com.ua.project.dao.clientDAO.ClientDaoImp;
 import com.ua.project.dao.orderDAO.OrderDao;
 import com.ua.project.dao.orderDAO.OrderDaoImp;
+import com.ua.project.dao.order_and_assortmentDAO.OrderAndAssortmentDao;
+import com.ua.project.dao.order_and_assortmentDAO.OrderAndAssortmentDaoImp;
 import com.ua.project.dao.personalDAO.PersonalDao;
 import com.ua.project.dao.personalDAO.PersonalDaoImp;
 import com.ua.project.dao.personal_email_addressDAO.PersonalEmailAddressDao;
@@ -186,12 +188,18 @@ public class MenuExecutor {
                 else if(subMenuChoice == 6) {
                     displayMenuItem6Execute();
                 }
+                else if(subMenuChoice == 7) {
+                    displayMenuItem7Execute();
+                }
+                else if(subMenuChoice == 8) {
+                    displayMenuItem8Execute();
+                }
                 else if(subMenuChoice == 0) {
                     System.out.println(" Returning to main menu...");
                     break;
                 }
                 else {
-                    System.out.println(" Incorrect number, allowed range from 1 to 4!\n Try again!");
+                    System.out.println(" Incorrect number, allowed range from 1 to 8!\n Try again!");
                 }
             }
         }
@@ -588,6 +596,57 @@ public class MenuExecutor {
         showOrdersByPersonId(client.getFirstName(), client.getLastName(), orders, id);
     }
 
+    public static void displayMenuItem7Execute() {
+        long id;
+        OrderDao orderDao = new OrderDaoImp();
+        AssortmentDao assortmentDao = new AssortmentDaoImp();
+        OrderAndAssortmentDao orderAndAssortmentDao = new OrderAndAssortmentDaoImp();
+        List<Long> ordersId;
+        List<Order> orders = orderDao.findAll();
+        List<Assortment> deserts = assortmentDao.getAssortmentByType("desert");
+        List<OrderAndAssortment> orderAndAssortments = orderAndAssortmentDao.findAll();
+
+        System.out.println(assortmentService.getAllAssortmentByType("desert"));
+        id = getValidIdFromUser(deserts.stream().map(Assortment::getId).collect(Collectors.toList()), " Enter id to display orders: ");
+
+        System.out.println(" Orders for " + deserts.stream().filter((item) -> item.getId() == id).findFirst().get().getTitle() + ":\n");
+        ordersId = orderAndAssortments.stream().filter((item) -> item.getAssortmentId() == id).map(OrderAndAssortment::getOrderId).collect(Collectors.toList());
+
+        for (Long orderId : ordersId) {
+            for (Order order : orders) {
+                if(orderId.equals(order.getId())) {
+                    System.out.println(" Timestamp: " + order.getTimestamp());
+                    System.out.println(" Price: " + order.getPrice());
+                    System.out.println(" Price With Discount: " + order.getPriceWithDiscount());
+                    System.out.println("-".repeat(20));
+                }
+            }
+        }
+    }
+
+    public static void displayMenuItem8Execute() {
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        List<Schedule> scheduleList = scheduleDao.findAll();
+
+        while (true) {
+            try {
+                final java.sql.Date date = getValidDateFromUser("\n Enter date to delete schedule (yyyy-MM-dd): ");
+
+                for (Schedule currentSchedule : scheduleList) {
+                    if(currentSchedule.getWorkDate().equals(date)) {
+                        scheduleList.stream().filter((item) -> item.getWorkDate().equals(date)).collect(Collectors.toList()).forEach(System.out::println);
+                        return;
+                    }
+                }
+
+                throw new RuntimeException(" There is no such schedule!");
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public static void deleteMenuItem1Execute() {
         Scanner scanner = new Scanner(System.in);
         AssortmentDao assortmentDao = new AssortmentDaoImp();
@@ -664,17 +723,13 @@ public class MenuExecutor {
     }
 
     public static void deleteMenuItem5Execute() {
-        Scanner scanner = new Scanner(System.in);
         ScheduleDao scheduleDao = new ScheduleDaoImp();
         List<Schedule> deleteList = new ArrayList<>();
         List<Schedule> scheduleList = scheduleDao.findAll();
 
         while (true) {
             try {
-                System.out.println(scheduleService.getAllSchedules());
-
-                System.out.print("\n Enter date to delete schedule (yyyy-MM-dd): ");
-                final java.sql.Date date = java.sql.Date.valueOf(scanner.nextLine());
+                final java.sql.Date date = getValidDateFromUser("\n Enter date to delete schedule (yyyy-MM-dd): ");
 
                 for (Schedule currentSchedule : scheduleList) {
                     if(currentSchedule.getWorkDate().equals(date)) {
@@ -684,10 +739,7 @@ public class MenuExecutor {
                     }
                 }
 
-                throw new RuntimeException(" No schedule with such date!");
-            }
-            catch (IllegalArgumentException e) {
-                System.out.println(" Please enter correct data!");
+                throw new RuntimeException(" There is no such schedule!");
             }
             catch (RuntimeException e) {
                 System.out.println(e.getMessage());
@@ -946,5 +998,23 @@ public class MenuExecutor {
             System.out.println(" Price: " + order.getPrice() + "$");
             System.out.println(" Price With Discount: " + order.getPriceWithDiscount() + "$\n");
         });
+    }
+
+    private static java.sql.Date getValidDateFromUser(String inputMessage) {
+        Scanner scanner = new Scanner(System.in);
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+
+        try {
+            System.out.println(scheduleService.getAllSchedules());
+
+            System.out.print(inputMessage);
+            return java.sql.Date.valueOf(scanner.nextLine());
+        }
+        catch (IllegalArgumentException e) {
+            throw new RuntimeException(" Please enter correct data!");
+        }
+        catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

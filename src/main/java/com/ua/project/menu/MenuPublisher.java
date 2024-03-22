@@ -59,6 +59,7 @@ public class MenuPublisher {
         System.out.println("  3. Delete client;");
         System.out.println("  4. Delete order;");
         System.out.println("  5. Delete schedule by date;");
+        System.out.println("  6. Delete schedule by date range;");
         System.out.println("  0. Return to main menu;");
         System.out.println(SEPARATOR);
         System.out.print("\n Enter number: ");
@@ -74,6 +75,8 @@ public class MenuPublisher {
         System.out.println("  4. Display all waiters;");
         System.out.println("  5. Display all orders for specific waiter;");
         System.out.println("  6. Display all order for specific client;");
+        System.out.println("  7. Display all order for specific desert;");
+        System.out.println("  8. Display all order for specific date;");
         System.out.println("  0. Return to main menu;");
         System.out.println(SEPARATOR);
         System.out.print("\n Enter number: ");

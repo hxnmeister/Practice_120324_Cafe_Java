@@ -349,4 +349,28 @@ public class CafeDbInitializer {
 
         orderDao.saveMany(orders);
     }
+
+    public static void createRandomAssortmentAndOrders() {
+        Random random = new Random();
+        OrderAndAssortmentDao orderAndAssortmentDao = new OrderAndAssortmentDaoImp();
+        AssortmentDao assortmentDao = new AssortmentDaoImp();
+        OrderDao orderDao = new OrderDaoImp();
+        List<Order> orders = orderDao.findAll();
+        List<Assortment> assortmentList = assortmentDao.findAll();
+        List<OrderAndAssortment> orderAndAssortments = new ArrayList<>(List.of(
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build()
+        ));
+
+        orderAndAssortments.forEach(orderAndAssortmentDao::save);
+    }
 }
