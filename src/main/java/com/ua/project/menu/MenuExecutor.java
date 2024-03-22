@@ -765,14 +765,8 @@ public class MenuExecutor {
                 System.out.print("\n Enter date end range (yyyy-MM-dd): ");
                 rangeEnd = java.sql.Date.valueOf(scanner.nextLine());
 
-                if (rangeBegin.getTime() >= rangeEnd.getTime()) {
-                    throw new RuntimeException(" Incorrect range!");
-                }
-
-                for (Schedule currentSchedule : scheduleList) {
-                    if(currentSchedule.getWorkDate().getTime() < rangeBegin.getTime() || currentSchedule.getWorkDate().getTime() > rangeEnd.getTime()) {
-                        throw new RuntimeException(" This range incorrect for current schedules!");
-                    }
+                if(rangeBegin.getTime() > rangeEnd.getTime()) {
+                    throw new RuntimeException(" This range incorrect for current schedules!");
                 }
 
                 break;

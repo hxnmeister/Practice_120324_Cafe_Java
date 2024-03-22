@@ -7,9 +7,6 @@
     <list default="true" id="2e17df6f-457b-423f-a2c1-ca03cf71303d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeInitializer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +177,7 @@
       <workItem from="1710921985315" duration="2578000" />
       <workItem from="1710925878940" duration="3340000" />
       <workItem from="1711008210042" duration="14896000" />
-      <workItem from="1711102616222" duration="11820000" />
+      <workItem from="1711102616222" duration="13084000" />
     </task>
     <servers />
   </component>
