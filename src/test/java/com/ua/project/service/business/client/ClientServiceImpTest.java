@@ -49,7 +49,9 @@ public class ClientServiceImpTest {
         when(clientDao.findAll()).thenReturn(clients);
 
         expected.append("\n All clients:\n");
-        clients.forEach((client) -> expected.append("\n  ")
+        clients.forEach((client) -> expected.append("\n  id:")
+                .append(client.getId())
+                .append("| ")
                 .append(client.getFirstName())
                 .append(" ")
                 .append(client.getLastName())
@@ -65,7 +67,9 @@ public class ClientServiceImpTest {
                 .append("-".repeat(40)));
 
         actual.append("\n All clients:\n");
-        clientDao.findAll().forEach((client) -> actual.append("\n  ")
+        clientDao.findAll().forEach((client) -> actual.append("\n  id:")
+                .append(client.getId())
+                .append("| ")
                 .append(client.getFirstName())
                 .append(" ")
                 .append(client.getLastName())

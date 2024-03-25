@@ -35,14 +35,17 @@ import com.ua.project.service.business.schedule.ScheduleService;
 import com.ua.project.service.business.schedule.ScheduleServiceImp;
 import org.codehaus.plexus.util.StringUtils;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MenuExecutor {
@@ -193,6 +196,57 @@ public class MenuExecutor {
                 }
                 else if(subMenuChoice == 8) {
                     displayMenuItem8Execute();
+                }
+                else if(subMenuChoice == 9) {
+                    displayMenuItem9Execute();
+                }
+                else if(subMenuChoice == 10) {
+                    displayMenuItem10Execute();
+                }
+                else if(subMenuChoice == 11) {
+                    displayMenuItem11Execute();
+                }
+                else if(subMenuChoice == 12) {
+                    displayMenuItem12Execute();
+                }
+                else if(subMenuChoice == 13) {
+                    displayMenuItem13Execute();
+                }
+                else if(subMenuChoice == 14) {
+                    displayMenuItem14Execute();
+                }
+                else if(subMenuChoice == 15) {
+                    displayMenuItem15Execute();
+                }
+                else if(subMenuChoice == 16) {
+                    displayMenuItem16Execute();
+                }
+                else if(subMenuChoice == 17) {
+                    displayMenuItem17Execute();
+                }
+                else if(subMenuChoice == 18) {
+                    displayMenuItem18Execute();
+                }
+                else if(subMenuChoice == 19) {
+                    displayMenuItem19Execute();
+                }
+                else if(subMenuChoice == 20) {
+                    displayMenuItem20Execute();
+                }
+                else if(subMenuChoice == 21) {
+                    displayMenuItem21Execute();
+                }
+                else if(subMenuChoice == 22) {
+                    displayMenuItem22Execute();
+                }
+                else if(subMenuChoice == 23) {
+                    displayMenuItem23Execute();
+                }
+                else if(subMenuChoice == 24) {
+                    displayMenuItem24Execute();
+                }
+                else if(subMenuChoice == 25) {
+                    displayMenuItem25Execute();
                 }
                 else if(subMenuChoice == 0) {
                     System.out.println(" Returning to main menu...");
@@ -630,7 +684,8 @@ public class MenuExecutor {
 
         while (true) {
             try {
-                final java.sql.Date date = getValidDateFromUser("\n Enter date to delete schedule (yyyy-MM-dd): ");
+                System.out.println(scheduleService.getAllSchedules());
+                final java.sql.Date date = getValidDateFromUser("\n Enter date to display schedule (yyyy-MM-dd): ");
 
                 for (Schedule currentSchedule : scheduleList) {
                     if(currentSchedule.getWorkDate().equals(date)) {
@@ -640,6 +695,201 @@ public class MenuExecutor {
                 }
 
                 throw new RuntimeException(" There is no such schedule!");
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void displayMenuItem9Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+
+        System.out.println(" Min discount value: " + clientDao.getMinDiscount());
+    }
+
+    public static void displayMenuItem10Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+
+        System.out.println(" Max discount value: " + clientDao.getMaxDiscount());
+    }
+
+    public static void displayMenuItem11Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+
+        System.out.println(" Avg discount value: " + new DecimalFormat("#.##").format(clientDao.getAvgDiscount()));
+    }
+
+    public static void displayMenuItem12Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+
+        displayClientInfo(clientDao.getClientWithMinDiscount(), " Client with min discount:\n");
+    }
+
+    public static void displayMenuItem13Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+
+        displayClientInfo(clientDao.getClientWithMaxDiscount(), " Client with max discount:\n");
+    }
+
+    public static void displayMenuItem14Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+        List<Client> youngestClients = clientDao.getYoungestClients();
+
+        System.out.println(" Youngest clients:");
+        youngestClients.forEach((client) -> displayClientInfo(client, ""));
+    }
+
+    public static void displayMenuItem15Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+        List<Client> oldestClients = clientDao.getOldestClients();
+
+        System.out.println(" Oldest clients:");
+        oldestClients.forEach((client) -> displayClientInfo(client, ""));
+    }
+
+    public static void displayMenuItem16Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+        List<Client> birthdayToday = clientDao.getClientsWithBirthdayToday();
+
+        System.out.println(" Clients with birthday " + new SimpleDateFormat("dd MMM").format(new Date()) + ":");
+        birthdayToday.forEach((client) -> displayClientInfo(client, ""));
+    }
+
+    public static void displayMenuItem17Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+        List<Client> withoutEmail = clientDao.getClientsWithEmptyEmail();
+
+        System.out.println(" Clients without email:");
+        withoutEmail.forEach((client) -> displayClientInfo(client, ""));
+    }
+
+    public static void displayMenuItem18Execute() {
+        OrderDao orderDao = new OrderDaoImp();
+
+        while (true) {
+            try {
+                System.out.println(orderService.getAllOrders());
+                final java.sql.Date DATE = getValidDateFromUser(" Enter date to get orders: ");
+                final List<Order> ORDERS = orderDao.findOrdersBySpecificDate(DATE);
+
+                if(ORDERS.isEmpty()) {
+                    System.out.println(" There is no orders by such date!");
+                    return;
+                }
+
+                System.out.println();
+                ORDERS.forEach(MenuExecutor::displayOrderInfo);
+                return;
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void displayMenuItem19Execute() {
+        OrderDao orderDao = new OrderDaoImp();
+
+        while (true) {
+            try {
+                System.out.println(orderService.getAllOrders());
+
+                final java.sql.Date RANGE_BEGIN = getValidDateFromUser("\n Enter date begin range (yyyy-MM-dd): ");
+                final java.sql.Date RANGE_END = getValidDateFromUser("\n Enter date end range (yyyy-MM-dd): ");
+
+                if(RANGE_BEGIN.getTime() > RANGE_END.getTime()) {
+                    throw new RuntimeException(" This range incorrect for current schedules!");
+                }
+
+                final List<Order> ORDERS = orderDao.findOrdersByDateRange(RANGE_BEGIN, RANGE_END);
+
+                System.out.println();
+                ORDERS.forEach(MenuExecutor::displayOrderInfo);
+
+                return;
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(" Please enter correct data!");
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void displayMenuItem20Execute() {
+        displayOrderByDateAndAssortmentTypeInfo("desert");
+    }
+
+    public static void displayMenuItem21Execute() {
+        displayOrderByDateAndAssortmentTypeInfo("drink");
+    }
+
+    public static void displayMenuItem22Execute() {
+        final String POSITION = "barista";
+        OrderDao orderDao = new OrderDaoImp();
+        Map<Client, Personal> clientPersonalMap = orderDao.findClientsOrderToday("drink", POSITION);
+
+        for(Map.Entry<Client, Personal> entry : clientPersonalMap.entrySet()) {
+            Client client = entry.getKey();
+            Personal personal = entry.getValue();
+
+            System.out.println(" Client: " + client.getLastName() + " " + client.getFirstName() + " " + client.getPatronymic());
+            System.out.println(" Personal (" + POSITION + "): " + personal.getLastName() + " " + personal.getFirstName() + " " + personal.getPatronymic());
+            System.out.println("-".repeat(25));
+        }
+    }
+
+    public static void displayMenuItem23Execute() {
+        OrderDao orderDao = new OrderDaoImp();
+
+        while (true) {
+            try {
+                final java.sql.Date DATE = getValidDateFromUser(" Enter date to get avg price of order: ");
+                final BigDecimal AVG_PRICE = orderDao.getAvgOrderPriceBySpecificDate(DATE);
+
+                System.out.println(AVG_PRICE != null ? " Average price on " + DATE + ": " + AVG_PRICE : " Cannot calculate average for this date " + DATE);
+                return;
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void displayMenuItem24Execute() {
+        OrderDao orderDao = new OrderDaoImp();
+
+        while (true) {
+            try {
+                final java.sql.Date DATE = getValidDateFromUser(" Enter date to get max price of order: ");
+                final BigDecimal MAX_PRICE = orderDao.getMaxPriceOrderBySpecificDate(DATE);
+
+                System.out.println(MAX_PRICE != null ? " Max price on " + DATE + ": " + MAX_PRICE : " Cannot find max for this date " + DATE);
+                return;
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void displayMenuItem25Execute() {
+        ClientDao clientDao = new ClientDaoImp();
+
+        while (true) {
+            try {
+                final java.sql.Date DATE = getValidDateFromUser(" Enter date to get client with max price of order: ");
+                final Client CLIENT = clientDao.findClientWithMaxOrderPriceBySpecificDay(DATE);
+
+                if (CLIENT.getFirstName().isEmpty()) {
+                    System.out.println(" No data to display!");
+                }
+                else {
+                    displayClientInfo(CLIENT, "");
+                }
+                return;
             }
             catch (RuntimeException e) {
                 System.out.println(e.getMessage());
@@ -729,6 +979,7 @@ public class MenuExecutor {
 
         while (true) {
             try {
+                System.out.println(scheduleService.getAllSchedules());
                 final java.sql.Date date = getValidDateFromUser("\n Enter date to delete schedule (yyyy-MM-dd): ");
 
                 for (Schedule currentSchedule : scheduleList) {
@@ -750,20 +1001,14 @@ public class MenuExecutor {
     public static void deleteMenuItem6Execute() {
         java.sql.Date rangeBegin;
         java.sql.Date rangeEnd;
-        Scanner scanner = new Scanner(System.in);
         ScheduleDao scheduleDao = new ScheduleDaoImp();
-        List<Schedule> deleteList = new ArrayList<>();
-        List<Schedule> scheduleList = scheduleDao.findAll();
 
         while (true) {
             try {
                 System.out.println(scheduleService.getAllSchedules());
 
-                System.out.print("\n Enter date begin range (yyyy-MM-dd): ");
-                rangeBegin = java.sql.Date.valueOf(scanner.nextLine());
-
-                System.out.print("\n Enter date end range (yyyy-MM-dd): ");
-                rangeEnd = java.sql.Date.valueOf(scanner.nextLine());
+                rangeBegin = getValidDateFromUser("\n Enter date begin range (yyyy-MM-dd): ");
+                rangeEnd = getValidDateFromUser("\n Enter date end range (yyyy-MM-dd): ");
 
                 if(rangeBegin.getTime() > rangeEnd.getTime()) {
                     throw new RuntimeException(" This range incorrect for current schedules!");
@@ -999,8 +1244,6 @@ public class MenuExecutor {
         ScheduleDao scheduleDao = new ScheduleDaoImp();
 
         try {
-            System.out.println(scheduleService.getAllSchedules());
-
             System.out.print(inputMessage);
             return java.sql.Date.valueOf(scanner.nextLine());
         }
@@ -1009,6 +1252,40 @@ public class MenuExecutor {
         }
         catch (RuntimeException e) {
             throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private static void displayClientInfo(Client client, String message) {
+        System.out.println(message);
+        System.out.println(" " + client.getFirstName() + " " + client.getLastName() + " " + client.getPatronymic());
+        System.out.println(" Birthday: " + client.getBirthDate());
+        System.out.println(" Contact phone: " + client.getContactPhone());
+        System.out.println(" Contact email: " + client.getContactEmail());
+        System.out.println(" Discount: " + client.getDiscount());
+        System.out.println("-".repeat(25));
+    }
+
+    private static void displayOrderInfo(Order order) {
+        System.out.println(" Price: " + order.getPrice() + "$");
+        System.out.println(" Price With Discount: " + order.getPriceWithDiscount() + "$");
+        System.out.println(" Timestamp: " + new SimpleDateFormat("dd.MM.yyyy HH:mm").format(order.getTimestamp()));
+        System.out.println("-".repeat(25));
+    }
+
+    private static void displayOrderByDateAndAssortmentTypeInfo(String assortmentType) {
+        OrderDao orderDao = new OrderDaoImp();
+
+        while (true) {
+            try {
+                final java.sql.Date DATE = getValidDateFromUser(" Enter date to get " + assortmentType + " orders: ");
+                final int COUNT_OF_ORDERS = orderDao.getCountDrinkOrdersBySpecificDateAndAssortmentType(DATE, assortmentType);
+
+                System.out.println(COUNT_OF_ORDERS == 0 ? " There is no " + assortmentType + " orders on this date (" + DATE + ")!" : " Orders count: " + COUNT_OF_ORDERS);
+                return;
+            }
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
 package com.ua.project.menu;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MenuPublisher {
 
     private static final String SEPARATOR = "=".repeat(25);
@@ -77,6 +80,23 @@ public class MenuPublisher {
         System.out.println("  6. Display all order for specific client;");
         System.out.println("  7. Display all order for specific desert;");
         System.out.println("  8. Display all order for specific date;");
+        System.out.println("  9. Display min discount;");
+        System.out.println("  10. Display max discount;");
+        System.out.println("  11. Display avg discount;");
+        System.out.println("  12. Display client with min discount;");
+        System.out.println("  13. Display client with max discount;");
+        System.out.println("  14. Display youngest clients;");
+        System.out.println("  15. Display oldest clients;");
+        System.out.println("  16. Display clients with birthday today (" + new SimpleDateFormat("dd MMM").format(new Date()) + ");");
+        System.out.println("  17. Display clients without email;");
+        System.out.println("  18. Display orders by specific day;");
+        System.out.println("  19. Display orders by date range;");
+        System.out.println("  20. Display orders for deserts by day;");
+        System.out.println("  21. Display orders for drinks by day;");
+        System.out.println("  22. Display clients that ordered drink today and barista;");
+        System.out.println("  23. Display avg order price by specific day;");
+        System.out.println("  24. Display max order price by specific day;");
+        System.out.println("  25. Display client that has max order price by specific day;");
         System.out.println("  0. Return to main menu;");
         System.out.println(SEPARATOR);
         System.out.print("\n Enter number: ");

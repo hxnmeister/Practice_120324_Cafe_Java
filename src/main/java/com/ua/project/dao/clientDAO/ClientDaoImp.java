@@ -45,6 +45,61 @@ public class ClientDaoImp implements ClientDao {
         WHERE first_name=? AND last_name=?
         LIMIT 1
     """;
+    private static final String GET_MIN_DISCOUNT = """
+        SELECT MIN(discount)
+        FROM clients
+    """;
+    private static final String GET_MAX_DISCOUNT = """
+        SELECT MAX(discount)
+        FROM clients
+    """;
+    private static final String GET_CLIENT_WITH_MAX_DISCOUNT = """
+        SELECT *
+        FROM clients
+        WHERE discount=(SELECT MAX(discount)
+                        FROM clients)
+    """;
+    private static final String GET_CLIENT_WITH_MIN_DISCOUNT = """
+        SELECT *
+        FROM clients
+        WHERE discount=(SELECT MIN(discount)
+                        FROM clients)
+    """;
+    private static final String GET_AVG_DISCOUNT = """
+        SELECT AVG(discount)
+        FROM clients
+    """;
+    private static final String GET_YOUNGEST_CLIENTS = """
+        SELECT *
+        FROM clients
+        WHERE birth_date=(SELECT MAX(birth_date)
+                          FROM clients)
+    """;
+    private static final String GET_OLDEST_CLIENTS = """
+        SELECT *
+        FROM clients
+        WHERE birth_date=(SELECT MIN(birth_date)
+                          FROM clients)
+    """;
+    private static final String GET_CLIENTS_WITH_BIRTHDAY_TODAY = """
+        SELECT *
+        FROM clients
+        WHERE EXTRACT(MONTH FROM birth_date) = EXTRACT(MONTH FROM CURRENT_DATE)
+              AND EXTRACT(DAY FROM birth_date) = EXTRACT(DAY FROM CURRENT_DATE)
+    """;
+    private static final String GET_CLIENTS_WITHOUT_EMAIL = """
+        SELECT *
+        FROM clients
+        WHERE contact_email=''
+    """;
+    private static final String GET_CLIENT_WITH_MAX_ORDER_PRICE_BY_SPECIFIC_DATE = """
+        SELECT *
+        FROM clients c
+        JOIN orders o on c.id=o.client_id
+        WHERE DATE(timestamp)=? AND CAST(price AS NUMERIC)=(SELECT MAX(CAST(price AS NUMERIC))
+                													   FROM orders
+                													   WHERE DATE(timestamp)=?)
+    """;
 
     @Override
     public void save(Client item) {
@@ -133,16 +188,7 @@ public class ClientDaoImp implements ClientDao {
 
             try (ResultSet queryResult = statement.executeQuery(GET_ALL_CLIENTS)) {
                 while (queryResult.next()) {
-                    clients.add(Client.builder()
-                            .id(queryResult.getLong("id"))
-                            .firstName(queryResult.getString("first_name"))
-                            .lastName(queryResult.getString("last_name"))
-                            .patronymic(queryResult.getString("patronymic"))
-                            .birthDate(queryResult.getDate("birth_date"))
-                            .contactPhone(queryResult.getString("contact_phone"))
-                            .contactEmail(queryResult.getString("contact_email"))
-                            .discount(queryResult.getInt("discount"))
-                            .build());
+                    clients.add(getClientFromResultSet(queryResult));
                 }
             }
         }
@@ -205,9 +251,9 @@ public class ClientDaoImp implements ClientDao {
             statement.setString(2, client.getLastName());
 
             try (ResultSet queryResult = statement.executeQuery()) {
-                queryResult.next();
-
-                return queryResult.getLong("id");
+                if(queryResult.next()) {
+                    return queryResult.getLong("id");
+                }
             }
         }
         catch (ConnectionDBException | SQLException e) {
@@ -215,5 +261,209 @@ public class ClientDaoImp implements ClientDao {
         }
 
         return 0;
+    }
+
+    @Override
+    public int getMinDiscount() {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_MIN_DISCOUNT)) {
+                if (queryResult.next()) {
+                    return queryResult.getInt("min");
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int getMaxDiscount() {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_MAX_DISCOUNT)) {
+                if (queryResult.next()) {
+                    return queryResult.getInt("max");
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
+    }
+
+    @Override
+    public Client getClientWithMinDiscount() {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_CLIENT_WITH_MIN_DISCOUNT)) {
+                if (queryResult.next()) {
+                    return getClientFromResultSet(queryResult);
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return Client.builder().build();
+    }
+
+    @Override
+    public Client getClientWithMaxDiscount() {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_CLIENT_WITH_MAX_DISCOUNT)) {
+                if (queryResult.next()) {
+                    return getClientFromResultSet(queryResult);
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return Client.builder().build();
+    }
+
+    @Override
+    public Client findClientWithMaxOrderPriceBySpecificDay(Date date) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_WITH_MAX_ORDER_PRICE_BY_SPECIFIC_DATE)) {
+
+            statement.setDate(1, date);
+            statement.setDate(2, date);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                if(queryResult.next()) {
+                    return getClientFromResultSet(queryResult);
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return Client.builder().build();
+    }
+
+    @Override
+    public double getAvgDiscount() {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_AVG_DISCOUNT)) {
+                if (queryResult.next()) {
+                    return queryResult.getDouble("avg");
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
+    }
+
+    @Override
+    public List<Client> getYoungestClients() {
+        List<Client> youngestClients = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_YOUNGEST_CLIENTS)) {
+                while (queryResult.next()) {
+                    youngestClients.add(getClientFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return youngestClients;
+    }
+
+    @Override
+    public List<Client> getOldestClients() {
+        List<Client> oldestClients = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_OLDEST_CLIENTS)) {
+                while (queryResult.next()) {
+                    oldestClients.add(getClientFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return oldestClients;
+    }
+
+    @Override
+    public List<Client> getClientsWithBirthdayToday() {
+        List<Client> birthdayToday = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_CLIENTS_WITH_BIRTHDAY_TODAY)) {
+                while (queryResult.next()) {
+                    birthdayToday.add(getClientFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return birthdayToday;
+    }
+
+    @Override
+    public List<Client> getClientsWithEmptyEmail() {
+        List<Client> withoutEmail = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_CLIENTS_WITHOUT_EMAIL)) {
+                while (queryResult.next()) {
+                    withoutEmail.add(getClientFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return withoutEmail;
+    }
+
+    private Client getClientFromResultSet(ResultSet resultSet) throws SQLException {
+        return Client.builder()
+                .id(resultSet.getLong("id"))
+                .firstName(resultSet.getString("first_name"))
+                .lastName(resultSet.getString("last_name"))
+                .patronymic(resultSet.getString("patronymic"))
+                .birthDate(resultSet.getDate("birth_date"))
+                .contactPhone(resultSet.getString("contact_phone"))
+                .contactEmail(resultSet.getString("contact_email"))
+                .discount(resultSet.getInt("discount"))
+                .build();
     }
 }

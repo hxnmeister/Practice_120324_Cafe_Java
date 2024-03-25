@@ -187,35 +187,81 @@ public class CafeDbInitializer {
 
     public static void createRandomClients() {
         try {
-            final int COUNT_OF_RECORDS = 7;
             TxtFileReader firstNamesFileReader = new TxtFileReader("data.first_names");
             TxtFileReader lastNamesFileReader = new TxtFileReader("data.last_names");
             TxtFileReader patronymicsFileReader = new TxtFileReader("data.patronymics");
             List<String> firstNames = firstNamesFileReader.readFile();
             List<String> lastNames = lastNamesFileReader.readFile();
             List<String> patronymics = patronymicsFileReader.readFile();
-            List<Client> clients = new ArrayList<Client>();
             ClientDao clientDao = new ClientDaoImp();
+            List<Client> clients = new ArrayList<Client>(List.of(
+                    Client.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                            .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                            .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                            .birthDate(Date.valueOf("2012-03-25"))
+                            .contactPhone(String.valueOf(
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10) +
+                                    "-" +
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10)))
+                            .contactEmail("simplemail@mail.com" + RANDOM.nextInt(100))
+                            .discount(RANDOM.nextInt(100))
+                            .build(),
+                    Client.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                            .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                            .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                            .birthDate(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())))
+                            .contactPhone(String.valueOf(
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10) +
+                                    "-" +
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10)))
+                            .contactEmail("")
+                            .discount(RANDOM.nextInt(100))
+                            .build(),
+                    Client.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                            .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                            .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                            .birthDate(Date.valueOf("2000-01-21"))
+                            .contactPhone(String.valueOf(
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10) +
+                                    "-" +
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10)))
+                            .contactEmail("simplemail@mail.com" + RANDOM.nextInt(100))
+                            .discount(RANDOM.nextInt(100))
+                            .build(),
+                    Client.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                            .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                            .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                            .birthDate(Date.valueOf("1998-10-04"))
+                            .contactPhone(String.valueOf(
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10) +
+                                    "-" +
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10)))
+                            .contactEmail("")
+                            .discount(RANDOM.nextInt(100))
+                            .build(),
+                    Client.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
+                            .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
+                            .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
+                            .birthDate(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())))
+                            .contactPhone(String.valueOf(
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10) +
+                                    "-" +
+                                    RANDOM.nextInt(10) +
+                                    RANDOM.nextInt(10)))
+                            .contactEmail("simplemail@mail.com" + RANDOM.nextInt(100))
+                            .discount(RANDOM.nextInt(100))
+                            .build()
 
-            for (int i = 0; i < COUNT_OF_RECORDS; i++) {
-                int discount = RANDOM.nextInt(100);
-                String contactPhone = String.valueOf(
-                        RANDOM.nextInt(10) +
-                                RANDOM.nextInt(10) +
-                                "-" +
-                                RANDOM.nextInt(10) +
-                                RANDOM.nextInt(10));
-                String contactEmail = "simplemail@mail.com " + RANDOM.nextInt(100);
-
-                clients.add(Client.builder().firstName(firstNames.get(RANDOM.nextInt(firstNames.size())))
-                        .lastName(lastNames.get(RANDOM.nextInt(lastNames.size())))
-                        .patronymic(patronymics.get(RANDOM.nextInt(patronymics.size())))
-                        .birthDate(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())))
-                        .contactPhone(contactPhone)
-                        .contactEmail(contactEmail)
-                        .discount(discount)
-                        .build());
-            }
+            ));
 
             clientDao.saveMany(clients);
         }
@@ -341,10 +387,10 @@ public class CafeDbInitializer {
         List<Personal> personalList = personalDao.findAll();
         List<Order> orders = new ArrayList<>(List.of(
                 Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
+                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf("2024-02-01 10:00:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
                 Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
-                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
-                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
-                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf(LocalDateTime.now())).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build()
+                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf("2024-01-21 19:33:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build(),
+                Order.builder().price(BigDecimal.valueOf(random.nextDouble() * 100)).priceWithDiscount(BigDecimal.valueOf(random.nextDouble() * 10)).timestamp(Timestamp.valueOf("2024-02-05 15:11:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).clientId(clients.get(random.nextInt(clients.size())).getId()).build()
         ));
 
         orderDao.saveMany(orders);

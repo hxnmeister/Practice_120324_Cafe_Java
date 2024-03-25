@@ -4,10 +4,12 @@ import com.ua.project.exception.ConnectionDBException;
 import com.ua.project.menu.MenuExecutor;
 import com.ua.project.service.CafeInitializer;
 
+import java.awt.*;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.*;
+import java.util.List;
 
 /**
  * Hello world!
@@ -19,6 +21,8 @@ public class App {
 
         CafeInitializer cafe = new CafeInitializer();
         cafe.cafeInit();
+
+        MenuExecutor.displayMenuItem25Execute();
 
         try {
             while (true) {

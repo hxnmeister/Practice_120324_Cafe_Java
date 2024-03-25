@@ -7,11 +7,16 @@ import com.ua.project.dao.order_and_assortmentDAO.OrderAndAssortmentDao;
 import com.ua.project.dao.order_and_assortmentDAO.OrderAndAssortmentDaoImp;
 import com.ua.project.exception.ConnectionDBException;
 import com.ua.project.model.Assortment;
+import com.ua.project.model.Client;
 import com.ua.project.model.Order;
+import com.ua.project.model.Personal;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDaoImp implements OrderDao {
     private static final String INSERT_ORDER = """
@@ -48,6 +53,50 @@ public class OrderDaoImp implements OrderDao {
         SELECT *
         FROM orders
         WHERE client_id=?
+    """;
+    private static final String GET_ALL_ORDERS_BY_SPECIFIC_DATE = """
+        SELECT *
+        FROM orders
+        WHERE DATE(timestamp)=?
+    """;
+    private static final String GET_ALL_ORDERS_BY_DATE_RANGE = """
+        SELECT *
+        FROM orders
+        WHERE DATE(timestamp) BETWEEN ? AND ?
+    """;
+    private static final String GET_COUNT_OF_ORDERS_BY_SPECIFIC_DATE_AND_ASSORTMENT_TYPE = """
+        SELECT COUNT(*)
+        FROM orders o
+        JOIN orders_and_assortment oa ON o.id=oa.order_id
+        JOIN assortment a ON a.id=oa.assortment_id
+        JOIN assortment_types at ON at.id=a.assortment_type_id
+        WHERE DATE(o.timestamp)=? AND at.title=?
+    """;
+    private static final String GET_CLIENTS_THAT_ORDERED_TODAY_WITH_PERSONAL_BY_PERSONAL_AND_ASSORTMENT_TYPE = """
+        SELECT DISTINCT c.first_name AS client_fn,
+                	    c.last_name AS client_ln,
+                		c.patronymic AS client_pat,
+                		p.first_name AS personal_fn,
+                		p.last_name AS personal_ln,
+                		p.patronymic AS personal_pat
+        FROM assortment_types at
+        JOIN assortment a ON at.id=a.assortment_type_id
+        JOIN orders_and_assortment oa ON a.id=oa.assortment_id
+        JOIN orders o ON o.id=oa.order_id
+        JOIN clients c ON c.id=o.client_id
+        JOIN personal p ON p.id=o.personal_id
+        JOIN positions pos ON pos.id=p.position_id
+        WHERE DATE(o.timestamp)=CURRENT_DATE AND pos.title=? AND at.title=?;
+    """;
+    private static final String GET_AVG_ORDER_PRICE_BY_SPECIFIC_DATE = """
+        SELECT AVG(CAST(price AS NUMERIC))
+        FROM orders
+        WHERE DATE(timestamp)=?
+    """;
+    private static final String GET_MAX_ORDER_PRICE_BY_SPECIFIC_DATE = """
+        SELECT MAX(CAST(price AS NUMERIC))
+        FROM orders
+        WHERE DATE(timestamp)=?
     """;
 
     @Override
@@ -155,14 +204,7 @@ public class OrderDaoImp implements OrderDao {
 
             try (ResultSet queryResult = statement.executeQuery(GET_ALL_ORDERS)) {
                 while (queryResult.next()) {
-                    orders.add(Order.builder()
-                            .id(queryResult.getLong("id"))
-                            .price(queryResult.getBigDecimal("price"))
-                            .priceWithDiscount(queryResult.getBigDecimal("price_with_discount"))
-                            .timestamp(queryResult.getTimestamp("timestamp"))
-                            .personalId(queryResult.getLong("personal_id"))
-                            .clientId(queryResult.getLong("client_id"))
-                            .build());
+                    orders.add(getOrderFromResultSet(queryResult));
                 }
             }
         }
@@ -204,14 +246,7 @@ public class OrderDaoImp implements OrderDao {
 
             try (ResultSet queryResult = statement.executeQuery()) {
                 while (queryResult.next()) {
-                    orders.add(Order.builder()
-                            .id(queryResult.getLong("id"))
-                            .price(queryResult.getBigDecimal("price"))
-                            .priceWithDiscount(queryResult.getBigDecimal("price_with_discount"))
-                            .timestamp(queryResult.getTimestamp("timestamp"))
-                            .personalId(queryResult.getLong("personal_id"))
-                            .clientId(queryResult.getLong("client_id"))
-                            .build());
+                    orders.add(getOrderFromResultSet(queryResult));
                 }
             }
         }
@@ -233,14 +268,7 @@ public class OrderDaoImp implements OrderDao {
 
             try (ResultSet queryResult = statement.executeQuery()) {
                 while (queryResult.next()) {
-                    orders.add(Order.builder()
-                            .id(queryResult.getLong("id"))
-                            .price(queryResult.getBigDecimal("price"))
-                            .priceWithDiscount(queryResult.getBigDecimal("price_with_discount"))
-                            .timestamp(queryResult.getTimestamp("timestamp"))
-                            .personalId(queryResult.getLong("personal_id"))
-                            .clientId(queryResult.getLong("client_id"))
-                            .build());
+                    orders.add(getOrderFromResultSet(queryResult));
                 }
             }
         }
@@ -249,5 +277,148 @@ public class OrderDaoImp implements OrderDao {
         }
 
         return orders;
+    }
+
+    @Override
+    public List<Order> findOrdersBySpecificDate(Date date) {
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_ALL_ORDERS_BY_SPECIFIC_DATE)) {
+
+            statement.setDate(1, date);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    orders.add(getOrderFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> findOrdersByDateRange(Date rangeBegin, Date rangeEnd) {
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_ALL_ORDERS_BY_DATE_RANGE)) {
+
+            statement.setDate(1, rangeBegin);
+            statement.setDate(2, rangeEnd);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    orders.add(getOrderFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return orders;
+    }
+
+    @Override
+    public int getCountDrinkOrdersBySpecificDateAndAssortmentType(Date date, String assortmentType) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_COUNT_OF_ORDERS_BY_SPECIFIC_DATE_AND_ASSORTMENT_TYPE)) {
+
+            statement.setDate(1, date);
+            statement.setString(2, assortmentType);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                if (queryResult.next()) {
+                    return queryResult.getInt("count");
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
+    }
+
+    @Override
+    public Map<Client, Personal> findClientsOrderToday(String assortmentType, String position) {
+        Map<Client, Personal> resultMap = new HashMap<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_CLIENTS_THAT_ORDERED_TODAY_WITH_PERSONAL_BY_PERSONAL_AND_ASSORTMENT_TYPE)) {
+
+            statement.setString(1, position);
+            statement.setString(2, assortmentType);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    Client client = Client.builder().firstName(queryResult.getString("client_fn")).lastName(queryResult.getString("client_ln")).patronymic(queryResult.getString("client_pat")).build();
+                    Personal personal = Personal.builder().firstName(queryResult.getString("personal_fn")).lastName(queryResult.getString("personal_ln")).patronymic(queryResult.getString("personal_pat")).build();
+
+                    resultMap.put(client, personal);
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return resultMap;
+    }
+
+    @Override
+    public BigDecimal getAvgOrderPriceBySpecificDate(Date date) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_AVG_ORDER_PRICE_BY_SPECIFIC_DATE)) {
+
+            statement.setDate(1, date);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                if (queryResult.next()) {
+                    return queryResult.getBigDecimal("avg");
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return BigDecimal.ZERO;
+    }
+
+    @Override
+    public BigDecimal getMaxPriceOrderBySpecificDate(Date date) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_MAX_ORDER_PRICE_BY_SPECIFIC_DATE)) {
+
+            statement.setDate(1, date);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                if (queryResult.next()) {
+                    return queryResult.getBigDecimal("max");
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return BigDecimal.ZERO;
+    }
+
+    private Order getOrderFromResultSet(ResultSet resultSet) throws SQLException {
+        return Order.builder()
+                .id(resultSet.getLong("id"))
+                .price(resultSet.getBigDecimal("price"))
+                .priceWithDiscount(resultSet.getBigDecimal("price_with_discount"))
+                .timestamp(resultSet.getTimestamp("timestamp"))
+                .personalId(resultSet.getLong("personal_id"))
+                .clientId(resultSet.getLong("client_id"))
+                .build();
     }
 }
