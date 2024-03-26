@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e17df6f-457b-423f-a2c1-ca03cf71303d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/35923f8a-68e5-4331-a6d8-4cbec2fde933.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/35923f8a-68e5-4331-a6d8-4cbec2fde933/storage_v2/_src_/database/cafe-db.rvpaIA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/35923f8a-68e5-4331-a6d8-4cbec2fde933/storage_v2/_src_/database/cafe-db.rvpaIA/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/35923f8a-68e5-4331-a6d8-4cbec2fde933/storage_v2/_src_/database/cafe-db.rvpaIA/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/35923f8a-68e5-4331-a6d8-4cbec2fde933/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/35923f8a-68e5-4331-a6d8-4cbec2fde933/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/35923f8a-68e5-4331-a6d8-4cbec2fde933/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/35923f8a-68e5-4331-a6d8-4cbec2fde933/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/clientDAO/ClientDaoImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/orderDAO/OrderDaoImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/dao/scheduleDAO/ScheduleDaoImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuExecutor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/menu/MenuPublisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/CafeDbInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/client/ClientServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ua/project/service/business/client/ClientServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/client/ClientServiceImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ua/project/service/business/client/ClientServiceImpTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +61,8 @@
     "JUnit.OrderDaoImpTest.saveWithReturningId_ShouldReturnZero_WhenNoTableToAdd.executor": "Run",
     "JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnIdOfPersonal_WhenFirstNameAndLastNameIsInTheTable.executor": "Run",
     "JUnit.PersonalDaoImpTest.getIdByName_ShouldReturnZero_WhenFirstNameAndLastNameIsNotInTheTable.executor": "Debug",
+    "Maven.Practice_120324 [clean].executor": "Run",
+    "Maven.Practice_120324 [install].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -189,7 +194,8 @@
       <workItem from="1710925878940" duration="3340000" />
       <workItem from="1711008210042" duration="14896000" />
       <workItem from="1711102616222" duration="13286000" />
-      <workItem from="1711352578349" duration="15946000" />
+      <workItem from="1711352578349" duration="15965000" />
+      <workItem from="1711438638868" duration="6629000" />
     </task>
     <servers />
   </component>

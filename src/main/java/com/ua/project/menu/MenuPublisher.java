@@ -97,6 +97,9 @@ public class MenuPublisher {
         System.out.println("  23. Display avg order price by specific day;");
         System.out.println("  24. Display max order price by specific day;");
         System.out.println("  25. Display client that has max order price by specific day;");
+        System.out.println("  26. Display schedule for a week by specific barista;");
+        System.out.println("  27. Display schedule for a week for all baristas;");
+        System.out.println("  28. Display schedule for a week for all personal;");
         System.out.println("  0. Return to main menu;");
         System.out.println(SEPARATOR);
         System.out.print("\n Enter number: ");

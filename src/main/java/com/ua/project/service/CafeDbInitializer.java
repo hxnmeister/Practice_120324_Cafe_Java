@@ -363,17 +363,50 @@ public class CafeDbInitializer {
     }
 
     public static void createRandomSchedules() {
+        final int WEEK = 7;
         Random random = new Random();
+        Calendar calendar = new GregorianCalendar();
         ScheduleDao scheduleDao = new ScheduleDaoImp();
         PersonalDao personalDao = new PersonalDaoImp();
-        Calendar calendar = new GregorianCalendar();
+        List<Schedule> scheduleList = new ArrayList<>();
         List<Personal> personalList = personalDao.findAll();
-        List<Schedule> scheduleList = new ArrayList<>(List.of(
-                Schedule.builder().workDate(new Date(calendar.getTimeInMillis())).workHoursBegin(Time.valueOf("11:15:00")).workHoursEnd(Time.valueOf("19:44:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).build(),
-                Schedule.builder().workDate(new Date(calendar.getTimeInMillis())).workHoursBegin(Time.valueOf("11:15:00")).workHoursEnd(Time.valueOf("19:44:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).build(),
-                Schedule.builder().workDate(new Date(calendar.getTimeInMillis())).workHoursBegin(Time.valueOf("11:15:00")).workHoursEnd(Time.valueOf("19:44:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).build(),
-                Schedule.builder().workDate(new Date(calendar.getTimeInMillis())).workHoursBegin(Time.valueOf("11:15:00")).workHoursEnd(Time.valueOf("19:44:00")).personalId(personalList.get(random.nextInt(personalList.size())).getId()).build()
-        ));
+
+        calendar.add(Calendar.DAY_OF_WEEK, -calendar.get(Calendar.DAY_OF_WEEK) + 1);
+
+        for (int i = 0; i < WEEK; i++) {
+            final Time WORK_HOURS_BEGIN = new Time(random.nextInt(8) + 8, random.nextInt(60), 0);
+            final Time WORK_HOURS_END = new Time(WORK_HOURS_BEGIN.getTime() + 8 * 60 * 60 * 1000 + random.nextInt(4 * 60 * 60 * 1000));
+
+            for (Personal personal : personalList) {
+                scheduleList.add(Schedule.builder()
+                        .workDate(new Date(calendar.getTimeInMillis()))
+                        .workHoursBegin(WORK_HOURS_BEGIN)
+                        .workHoursEnd(WORK_HOURS_END)
+                        .personalId(personal.getId())
+                        .build());
+            }
+
+            calendar.add(Calendar.DAY_OF_WEEK, 1);
+        }
+
+        scheduleList.add(Schedule.builder()
+                .workDate(Date.valueOf("2024-03-20"))
+                .workHoursBegin(Time.valueOf("12:00:00"))
+                .workHoursEnd(Time.valueOf("22:00:00"))
+                .personalId(personalList.get(random.nextInt(personalList.size())).getId())
+                .build());
+        scheduleList.add(Schedule.builder()
+                .workDate(Date.valueOf("2024-03-19"))
+                .workHoursBegin(Time.valueOf("10:00:00"))
+                .workHoursEnd(Time.valueOf("20:00:00"))
+                .personalId(personalList.get(random.nextInt(personalList.size())).getId())
+                .build());
+        scheduleList.add(Schedule.builder()
+                .workDate(Date.valueOf("2024-02-15"))
+                .workHoursBegin(Time.valueOf("08:00:00"))
+                .workHoursEnd(Time.valueOf("23:00:00"))
+                .personalId(personalList.get(random.nextInt(personalList.size())).getId())
+                .build());
 
         scheduleList.forEach(scheduleDao::save);
     }
@@ -399,22 +432,22 @@ public class CafeDbInitializer {
     public static void createRandomAssortmentAndOrders() {
         Random random = new Random();
         OrderAndAssortmentDao orderAndAssortmentDao = new OrderAndAssortmentDaoImp();
-        AssortmentDao assortmentDao = new AssortmentDaoImp();
+        AssortmentTypeDao assortmentTypeDao = new AssortmentTypeDaoImpl();
         OrderDao orderDao = new OrderDaoImp();
         List<Order> orders = orderDao.findAll();
-        List<Assortment> assortmentList = assortmentDao.findAll();
+        List<AssortmentType> assortmentTypeList = assortmentTypeDao.findAll();
         List<OrderAndAssortment> orderAndAssortments = new ArrayList<>(List.of(
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build(),
-                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentList.get(random.nextInt(assortmentList.size())).getId()).build()
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build(),
+                OrderAndAssortment.builder().orderId(orders.get(random.nextInt(orders.size())).getId()).assortmentId(assortmentTypeList.get(random.nextInt(assortmentTypeList.size())).getId()).build()
         ));
 
         orderAndAssortments.forEach(orderAndAssortmentDao::save);

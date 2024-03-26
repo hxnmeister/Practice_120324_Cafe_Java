@@ -22,8 +22,6 @@ public class App {
         CafeInitializer cafe = new CafeInitializer();
         cafe.cafeInit();
 
-        MenuExecutor.displayMenuItem25Execute();
-
         try {
             while (true) {
                 MenuExecutor.startMenu();

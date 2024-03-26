@@ -248,6 +248,15 @@ public class MenuExecutor {
                 else if(subMenuChoice == 25) {
                     displayMenuItem25Execute();
                 }
+                else if(subMenuChoice == 26) {
+                    displayMenuItem26Execute();
+                }
+                else if(subMenuChoice == 27) {
+                    displayMenuItem27Execute();
+                }
+                else if(subMenuChoice == 28) {
+                    displayMenuItem28Execute();
+                }
                 else if(subMenuChoice == 0) {
                     System.out.println(" Returning to main menu...");
                     break;
@@ -897,6 +906,47 @@ public class MenuExecutor {
         }
     }
 
+    public static void displayMenuItem26Execute() {
+        long personalId;
+        Personal personal;
+        final String POSITION = "barista";
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        PersonalDao personalDao = new PersonalDaoImp();
+        List<Personal> personalList = personalDao.getPersonalByPosition(POSITION);
+        List<Schedule> scheduleList;
+
+        System.out.println(personalService.getPersonalByPosition(POSITION));
+        personalId = getValidIdFromUser(personalList.stream().map(Personal::getId).collect(Collectors.toList()), " Enter " + POSITION + " id to get schedules: ");
+        personal = personalList.stream().filter((item) -> item.getId() == personalId).findFirst().get();
+        scheduleList = scheduleDao.findScheduleForWeekByPersonalId((int) personalId);
+
+        System.out.println(" Schedule for " + personal.getLastName() + " " + personal.getFirstName() + " " + personal.getPatronymic() + ":");
+        scheduleList.forEach(MenuExecutor::displaySchedule);
+    }
+
+    public static void displayMenuItem27Execute() {
+        final String POSITION = "barista";
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        PersonalDao personalDao = new PersonalDaoImp();
+        List<Personal> personalList = personalDao.getPersonalByPosition(POSITION);
+        List<Schedule> scheduleList;
+
+        scheduleList = scheduleDao.findSchedulesForWeekByPosition(POSITION);
+
+        displayScheduleAndPersonal(scheduleList, personalList);
+    }
+
+    public static void displayMenuItem28Execute() {
+        ScheduleDao scheduleDao = new ScheduleDaoImp();
+        PersonalDao personalDao = new PersonalDaoImp();
+        List<Personal> personalList = personalDao.findAll();
+        List<Schedule> scheduleList;
+
+        scheduleList = scheduleDao.findSchedulesForWeek();
+
+        displayScheduleAndPersonal(scheduleList, personalList);
+    }
+
     public static void deleteMenuItem1Execute() {
         Scanner scanner = new Scanner(System.in);
         AssortmentDao assortmentDao = new AssortmentDaoImp();
@@ -1285,6 +1335,25 @@ public class MenuExecutor {
             }
             catch (RuntimeException e) {
                 System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void displaySchedule(Schedule schedule) {
+        System.out.println(" Work Date: " + schedule.getWorkDate());
+        System.out.println(" Work Begins At: " + schedule.getWorkHoursBegin());
+        System.out.println(" Work Ends At: " + schedule.getWorkHoursEnd());
+        System.out.println("-".repeat(25));
+    }
+
+    private static void displayScheduleAndPersonal(List<Schedule> scheduleList, List<Personal> personalList) {
+        for (Personal personal : personalList) {
+            System.out.println(" Schedule for " + personal.getLastName() + " " + personal.getFirstName() + " " + personal.getPatronymic() + ":");
+
+            for (Schedule schedule : scheduleList) {
+                if(schedule.getPersonalId() == personal.getId()) {
+                    displaySchedule(schedule);
+                }
             }
         }
     }

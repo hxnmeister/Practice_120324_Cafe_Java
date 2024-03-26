@@ -34,6 +34,23 @@ public class ScheduleDaoImp implements ScheduleDao {
         DELETE FROM schedule
         WHERE work_date BETWEEN ? AND ?
     """;
+    private static final String GET_SCHEDULES_FOR_WEEK_BY_PERSONAL_ID = """
+        SELECT *
+        FROM schedule
+        WHERE personal_id=? AND work_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 7  
+    """;
+    private static final String GET_SCHEDULES_FOR_WEEK_BY_POSITION = """
+        SELECT *
+        FROM schedule s
+        JOIN personal p ON p.id=s.personal_id
+        JOIN positions pos ON pos.id=p.position_id
+        WHERE pos.title=? AND s.work_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 7         
+    """;
+    private static final String GET_SCHEDULES_FOR_WEEK = """
+        SELECT *
+        FROM schedule
+        WHERE work_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 7  
+    """;
 
     @Override
     public void save(Schedule item) {
@@ -112,13 +129,7 @@ public class ScheduleDaoImp implements ScheduleDao {
 
             try (ResultSet queryResult = statement.executeQuery(GET_EVERY_SCHEDULE)) {
                 while (queryResult.next()) {
-                    assortmentTypes.add(Schedule.builder()
-                            .id(queryResult.getLong("id"))
-                            .workDate(queryResult.getDate("work_date"))
-                            .workHoursBegin(queryResult.getTime("work_hours_begin"))
-                            .workHoursEnd(queryResult.getTime("work_hours_end"))
-                            .personalId(queryResult.getLong("personal_id"))
-                            .build());
+                    assortmentTypes.add(getScheduleFromResultSet(queryResult));
                 }
             }
         }
@@ -153,5 +164,79 @@ public class ScheduleDaoImp implements ScheduleDao {
         catch (ConnectionDBException | SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public List<Schedule> findScheduleForWeekByPersonalId(int personalId) {
+        List<Schedule> result = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_SCHEDULES_FOR_WEEK_BY_PERSONAL_ID)) {
+
+            statement.setInt(1, personalId);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    result.add(getScheduleFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Schedule> findSchedulesForWeekByPosition(String position) {
+        List<Schedule> result = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_SCHEDULES_FOR_WEEK_BY_POSITION)) {
+
+            statement.setString(1, position);
+
+            try (ResultSet queryResult = statement.executeQuery()) {
+                while (queryResult.next()) {
+                    result.add(getScheduleFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Schedule> findSchedulesForWeek() {
+        List<Schedule> result = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             Statement statement = connection.createStatement()) {
+
+            try (ResultSet queryResult = statement.executeQuery(GET_SCHEDULES_FOR_WEEK)) {
+                while (queryResult.next()) {
+                    result.add(getScheduleFromResultSet(queryResult));
+                }
+            }
+        }
+        catch (ConnectionDBException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
+
+    private Schedule getScheduleFromResultSet(ResultSet resultSet) throws SQLException {
+        return Schedule.builder()
+                .id(resultSet.getLong("id"))
+                .workDate(resultSet.getDate("work_date"))
+                .workHoursBegin(resultSet.getTime("work_hours_begin"))
+                .workHoursEnd(resultSet.getTime("work_hours_end"))
+                .personalId(resultSet.getLong("personal_id"))
+                .build();
     }
 }
